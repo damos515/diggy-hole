@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Hendrik/Documents/Studium/6. Semester/BA-Arbeit/TweetyLibrary/net.sf.tweety.tweety-full-1.4-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Hendrik/Documents/GitHub/diggy-hole/lib/net.sf.tweety.tweety-full-1.4-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
