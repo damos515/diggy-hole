@@ -22,6 +22,14 @@ public class NodePH1 implements BeliefBase {
 	private Set<Subsumption> tbox;
 	private Set<Assertion> abox;
 
+	public Set<Subsumption> getTbox() {
+		return tbox;
+	}
+	
+	public Set<Assertion> getAbox() {
+		return abox;
+	}
+
 	public NodePH1(){
 		tbox = new HashSet<Subsumption>();
 		abox = new HashSet<Assertion>();

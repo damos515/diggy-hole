@@ -11,6 +11,7 @@ import alct.concepts.ALCTFormula;
 import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.Conjunction;
 import alct.concepts.ExistsConcept;
+import alct.minsolve.PhaseOne;
 import alct.node.NodePH1;
 import alct.util.Role;
 import net.sf.tweety.logics.commons.syntax.Individual;
@@ -166,7 +167,7 @@ public class HelloWorld {
 		Individual thorsten = new Individual();
 		thorsten.name="thorsten";
 		
-		ConceptAssertion assertA = new ConceptAssertion(a, tweety);
+		ConceptAssertion assertA = new ConceptAssertion(new Conjunction(a, new ALCTAtomicConcept("fliegen")), tweety);
 		System.out.println(assertA);
 		RoleAssertion assertB = new RoleAssertion(new Role("Sitzpartner"), tweety, polly);
 		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), thorsten, peggy);
@@ -177,11 +178,14 @@ public class HelloWorld {
 		//----------------------------//
 		NodePH1 firstNode = new NodePH1();
 		firstNode.addToABox(assertA);
-		firstNode.addToABox(assertB);
-		firstNode.addToABox(assertC);
+		firstNode.addToABox(new ConceptAssertion(a, tweety));
+		//firstNode.addToABox(assertB);
+		//firstNode.addToABox(assertC);
 		firstNode.addToTBox(new Subsumption(a, g));
 		System.out.println(firstNode.getSignature());
 		System.out.println(firstNode);
+		PhaseOne phase = new PhaseOne();
+		System.out.println(phase.hasNoModel(firstNode));
 	}
 	
 }

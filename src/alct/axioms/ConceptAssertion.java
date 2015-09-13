@@ -36,6 +36,18 @@ public class ConceptAssertion extends Assertion {
 		return constant;
 	}
 
+	public boolean equals(Assertion ass){
+		if(!ass.getAssertionType().equals("CONCEPTASSERTION")){
+			return false;
+		}
+		if(!ass.getIndividuals().iterator().next().name.equals(this.constant.name)){
+			return false;
+		}
+		if(!ass.getConcept().equals(this.concept)){
+			return false;
+		}
+		return true;
+	}
 
 	/* (non-Javadoc)
 	 * @see alct.axioms.Assertion.getAssertionType()

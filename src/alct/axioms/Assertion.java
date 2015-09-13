@@ -30,4 +30,6 @@ public abstract class Assertion extends Axiom {
 	
 	public abstract ALCTFormula getConcept();
 	
+	public abstract boolean equals(Assertion ass);
+	
 }

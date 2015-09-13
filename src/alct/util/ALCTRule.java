@@ -69,7 +69,7 @@ public class ALCTRule implements Rule<Axiom, Axiom> {
 	}
 	
 	/**
-	 * Function, that is used in order to check for applicability of a given Axiom in a KB 
+	 * Function, that is used in order to check for applicability of the rule on a given Axiom in a KB 
 	 * @param axiom
 	 * @param kb
 	 * @return true, if premise holds

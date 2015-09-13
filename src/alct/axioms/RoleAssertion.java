@@ -21,17 +21,7 @@ public class RoleAssertion extends Assertion {
 	private Role role;
 	private Individual first, second;
 	
-	public Role getRole() {
-		return role;
-	}
 
-	public Individual getFirst() {
-		return first;
-	}
-
-	public Individual getSecond() {
-		return second;
-	}
 
 	public RoleAssertion(Role role, Individual first, Individual second){
 		this.role=role;
@@ -48,6 +38,18 @@ public class RoleAssertion extends Assertion {
 		
 	}
 
+	public boolean equals(Assertion ass){
+		if(!ass.getAssertionType().equals("ROLEASSERTION")){
+			return false;
+		}
+		if(!(ass.getIndividuals().contains(this.first)&&ass.getIndividuals().contains(this.second))){
+			return false;
+		}		
+		if(!ass.getRole().equals(this.role)){
+			return false;
+		}
+		return true;
+	}
 	
 	@Override
 	public String toString() {
@@ -74,6 +76,18 @@ public class RoleAssertion extends Assertion {
 	@Override
 	public ALCTFormula getConcept() throws LanguageException {
 		throw new UnsupportedOperationException("Error");
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public Individual getFirst() {
+		return first;
+	}
+
+	public Individual getSecond() {
+		return second;
 	}
 
 }
