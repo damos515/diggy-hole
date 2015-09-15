@@ -23,6 +23,10 @@ public class ConceptAssertion extends Assertion {
 		this.constant = constant;
 	}
 	
+	public ConceptAssertion clone(){
+		return new ConceptAssertion(concept.clone(), constant);
+	}
+	
 	@Override
 	public String toString() {
 		return constant.name + ": " + concept;
@@ -55,6 +59,18 @@ public class ConceptAssertion extends Assertion {
 	@Override
 	public Role getRole() throws LanguageException{
 		throw new UnsupportedOperationException("Error");
+	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		if(!this.concept.equals(((ConceptAssertion)e).concept))
+			return false;
+		if(!this.constant.equals(((ConceptAssertion)e).constant))
+			return false;
+		
+		return true;
 	}
 
 }

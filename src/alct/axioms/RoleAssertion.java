@@ -21,17 +21,7 @@ public class RoleAssertion extends Assertion {
 	private Role role;
 	private Individual first, second;
 	
-	public Role getRole() {
-		return role;
-	}
 
-	public Individual getFirst() {
-		return first;
-	}
-
-	public Individual getSecond() {
-		return second;
-	}
 
 	public RoleAssertion(Role role, Individual first, Individual second){
 		this.role=role;
@@ -46,6 +36,10 @@ public class RoleAssertion extends Assertion {
 		this.second=second;
 		role.addPair(new Pair<Individual, Individual>(first,second));
 		
+	}
+	
+	public RoleAssertion clone(){
+		return new RoleAssertion(role, first, second);
 	}
 
 	
@@ -75,5 +69,16 @@ public class RoleAssertion extends Assertion {
 	public ALCTFormula getConcept() throws LanguageException {
 		throw new UnsupportedOperationException("Error");
 	}
+	
+	public Role getRole() {
+		return role;
+	}
 
+	public Individual getFirst() {
+		return first;
+	}
+
+	public Individual getSecond() {
+		return second;
+	}
 }

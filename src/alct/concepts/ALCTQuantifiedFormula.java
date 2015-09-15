@@ -53,5 +53,17 @@ public abstract class ALCTQuantifiedFormula extends ALCTFormula {
 	public boolean isExtendedConcept() {
 		return concept.isExtendedConcept();
 	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		if(!this.role.equals(((ALCTQuantifiedFormula)e).role))
+			return false;
+		if(!this.concept.equals(((ALCTQuantifiedFormula)e).concept))
+			return false;
+		
+		return true;
+	}
 
 }

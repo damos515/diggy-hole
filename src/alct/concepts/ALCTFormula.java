@@ -56,6 +56,10 @@ public abstract class ALCTFormula implements ClassicalFormula,
 	public ALCTFormula complement(){
 		return new Negation(this);
 	}
+	
+	@Override
+	public abstract boolean equals(Object e);
+	
 
 	/**
 	 * Inherited Methods that do not need to be implemented yet
@@ -72,7 +76,7 @@ public abstract class ALCTFormula implements ClassicalFormula,
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public boolean isLiteral() {
 		// TODO Auto-generated method stub
@@ -125,10 +129,7 @@ public abstract class ALCTFormula implements ClassicalFormula,
 	}
 
 	@Override
-	public ComplexLogicalFormula clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract ALCTFormula clone();
 
 	@Override
 	public Set<Term<?>> getTerms() {

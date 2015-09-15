@@ -27,6 +27,31 @@ public class NodePH1 implements BeliefBase {
 		abox = new HashSet<Assertion>();
 	}
 	
+	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox){
+		this.tbox=tbox;
+		this.abox=abox;
+	}
+	
+	public NodePH1 clone(){
+		Set<Subsumption> newTBox = new HashSet<Subsumption>();
+		Set<Assertion> newABox = new HashSet<Assertion>();
+		for(Subsumption s : tbox){
+			newTBox.add(s.clone());
+		}
+		for(Assertion a : abox){
+			newABox.add(a.clone());
+		}
+		return new NodePH1(newTBox, newABox);		
+	}
+	
+	public Set<Subsumption> getTbox() {
+		return tbox;
+	}
+
+	public Set<Assertion> getAbox() {
+		return abox;
+	}
+
 	public void addToTBox(Subsumption sub){
 		tbox.add(sub);
 	}
@@ -79,5 +104,6 @@ public class NodePH1 implements BeliefBase {
 		}
 		return new ALCTSignature(concepts, roles, individuals);
 	}
+
 
 }

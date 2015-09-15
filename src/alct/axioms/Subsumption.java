@@ -24,6 +24,10 @@ public class Subsumption extends Axiom {
 		this.subsuming = subsuming;
 		this.subsumed = subsumed;
 	}
+	
+	public Subsumption clone(){
+		return new Subsumption(subsuming.clone(), subsumed.clone());
+	}
 
 	private boolean isValidSubsuming(ALCTFormula subsuming) {
 		if(subsuming.getOperatorSymbol() == "T"){

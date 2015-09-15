@@ -19,6 +19,11 @@ public class ExistsConcept extends ALCTQuantifiedFormula {
 	}
 	
 	@Override
+	public ALCTFormula clone(){
+		return new ExistsConcept(this.getRole(), (ALCTFormula) this.getConcept().clone());
+	}
+	
+	@Override
 	public String getOperatorSymbol() {
 		return LogicalSymbols.EXISTSQUANTIFIER();
 	}

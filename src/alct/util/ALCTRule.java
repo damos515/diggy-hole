@@ -1,7 +1,10 @@
 package alct.util;
 
 import java.util.Collection;
+import java.util.Set;
 
+import alct.axioms.Assertion;
+import alct.node.NodePH1;
 import net.sf.tweety.commons.Signature;
 import net.sf.tweety.commons.util.rules.Rule;
 import net.sf.tweety.logics.dl.syntax.Axiom;
@@ -12,61 +15,7 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
  *
  */
 
-public class ALCTRule implements Rule<Axiom, Axiom> {
-
-	Collection<Axiom> premises;
-	Collection<Axiom> conclusions;
-	
-	@Override
-	public boolean isFact() {
-		return false;
-	}
-
-	@Override
-	public boolean isConstraint() {
-		return true;
-	}
-
-	@Deprecated
-	@Override
-	public void setConclusion(Axiom conclusion) {}
-	
-	public void addConclusion(Axiom conclusion){
-		conclusions.add(conclusion);
-	}
-	
-	public void addConclusions(Collection<? extends Axiom> conclusions){
-		this.conclusions.addAll(conclusions);
-	}
-
-	@Override
-	public void addPremise(Axiom premise) {
-		premises.add(premise);		
-	}
-
-	@Override
-	public void addPremises(Collection<? extends Axiom> premises) {
-		this.premises.addAll(premises);		
-	}
-
-	@Override
-	public Signature getSignature() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<? extends Axiom> getPremise(){
-		return premises;
-	}
-	
-	@Deprecated
-	@Override
-	public Axiom getConclusion() {return null;}
-	
-	public Collection<? extends Axiom> getConclusions(){
-		return conclusions;
-	}
+public abstract class ALCTRule {
 	
 	/**
 	 * Function, that is used in order to check for applicability of a given Axiom in a KB 
@@ -74,9 +23,8 @@ public class ALCTRule implements Rule<Axiom, Axiom> {
 	 * @param kb
 	 * @return true, if premise holds
 	 */
-	public boolean isApplicable(Axiom axiom, Collection<Axiom> kb){
-		// TODO
-		return false;
-	}
+	public abstract boolean isApplicable(Axiom axiom, NodePH1 node);
+	
+	public abstract Set<NodePH1> apply(Axiom ass, NodePH1 node);
 
 }

@@ -6,27 +6,17 @@ import java.util.HashSet;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.RoleAssertion;
 import alct.axioms.Subsumption;
+import alct.calculus.phase.first.PhaseOne;
 import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
 import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.Conjunction;
+import alct.concepts.Disjunction;
 import alct.concepts.ExistsConcept;
+import alct.concepts.Negation;
 import alct.node.NodePH1;
 import alct.util.Role;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import net.sf.tweety.logics.fol.parser.FunctionalTest;
-import net.sf.tweety.logics.fol.test.FolTest;
-import net.sf.tweety.logics.pl.PlBeliefSet;
-import net.sf.tweety.logics.pl.syntax.Negation;
-import net.sf.tweety.logics.pl.parser.PlParser;
-import net.sf.tweety.logics.pl.sat.Sat4jSolver;
-import net.sf.tweety.logics.pl.sat.SatSolver;
-import net.sf.tweety.logics.pl.semantics.PossibleWorld;
-import net.sf.tweety.logics.pl.semantics.PossibleWorldIterator;
-import net.sf.tweety.logics.pl.syntax.Proposition;
-import net.sf.tweety.logics.pl.syntax.PropositionalFormula;
-import net.sf.tweety.logics.pl.syntax.PropositionalSignature;
-import net.sf.tweety.logics.pl.util.CnfSampler;
 
 public class HelloWorld {
 	
@@ -150,6 +140,8 @@ public class HelloWorld {
 		ALCTFormula k = new alct.concepts.ForallConcept(new Role("test"), a);
 		System.out.println(k);
 		System.out.println(k.getOperatorSymbol());
+
+		ALCTFormula c = new alct.concepts.Conjunction(a, f);
 		
 		//---------------------------------//
 		//---AssertionConstruction Tests---//
@@ -171,6 +163,13 @@ public class HelloWorld {
 		RoleAssertion assertB = new RoleAssertion(new Role("Sitzpartner"), tweety, polly);
 		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), thorsten, peggy);
 		System.out.println(assertB);
+		ConceptAssertion assertNegA = new ConceptAssertion(new Negation(a), tweety);
+		ConceptAssertion assertNegAB = new ConceptAssertion(new Conjunction(new Negation(a), new ALCTAtomicConcept("kroko")), tweety);
+		ConceptAssertion assertA2 = new ConceptAssertion(((Conjunction)c).get(0), assertA.getConstant());
+		ConceptAssertion assertNegKrok = new ConceptAssertion(new ALCTAtomicConcept("kroko"), tweety);
+		
+		System.out.println(((Conjunction)c).get(1));
+		System.out.println(((Conjunction)c).get(0));		
 		
 		//----------------------------//
 		//---NodeConstruction Tests---//
@@ -179,9 +178,15 @@ public class HelloWorld {
 		firstNode.addToABox(assertA);
 		firstNode.addToABox(assertB);
 		firstNode.addToABox(assertC);
+		//firstNode.addToABox(assertNegA);
+		firstNode.addToABox(assertNegAB);
+		firstNode.addToABox(assertNegKrok);
 		firstNode.addToTBox(new Subsumption(a, g));
 		System.out.println(firstNode.getSignature());
 		System.out.println(firstNode);
+		System.out.println(firstNode.clone());
+		PhaseOne solver = new PhaseOne();
+		System.out.println(solver.hasNoModel(firstNode));
 	}
 	
 }

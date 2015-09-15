@@ -30,4 +30,7 @@ public abstract class Assertion extends Axiom {
 	
 	public abstract ALCTFormula getConcept();
 	
+	@Override
+	public abstract Assertion clone();
+	
 }

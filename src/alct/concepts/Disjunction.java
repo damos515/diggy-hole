@@ -3,6 +3,7 @@ package alct.concepts;
 import java.util.Collection;
 import java.util.HashSet;
 
+import scala.collection.Set;
 import net.sf.tweety.commons.Signature;
 import net.sf.tweety.logics.commons.LogicalSymbols;
 import net.sf.tweety.logics.dl.syntax.DlSignature;
@@ -35,6 +36,15 @@ public class Disjunction extends ALCTAssociativeConcept {
 	}
 	
 	@Override
+	public ALCTFormula clone(){
+		HashSet<ALCTFormula> temp = new HashSet<ALCTFormula>();
+		for(ALCTFormula f : this.getFormulas()){
+			temp.add((ALCTFormula) f.clone());
+		}
+		return new Disjunction(temp);
+	}
+	
+	@Override
 	public String toString() {
 		return support.toString();
 	}
@@ -62,5 +72,6 @@ public class Disjunction extends ALCTAssociativeConcept {
 	public String getOperatorSymbol() {
 		return LogicalSymbols.DISJUNCTION();
 	}
-
+	
+	
 }

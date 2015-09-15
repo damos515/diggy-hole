@@ -37,6 +37,14 @@ public class Conjunction extends ALCTAssociativeConcept {
 		this.addAll(formulas);
 	}
 	
+	public ALCTFormula clone(){
+		HashSet<ALCTFormula> temp = new HashSet<ALCTFormula>();
+		for(ALCTFormula f : this.getFormulas()){
+			temp.add((ALCTFormula) f.clone());
+		}
+		return new Conjunction(temp);
+	}
+	
 	@Override
 	public String toString() {
 		return support.toString();

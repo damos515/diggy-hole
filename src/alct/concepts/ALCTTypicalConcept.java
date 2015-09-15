@@ -18,6 +18,11 @@ public class ALCTTypicalConcept extends ALCTFormula {
 		this.formula = formula;		
 	}
 	
+	@Override
+	public ALCTFormula clone(){
+		return new ALCTTypicalConcept((ALCTFormula) formula.clone());
+	}
+	
 	public String toString(){
 		return "T("+formula+")";
 	}
@@ -41,6 +46,13 @@ public class ALCTTypicalConcept extends ALCTFormula {
 	@Override
 	public boolean isExtendedConcept() {
 		return true;
+	}
+
+	@Override
+	public boolean equals(Object e) {
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		return formula.equals(e);
 	}
 
 }

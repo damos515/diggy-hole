@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Concept;
 import net.sf.tweety.logics.commons.syntax.Predicate;
@@ -26,6 +27,10 @@ public class ALCTAtomicConcept extends ALCTFormula implements Atom {
 	
 	public ALCTAtomicConcept(String name){
 		this.concept = new Concept(name);
+	}
+	
+	public ALCTFormula clone(){
+		return new ALCTAtomicConcept(concept.getName());
 	}
 
 	/**
@@ -93,6 +98,16 @@ public class ALCTAtomicConcept extends ALCTFormula implements Atom {
 	@Override
 	public boolean isExtendedConcept() {
 		return false;
+	}
+
+	@Override
+	public boolean equals(Object e) {
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		if(!this.concept.getName().equals(((ALCTAtomicConcept)e).concept.getName()))
+			return false;
+		
+		return true;
 	}
 	
 

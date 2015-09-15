@@ -17,6 +17,10 @@ public class ForallConcept extends ALCTQuantifiedFormula {
 		this.setRole(r);
 		this.setConcept(c);
 	}
+	
+	public ALCTFormula clone(){
+		return new ForallConcept(this.getRole(),(ALCTFormula) this.getConcept());
+	}
 
 	@Override
 	public String getOperatorSymbol() {

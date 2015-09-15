@@ -18,8 +18,16 @@ public class Negation extends ALCTFormula {
 		this.alctFormula = formula;
 	}
 	
+	public ALCTFormula clone(){
+		return new Negation((ALCTFormula) alctFormula.clone());
+	}
+	
 	public String toString(){
 		return "!" + alctFormula.toString();
+	}
+	
+	public ALCTFormula getInnerConcept(){
+		return alctFormula;
 	}
 	
 	/* (non-Javadoc)
@@ -39,5 +47,14 @@ public class Negation extends ALCTFormula {
 	@Override
 	public boolean isExtendedConcept() {
 		return alctFormula.isExtendedConcept();
+	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		if(!this.alctFormula.equals(((Negation)e).alctFormula))
+			return false;
+		return true;
 	}
 }
