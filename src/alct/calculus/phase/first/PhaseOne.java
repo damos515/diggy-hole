@@ -13,8 +13,10 @@ import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.rules.ConjunctionRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
 import alct.calculus.phase.first.rules.DoubleNegationRule;
+import alct.calculus.phase.first.rules.ForAllRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
+import alct.calculus.phase.first.rules.NegatedTypicalityRule;
 import alct.calculus.phase.first.rules.TypicalityRule;
 import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
@@ -33,6 +35,8 @@ public class PhaseOne {
 		staticRules.add(new NegatedDisjunctionRule());
 		staticRules.add(new DoubleNegationRule());
 		staticRules.add(new TypicalityRule());
+		staticRules.add(new NegatedTypicalityRule());
+		staticRules.add(new ForAllRule());
 	}
 	
 	public boolean hasNoModel(NodePH1 node){

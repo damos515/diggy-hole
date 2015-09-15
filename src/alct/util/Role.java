@@ -39,4 +39,14 @@ public class Role extends Predicate {
 	public void addPairs(Set<Pair<? extends Individual,? extends Individual>> pairs){
 		this.pairs.addAll(pairs);
 	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		if(!this.getName().equals(((Role)e).getName()))
+			return false;
+		
+		return true;
+	}
 }

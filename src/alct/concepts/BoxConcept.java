@@ -12,6 +12,10 @@ public class BoxConcept extends ALCTFormula {
 		this.formula = formula;		
 	}
 	
+	public ALCTFormula getInnerConcept(){
+		return this.formula;
+	}
+	
 	@Override
 	public ALCTFormula clone(){
 		return new BoxConcept((ALCTFormula) formula.clone());

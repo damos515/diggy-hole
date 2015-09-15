@@ -1,0 +1,69 @@
+package alct.calculus.phase.first.rules;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import net.sf.tweety.logics.commons.LogicalSymbols;
+import net.sf.tweety.logics.commons.syntax.Individual;
+import net.sf.tweety.logics.dl.syntax.Axiom;
+import alct.axioms.Assertion;
+import alct.axioms.ConceptAssertion;
+import alct.axioms.RoleAssertion;
+import alct.concepts.ForallConcept;
+import alct.node.NodePH1;
+import alct.util.ALCTRule;
+
+public class ForAllRule extends ALCTRule {
+
+	@Override
+	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+		ConceptAssertion ass = (ConceptAssertion) axiom;
+		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.FORALLQUANTIFIER()))
+			return false;
+		return getIndividuals(ass,node).size()==0 ? false : true;
+	}
+
+	@Override
+	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
+		ConceptAssertion ass = (ConceptAssertion) axiom;
+		Set<Individual> individuals = getIndividuals(ass,node);
+		Set<NodePH1> conclusions = new HashSet<NodePH1>();
+		NodePH1 newNode = node.clone();
+		ForallConcept forAll = (ForallConcept)ass.getConcept();
+		for(Individual label : individuals){
+			newNode.addToABox(new ConceptAssertion(forAll.getConcept(), label));
+		}
+		conclusions.add(newNode);
+		System.out.println("[Log] Node after applying ForAll Rule: \n" + newNode);
+		
+		return conclusions;
+	}
+
+	@Override
+	public String toString() {
+		return "FORALL";
+	}
+	
+	private Set<Individual> getIndividuals(ConceptAssertion ass, NodePH1 node){
+		ForallConcept forAll = (ForallConcept)ass.getConcept();		
+		Set<Individual> possibleIndividuals = new HashSet<Individual>();
+		for(Assertion premise : node.getAbox()){
+			if(premise.getAssertionType().equals("ROLEASSERTION") 
+					&& premise.getRole().equals(forAll.getRole())
+						&& ((RoleAssertion)premise).getFirst().equals(ass.getConstant())){
+				possibleIndividuals.add(((RoleAssertion)premise).getSecond());
+			}
+		}
+		for(Assertion premise : node.getAbox()){
+			if(premise.getAssertionType().equals("CONCEPTASSERTION") 
+					&& premise.getConcept().equals(forAll.getConcept())
+						&& possibleIndividuals.contains(((ConceptAssertion)premise).getConstant())){
+				possibleIndividuals.remove(((ConceptAssertion)premise).getConstant());
+			}
+		}
+
+		
+		return possibleIndividuals;
+	}
+
+}

@@ -13,6 +13,7 @@ import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
 import alct.concepts.ExistsConcept;
+import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
 import alct.node.NodePH1;
 import alct.util.Role;
@@ -161,7 +162,7 @@ public class HelloWorld {
 		ConceptAssertion assertA = new ConceptAssertion(a, tweety);
 		System.out.println(assertA);
 		RoleAssertion assertB = new RoleAssertion(new Role("Sitzpartner"), tweety, polly);
-		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), thorsten, peggy);
+		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), tweety, peggy);
 		System.out.println(assertB);
 		ConceptAssertion assertNegA = new ConceptAssertion(new Negation(a), tweety);
 		ConceptAssertion assertNegAB = new ConceptAssertion(new Negation(new Disjunction(new Negation(a), new ALCTAtomicConcept("kroko"))), tweety);
@@ -169,6 +170,9 @@ public class HelloWorld {
 		ConceptAssertion assertNegKrok = new ConceptAssertion(new Negation(new ALCTAtomicConcept("kroko")), tweety);
 		ConceptAssertion assertKrok = new ConceptAssertion(new ALCTAtomicConcept("kroko"), tweety);
 		ConceptAssertion assertTypKrok = new ConceptAssertion(new ALCTTypicalConcept(new ALCTAtomicConcept("kroko")), tweety);
+		ConceptAssertion assertNegTypKrok = new ConceptAssertion(new Negation(new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))), tweety);
+		ConceptAssertion assertForAllTweety = new ConceptAssertion(new ForallConcept(new Role("Sitzpartner"), a), tweety);
+		
 		
 		System.out.println(((Conjunction)c).get(1));
 		System.out.println(((Conjunction)c).get(0));		
@@ -178,13 +182,15 @@ public class HelloWorld {
 		//----------------------------//
 		NodePH1 firstNode = new NodePH1();
 		//firstNode.addToABox(assertA);
-		//firstNode.addToABox(assertB);
-		//firstNode.addToABox(assertC);
+		firstNode.addToABox(assertForAllTweety);
+		firstNode.addToABox(assertB);
+		firstNode.addToABox(assertC);
 		//firstNode.addToABox(assertNegA);
-		firstNode.addToABox(assertNegAB);
+		//firstNode.addToABox(assertNegAB);
 		//firstNode.addToABox(assertNegKrok);
 		//firstNode.addToABox(assertKrok);
 		//firstNode.addToABox(assertTypKrok);
+		//firstNode.addToABox(assertNegTypKrok);
 		firstNode.addToTBox(new Subsumption(a, g));
 		System.out.println(firstNode.getSignature());
 		System.out.println(firstNode);
