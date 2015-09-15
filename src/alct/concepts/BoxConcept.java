@@ -4,36 +4,26 @@ import java.util.Set;
 
 import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
 
-/**
- * Class, that represents an extended Concept in ALC+T logic i.e. a Concept used in Combination
- * with the Typicality-Operator
- * @author Hendrik Miller
- *
- */
-public class ALCTTypicalConcept extends ALCTFormula {
-	
+public class BoxConcept extends ALCTFormula {
+
 	private ALCTFormula formula;
 	
-	public ALCTTypicalConcept(ALCTFormula formula){
+	public BoxConcept(ALCTFormula formula){
 		this.formula = formula;		
-	}
-	
-	public ALCTFormula getInnerConcept(){
-		return this.formula;
 	}
 	
 	@Override
 	public ALCTFormula clone(){
-		return new ALCTTypicalConcept((ALCTFormula) formula.clone());
+		return new BoxConcept((ALCTFormula) formula.clone());
 	}
 	
 	public String toString(){
-		return "T("+formula+")";
+		return "[]!("+formula+")";
 	}
 
 	@Override
 	public String getOperatorSymbol() {
-		return "T";
+		return "BOXNEG";
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +46,7 @@ public class ALCTTypicalConcept extends ALCTFormula {
 	public boolean equals(Object e) {
 		if(!this.getClass().equals(e.getClass()))
 			return false;
-		return formula.equals(((ALCTTypicalConcept)e).formula);
+		return formula.equals(((BoxConcept)e).formula);
 	}
 
 }

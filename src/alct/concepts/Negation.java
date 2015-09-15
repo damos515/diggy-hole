@@ -23,7 +23,7 @@ public class Negation extends ALCTFormula {
 	}
 	
 	public String toString(){
-		return "!" + alctFormula.toString();
+		return "!(" + alctFormula.toString() + ")";
 	}
 	
 	public ALCTFormula getInnerConcept(){

@@ -12,6 +12,9 @@ import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.rules.ConjunctionRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
+import alct.calculus.phase.first.rules.DoubleNegationRule;
+import alct.calculus.phase.first.rules.NegatedConjunctionRule;
+import alct.calculus.phase.first.rules.TypicalityRule;
 import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
 import alct.concepts.Negation;
@@ -25,28 +28,40 @@ public class PhaseOne {
 	public PhaseOne(){
 		staticRules.add(new ConjunctionRule());
 		staticRules.add(new DisjunctionRule());
+		staticRules.add(new NegatedConjunctionRule());
+		staticRules.add(new DoubleNegationRule());
+		staticRules.add(new TypicalityRule());
 	}
 	
 	public boolean hasNoModel(NodePH1 node){
-		Iterator<Assertion> aboxIt = node.getAbox().iterator();
-		if(checkForClashes(node.getAbox()))
+		//Iterator<Assertion> aboxIt = node.getAbox().iterator();
+		if(checkForClashes(node.getAbox())){
+			//System.out.println("Clash found!");
 			return true;
-		while(aboxIt.hasNext()){
-			Assertion temp = aboxIt.next();
+		}
+		//System.out.println(node.getAbox().size());
+		for(Assertion temp : node.getAbox()){
+			//System.out.println("[Log] checking assertion " +temp);
+			//Assertion temp = aboxIt.next();
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
+				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules){
 					if(actualRule.isApplicable(temp, node)){
+						//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
-						for(NodePH1 conclusion : conclusions)
-							result = result && hasNoModel(conclusion);
+						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
+						for(NodePH1 conclusion : conclusions){
+							//System.out.println("[Log] checking conclusion: \n" + conclusion);
+							result = hasNoModel(conclusion) && result;
+						}
 						return result;
 					}
 				}
 			}
 		}
 		
-		
+		System.out.println("[Warning] Second phase isnt implemented yet, returning false as default");
 		return false;
 	}
 

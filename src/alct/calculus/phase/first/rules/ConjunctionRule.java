@@ -64,5 +64,9 @@ public class ConjunctionRule extends ALCTRule {
 		conclusions.add(newNode);
 		return conclusions;
 	}
+	
+	public String toString(){
+		return "CONJUNCTION";
+	}
 
 }
