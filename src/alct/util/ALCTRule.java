@@ -27,4 +27,5 @@ public abstract class ALCTRule {
 	
 	public abstract Set<NodePH1> apply(Axiom ass, NodePH1 node);
 
+	public abstract String toString();
 }

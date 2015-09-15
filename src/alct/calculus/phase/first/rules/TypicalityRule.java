@@ -67,5 +67,9 @@ public class TypicalityRule extends ALCTRule {
 		System.out.println("[Log] Node after applying Typicality rule: \n"+newNode);
 		return conclusions;
 	}
+	
+	public String toString(){
+		return "TYPICALITY";
+	}
 
 }

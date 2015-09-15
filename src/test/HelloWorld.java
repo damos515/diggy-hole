@@ -164,7 +164,7 @@ public class HelloWorld {
 		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), thorsten, peggy);
 		System.out.println(assertB);
 		ConceptAssertion assertNegA = new ConceptAssertion(new Negation(a), tweety);
-		ConceptAssertion assertNegAB = new ConceptAssertion(new Negation(new Conjunction(new Negation(a), new ALCTAtomicConcept("kroko"))), tweety);
+		ConceptAssertion assertNegAB = new ConceptAssertion(new Negation(new Disjunction(new Negation(a), new ALCTAtomicConcept("kroko"))), tweety);
 		ConceptAssertion assertA2 = new ConceptAssertion(((Conjunction)c).get(0), assertA.getConstant());
 		ConceptAssertion assertNegKrok = new ConceptAssertion(new Negation(new ALCTAtomicConcept("kroko")), tweety);
 		ConceptAssertion assertKrok = new ConceptAssertion(new ALCTAtomicConcept("kroko"), tweety);
@@ -178,13 +178,13 @@ public class HelloWorld {
 		//----------------------------//
 		NodePH1 firstNode = new NodePH1();
 		//firstNode.addToABox(assertA);
-		firstNode.addToABox(assertB);
-		firstNode.addToABox(assertC);
-		firstNode.addToABox(assertNegA);
-		//firstNode.addToABox(assertNegAB);
+		//firstNode.addToABox(assertB);
+		//firstNode.addToABox(assertC);
+		//firstNode.addToABox(assertNegA);
+		firstNode.addToABox(assertNegAB);
 		//firstNode.addToABox(assertNegKrok);
-		firstNode.addToABox(assertKrok);
-		firstNode.addToABox(assertTypKrok);
+		//firstNode.addToABox(assertKrok);
+		//firstNode.addToABox(assertTypKrok);
 		firstNode.addToTBox(new Subsumption(a, g));
 		System.out.println(firstNode.getSignature());
 		System.out.println(firstNode);

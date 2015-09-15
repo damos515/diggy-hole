@@ -14,6 +14,7 @@ import alct.calculus.phase.first.rules.ConjunctionRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
 import alct.calculus.phase.first.rules.DoubleNegationRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
+import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
 import alct.calculus.phase.first.rules.TypicalityRule;
 import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
@@ -29,6 +30,7 @@ public class PhaseOne {
 		staticRules.add(new ConjunctionRule());
 		staticRules.add(new DisjunctionRule());
 		staticRules.add(new NegatedConjunctionRule());
+		staticRules.add(new NegatedDisjunctionRule());
 		staticRules.add(new DoubleNegationRule());
 		staticRules.add(new TypicalityRule());
 	}
