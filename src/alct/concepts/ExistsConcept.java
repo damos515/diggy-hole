@@ -32,4 +32,9 @@ public class ExistsConcept extends ALCTQuantifiedFormula {
 		return "exists (" + this.getRole() + "." + this.getConcept();
 	}
 
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return this;
+	}
+
 }

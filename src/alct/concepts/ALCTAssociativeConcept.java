@@ -209,17 +209,5 @@ public abstract class ALCTAssociativeConcept extends ALCTFormula implements
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean equals(Object e) {
-		boolean temp=true;
-		if(!this.getClass().equals(e.getClass()))
-			return false;
-		for(ALCTFormula f : getFormulas())
-			temp = temp && ((Conjunction)e).contains(f);	
-		
-		return temp;
-		
-	}
 
 }

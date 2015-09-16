@@ -31,4 +31,9 @@ public class ForallConcept extends ALCTQuantifiedFormula {
 		return "forall " + this.getRole().getName() + "." + this.getConcept();
 	}
 
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return this;
+	}
+
 }

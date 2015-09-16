@@ -1,9 +1,11 @@
 package alct.axioms;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
+import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 
@@ -17,16 +19,26 @@ public class Subsumption extends Axiom {
 	
 	private ALCTFormula subsuming;
 	private ALCTFormula subsumed;
+	private Set<Individual> appliedLabels;
 	
 	public Subsumption(ALCTFormula subsuming, ALCTFormula subsumed){
 		if(!isValidSubsuming(subsuming))
 			throw new IllegalArgumentException("Syntax Error - Not a valid Subsumption");
 		this.subsuming = subsuming;
 		this.subsumed = subsumed;
+		this.appliedLabels = new HashSet<Individual>();
+	}
+	
+	public Subsumption(ALCTFormula subsuming, ALCTFormula subsumed, Set<Individual> appliedLabels){
+		if(!isValidSubsuming(subsuming))
+			throw new IllegalArgumentException("Syntax Error - Not a valid Subsumption");
+		this.subsuming = subsuming;
+		this.subsumed = subsumed;
+		this.appliedLabels = appliedLabels;
 	}
 	
 	public Subsumption clone(){
-		return new Subsumption(subsuming.clone(), subsumed.clone());
+		return new Subsumption(subsuming.clone(), subsumed.clone(), new HashSet<Individual>(appliedLabels));
 	}
 
 	private boolean isValidSubsuming(ALCTFormula subsuming) {
@@ -40,6 +52,22 @@ public class Subsumption extends Axiom {
 		return subsuming + " subsuming " + subsumed;
 	}
 
+	public Set<Individual> getAppliedLabels(){
+		return appliedLabels;
+	}
+	
+	public void addAppliedLabel(Individual label){
+		appliedLabels.add(label);		
+	}
+	
+	public boolean containsAppliedLabel(Individual label){
+		for(Individual comp : appliedLabels){
+			if(comp.equals(label))
+				return true;
+		}
+		return false;
+	}
+	
 	public ALCTFormula getSubsuming() {
 		return subsuming;
 	}

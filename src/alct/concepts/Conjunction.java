@@ -82,6 +82,22 @@ public class Conjunction extends ALCTAssociativeConcept {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean equals(Object e)  {
+		boolean temp=true;
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		for(ALCTFormula f : getFormulas())
+			temp = temp && ((Conjunction)e).contains(f);	
+		
+		return temp;
+	}
+
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return this;
+	}
 	
 	/**
 	 * Methods that can be delegated to the support

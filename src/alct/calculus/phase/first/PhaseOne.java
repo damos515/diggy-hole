@@ -1,7 +1,9 @@
 package alct.calculus.phase.first;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -11,12 +13,14 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.rules.ConjunctionRule;
+import alct.calculus.phase.first.rules.CutRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
 import alct.calculus.phase.first.rules.DoubleNegationRule;
 import alct.calculus.phase.first.rules.ForAllRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
 import alct.calculus.phase.first.rules.NegatedTypicalityRule;
+import alct.calculus.phase.first.rules.SubsumptionRule;
 import alct.calculus.phase.first.rules.TypicalityRule;
 import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
@@ -26,7 +30,7 @@ import alct.util.ALCTRule;
 
 public class PhaseOne {
 	
-	private Set<ALCTRule> staticRules = new HashSet<ALCTRule>();
+	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
 	
 	public PhaseOne(){
 		staticRules.add(new ConjunctionRule());
@@ -37,6 +41,13 @@ public class PhaseOne {
 		staticRules.add(new TypicalityRule());
 		staticRules.add(new NegatedTypicalityRule());
 		staticRules.add(new ForAllRule());
+		staticRules.add(new SubsumptionRule());
+		staticRules.add(new CutRule());
+	}
+	
+	public boolean initialize(NodePH1 node){
+		node.refreshTypicalConceptSet();
+		return hasNoModel(node);
 	}
 	
 	public boolean hasNoModel(NodePH1 node){
@@ -52,13 +63,13 @@ public class PhaseOne {
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules){
+					//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
 					if(actualRule.isApplicable(temp, node)){
-						//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
 						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
 						for(NodePH1 conclusion : conclusions){
-							//System.out.println("[Log] checking conclusion: \n" + conclusion);
+							//System.out.println("[Log] checking conclusion: \n" + conclusion + "\n\n");
 							result = hasNoModel(conclusion) && result;
 						}
 						return result;
@@ -66,6 +77,7 @@ public class PhaseOne {
 				}
 			}
 		}
+		
 		
 		System.out.println("[Warning] Second phase isnt implemented yet, returning false as default");
 		return false;

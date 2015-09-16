@@ -30,9 +30,7 @@ public class ForAllRule extends ALCTRule {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();
 		NodePH1 newNode = node.clone();
 		ForallConcept forAll = (ForallConcept)ass.getConcept();
-		for(Individual label : individuals){
-			newNode.addToABox(new ConceptAssertion(forAll.getConcept(), label));
-		}
+		newNode.addToABox(new ConceptAssertion(forAll.getConcept(), individuals.iterator().next()));
 		conclusions.add(newNode);
 		System.out.println("[Log] Node after applying ForAll Rule: \n" + newNode);
 		

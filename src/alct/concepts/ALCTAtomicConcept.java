@@ -110,5 +110,15 @@ public class ALCTAtomicConcept extends ALCTFormula implements Atom {
 		return true;
 	}
 	
+	@Override
+	public int hashCode(){
+		return concept.hashCode();
+	}
+
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return this;
+	}
+	
 
 }

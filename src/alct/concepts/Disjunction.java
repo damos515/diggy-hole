@@ -49,6 +49,18 @@ public class Disjunction extends ALCTAssociativeConcept {
 		return support.toString();
 	}
 	
+	@Override
+	public boolean equals(Object e) {
+		boolean temp=true;
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		for(ALCTFormula f : getFormulas())
+			temp = temp && ((Disjunction)e).contains(f);	
+		
+		return temp;
+		
+	}
+	
 	/**
 	 * not recommended for usage, use empty constructor instead
 	 */
@@ -71,6 +83,11 @@ public class Disjunction extends ALCTAssociativeConcept {
 	@Override
 	public String getOperatorSymbol() {
 		return LogicalSymbols.DISJUNCTION();
+	}
+
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return this;
 	}
 	
 	

@@ -53,4 +53,9 @@ public class BoxConcept extends ALCTFormula {
 		return formula.equals(((BoxConcept)e).formula);
 	}
 
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return formula;
+	}
+
 }

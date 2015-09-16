@@ -31,8 +31,6 @@ public class DisjunctionRule extends ALCTRule {
 			if(comp.equals(second))
 				secondInAbox = true;
 		}
-		if(!(firstInAbox || secondInAbox))
-			System.out.println("Applicable Assertion found! -> " + ass);
 		//System.out.println(first + ": " + firstInAbox + ",  " + second + ": " + secondInAbox);
 		return !(firstInAbox || secondInAbox);
 	}

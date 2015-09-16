@@ -59,4 +59,9 @@ public class ALCTTypicalConcept extends ALCTFormula {
 		return formula.equals(((ALCTTypicalConcept)e).formula);
 	}
 
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		return formula;
+	}
+
 }

@@ -57,4 +57,11 @@ public class Negation extends ALCTFormula {
 			return false;
 		return true;
 	}
+
+	@Override
+	public ALCTFormula extractFromExtendedConcept() {
+		if(this.isExtendedConcept())
+			return alctFormula.extractFromExtendedConcept();
+		return this;
+	}
 }

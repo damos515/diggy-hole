@@ -105,42 +105,42 @@ public class HelloWorld {
 		//---------------------------------//
 		//-->Atom
 		ALCTAtomicConcept a = new ALCTAtomicConcept("vogel");
-		System.out.println(a);
+		//System.out.println(a);
 		//-->Negation
 		ALCTFormula f = new alct.concepts.Negation(a);
-		System.out.println(f);
-		System.out.println(f.getAtoms());
+		//System.out.println(f);
+		//System.out.println(f.getAtoms());
 		//--->Conjunction
 		ALCTFormula g = new alct.concepts.Conjunction(a, f);
-		System.out.println(g);
+		//System.out.println(g);
 		HashSet<ALCTFormula> test = new HashSet<ALCTFormula>();
 		test.add(a);
 		test.add(new alct.concepts.Negation(new ALCTAtomicConcept("hai")));
 		test.add(new ALCTAtomicConcept("fisch"));
 		g = new alct.concepts.Conjunction(test);
-		System.out.println(g);
-		System.out.println(g.getAtoms());
-		System.out.println(((Conjunction)g).get(1).getOperatorSymbol());
+		//System.out.println(g);
+		//System.out.println(g.getAtoms());
+		//System.out.println(((Conjunction)g).get(1).getOperatorSymbol());
 		//-->Disjunction
 		ALCTFormula h = new alct.concepts.Disjunction(g, a);
-		System.out.println(h);
-		System.out.println(h.getOperatorSymbol());
-		System.out.println(((alct.concepts.Disjunction)h).get(0).getOperatorSymbol());
+		//System.out.println(h);
+		//System.out.println(h.getOperatorSymbol());
+		//System.out.println(((alct.concepts.Disjunction)h).get(0).getOperatorSymbol());
 		//-->TypicalConcept
 		ALCTFormula j = new ALCTTypicalConcept(g);
-		System.out.println(j);
-		System.out.println(j.getOperatorSymbol());
+		//System.out.println(j);
+		//System.out.println(j.getOperatorSymbol());
 		try{
 			ALCTFormula failure = new Conjunction(j, h);
-			System.out.println(failure);
-		} catch (IllegalArgumentException e){System.err.println(e.getMessage());}
+			//System.out.println(failure);
+		} catch (IllegalArgumentException e){/*System.err.println(e.getMessage());*/}
 		try{
 			ALCTFormula failure = new ExistsConcept(new Role("Sitzpartner"), j);
-			System.out.println(failure);
-		} catch (IllegalArgumentException e){System.err.println(e.getMessage());}
+			//System.out.println(failure);
+		} catch (IllegalArgumentException e2){/*System.err.println(e.getMessage());*/}
 		ALCTFormula k = new alct.concepts.ForallConcept(new Role("test"), a);
-		System.out.println(k);
-		System.out.println(k.getOperatorSymbol());
+		//System.out.println(k);
+		//System.out.println(k.getOperatorSymbol());
 
 		ALCTFormula c = new alct.concepts.Conjunction(a, f);
 		
@@ -148,7 +148,7 @@ public class HelloWorld {
 		//---AssertionConstruction Tests---//
 		//---------------------------------//
 		Subsumption sub = new Subsumption(a, g);
-		System.out.println(sub);
+		//System.out.println(sub);
 		
 		Individual tweety = new Individual();
 		tweety.name="tweety";
@@ -159,11 +159,13 @@ public class HelloWorld {
 		Individual thorsten = new Individual();
 		thorsten.name="thorsten";
 		
+		ConceptAssertion assertHai = new ConceptAssertion(new ALCTAtomicConcept("hai"), tweety);
+		ALCTAtomicConcept kroko = new ALCTAtomicConcept("kroko");
 		ConceptAssertion assertA = new ConceptAssertion(a, tweety);
-		System.out.println(assertA);
+		//System.out.println(assertA);
 		RoleAssertion assertB = new RoleAssertion(new Role("Sitzpartner"), tweety, polly);
 		RoleAssertion assertC = new RoleAssertion(new Role("Sitzpartner"), tweety, peggy);
-		System.out.println(assertB);
+		//System.out.println(assertB);
 		ConceptAssertion assertNegA = new ConceptAssertion(new Negation(a), tweety);
 		ConceptAssertion assertNegAB = new ConceptAssertion(new Negation(new Disjunction(new Negation(a), new ALCTAtomicConcept("kroko"))), tweety);
 		ConceptAssertion assertA2 = new ConceptAssertion(((Conjunction)c).get(0), assertA.getConstant());
@@ -173,31 +175,37 @@ public class HelloWorld {
 		ConceptAssertion assertNegTypKrok = new ConceptAssertion(new Negation(new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))), tweety);
 		ConceptAssertion assertForAllTweety = new ConceptAssertion(new ForallConcept(new Role("Sitzpartner"), a), tweety);
 		
+
+		ConceptAssertion assertTypNegKrok = new ConceptAssertion(new ALCTTypicalConcept(new Negation(new ALCTAtomicConcept("kroko"))), tweety);
 		
-		System.out.println(((Conjunction)c).get(1));
-		System.out.println(((Conjunction)c).get(0));		
+		
+		//System.out.println(((Conjunction)c).get(1));
+		//System.out.println(((Conjunction)c).get(0));		
 		
 		//----------------------------//
 		//---NodeConstruction Tests---//
 		//----------------------------//
 		NodePH1 firstNode = new NodePH1();
 		//firstNode.addToABox(assertA);
-		firstNode.addToABox(assertForAllTweety);
-		firstNode.addToABox(assertB);
-		firstNode.addToABox(assertC);
+		//firstNode.addToABox(assertForAllTweety);
+		//firstNode.addToABox(assertB);
+		//firstNode.addToABox(assertC);
 		//firstNode.addToABox(assertNegA);
 		//firstNode.addToABox(assertNegAB);
 		//firstNode.addToABox(assertNegKrok);
 		//firstNode.addToABox(assertKrok);
 		//firstNode.addToABox(assertTypKrok);
 		//firstNode.addToABox(assertNegTypKrok);
-		firstNode.addToTBox(new Subsumption(a, g));
+		//firstNode.addToABox(assertTypNegKrok);
+		firstNode.addToABox(assertHai);
+		firstNode.addToTBox(new Subsumption(a, new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))));
 		System.out.println(firstNode.getSignature());
+		System.out.println(firstNode.computeTypicalConceptSet());
 		System.out.println(firstNode);
-		System.out.println(firstNode.clone());
 		PhaseOne solver = new PhaseOne();
 		System.out.println("\n\n\n---Initializing calculus---");
-		System.out.println(solver.hasNoModel(firstNode));
+		System.out.println(solver.initialize(firstNode));
+		
 	}
 	
 }

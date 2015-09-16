@@ -189,4 +189,6 @@ public abstract class ALCTFormula implements ClassicalFormula,
 		return false;
 	}
 
+	public abstract ALCTFormula extractFromExtendedConcept();
+
 }
