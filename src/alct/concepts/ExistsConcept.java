@@ -29,7 +29,7 @@ public class ExistsConcept extends ALCTQuantifiedFormula {
 	}
 	
 	public String toString(){
-		return "exists (" + this.getRole() + "." + this.getConcept();
+		return "exists (" + this.getRole().getName() + "." + this.getConcept() + ")";
 	}
 
 	@Override

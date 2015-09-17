@@ -12,7 +12,10 @@ import alct.util.ALCTSignature;
 import alct.util.Role;
 import net.sf.tweety.commons.BeliefBase;
 import net.sf.tweety.commons.Signature;
+import net.sf.tweety.commons.util.Triple;
 import net.sf.tweety.logics.commons.syntax.Individual;
+import net.sf.tweety.preferences.PreferenceOrder;
+import net.sf.tweety.preferences.Relation;
 
 /**
  * This class represents a node in phase one of the ALC+T_min tableaux-calculus
@@ -24,6 +27,7 @@ public class NodePH1 implements BeliefBase {
 	private Set<Subsumption> tbox;
 	private Set<Assertion> abox;
 	private Set<ALCTFormula> typicalConcepts;
+	private PreferenceOrder<Individual> temporalOrdering;
 
 	public Set<ALCTFormula> getTypicalConcepts() {
 		return typicalConcepts;
@@ -33,12 +37,14 @@ public class NodePH1 implements BeliefBase {
 		tbox = new HashSet<Subsumption>();
 		abox = new HashSet<Assertion>();
 		typicalConcepts = computeTypicalConceptSet();
+		temporalOrdering = new PreferenceOrder<Individual>();
 	}
 	
-	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTFormula> typicalConcepts){
+	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTFormula> typicalConcepts, PreferenceOrder<Individual> temporalOrdering){
 		this.tbox=tbox;
 		this.abox=abox;
 		this.typicalConcepts = typicalConcepts;
+		this.temporalOrdering = temporalOrdering;
 	}
 	
 	public NodePH1 clone(){
@@ -50,7 +56,7 @@ public class NodePH1 implements BeliefBase {
 		for(Assertion a : abox){
 			newABox.add(a.clone());
 		}
-		return new NodePH1(newTBox, newABox, this.typicalConcepts);		
+		return new NodePH1(newTBox, newABox, this.typicalConcepts, this.temporalOrdering);		
 	}
 	
 	public Set<ALCTFormula> computeTypicalConceptSet(){
@@ -85,9 +91,62 @@ public class NodePH1 implements BeliefBase {
 				}
 		}
 
-		//System.out.println(lt);
+		System.out.println(lt);
 		return lt;
 		
+	}
+	
+	public void insertIntoOrdering(Individual i){
+		if(temporalOrdering.isEmpty())
+			firstInsert(i);
+		for(Individual pre : temporalOrdering.getDomainElements()){
+			temporalOrdering.addPair(pre, i, Relation.LESS);
+		}
+	}
+	
+	private void firstInsert(Individual i){
+		for(Individual pre : this.getSignature().getIndividuals()){
+			temporalOrdering.addPair(pre, i, Relation.LESS);
+		}
+	}
+	
+	public boolean isWitnessOf(Individual witness, Individual actual){
+		if(witness.equals(actual))
+			return false;
+		if(!areEquivalent(witness, actual))
+			return false;
+		if(!temporalOrdering.contains(new Triple<Individual, Individual, Relation>(witness, actual, Relation.LESS)))
+			return false;
+		return true;
+	}
+	
+	public boolean areEquivalent(Individual first, Individual second){
+		boolean result = true;
+		boolean contains = false;
+		Set<ALCTFormula> firstConcepts = new HashSet<ALCTFormula>();
+		Set<ALCTFormula> secondConcepts = new HashSet<ALCTFormula>();
+		ConceptAssertion cAss;
+		for(Assertion ass : this.abox){
+			if(!(ass.getAssertionType()=="CONCEPTASSERTION"))
+				continue;
+			cAss = (ConceptAssertion)ass;
+			if(cAss.getConstant().equals(first))
+				firstConcepts.add(cAss.getConcept());
+			if(cAss.getConstant().equals(second))
+				secondConcepts.add(cAss.getConcept());
+		}
+		if(firstConcepts.size()!=secondConcepts.size())
+			return false;
+		
+		for(ALCTFormula f : firstConcepts){
+			for(ALCTFormula s : secondConcepts){
+				if(f.equals(s)){
+					contains = true;
+				}
+			}
+			result = result && contains;
+		}
+		return result;
 	}
 	
 	public Set<Subsumption> getTbox() {
@@ -132,7 +191,7 @@ public class NodePH1 implements BeliefBase {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Signature getSignature() {
+	public ALCTSignature getSignature() {
 		Set<Individual> individuals = new HashSet<Individual>();
 		Set<ALCTFormula> concepts = new HashSet<ALCTFormula>();
 		Set<Role> roles = new HashSet<Role>();

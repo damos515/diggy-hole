@@ -81,4 +81,19 @@ public class RoleAssertion extends Assertion {
 	public Individual getSecond() {
 		return second;
 	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(!this.getClass().equals(e.getClass()))
+			return false;
+		RoleAssertion comp = (RoleAssertion) e;		
+		if(!this.first.equals(comp.first))
+			return false;
+		if(!this.second.equals(comp.second))
+			return false;
+		if(!this.role.equals(comp.role))
+			return false;
+		return true;
+		
+	}
 }

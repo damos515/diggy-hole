@@ -16,6 +16,7 @@ import alct.calculus.phase.first.rules.ConjunctionRule;
 import alct.calculus.phase.first.rules.CutRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
 import alct.calculus.phase.first.rules.DoubleNegationRule;
+import alct.calculus.phase.first.rules.ExistsRule;
 import alct.calculus.phase.first.rules.ForAllRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
@@ -31,8 +32,11 @@ import alct.util.ALCTRule;
 public class PhaseOne {
 	
 	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
+	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();
+	private CutRule cutRule = new CutRule();
 	
 	public PhaseOne(){
+		// Initialize static Rules
 		staticRules.add(new ConjunctionRule());
 		staticRules.add(new DisjunctionRule());
 		staticRules.add(new NegatedConjunctionRule());
@@ -42,7 +46,9 @@ public class PhaseOne {
 		staticRules.add(new NegatedTypicalityRule());
 		staticRules.add(new ForAllRule());
 		staticRules.add(new SubsumptionRule());
-		staticRules.add(new CutRule());
+		
+		//Initialize dynamic rules
+		dynamicRules.add(new ExistsRule());
 	}
 	
 	public boolean initialize(NodePH1 node){
@@ -70,6 +76,35 @@ public class PhaseOne {
 						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
 						for(NodePH1 conclusion : conclusions){
 							//System.out.println("[Log] checking conclusion: \n" + conclusion + "\n\n");
+							result = hasNoModel(conclusion) && result;
+						}
+						return result;
+					}
+				}
+			}
+		}
+		//Apply Cut Rule after standard rules for testing purposes
+		for(Assertion temp : node.getAbox()){
+			if(temp.getAssertionType()=="CONCEPTASSERTION"){
+				if(cutRule.isApplicable(temp, node)){
+					boolean result = true;
+					Set<NodePH1> conclusions = cutRule.apply(temp, node);
+					for(NodePH1 conclusion : conclusions){
+						result = hasNoModel(conclusion) && result;
+					}
+					return result;
+				}				
+			}
+		}
+		//Apply dynamic Rules
+		for(Assertion temp : node.getAbox()){
+			if(temp.getAssertionType()=="CONCEPTASSERTION"){
+				for(ALCTRule actualRule : dynamicRules){
+					if(actualRule.isApplicable(temp, node)){
+						System.out.println("it Works!");
+						boolean result = true;
+						Set<NodePH1> conclusions = actualRule.apply(temp, node);
+						for(NodePH1 conclusion : conclusions){
 							result = hasNoModel(conclusion) && result;
 						}
 						return result;

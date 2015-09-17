@@ -174,7 +174,7 @@ public class HelloWorld {
 		ConceptAssertion assertTypKrok = new ConceptAssertion(new ALCTTypicalConcept(new ALCTAtomicConcept("kroko")), tweety);
 		ConceptAssertion assertNegTypKrok = new ConceptAssertion(new Negation(new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))), tweety);
 		ConceptAssertion assertForAllTweety = new ConceptAssertion(new ForallConcept(new Role("Sitzpartner"), a), tweety);
-		
+		ConceptAssertion assertExistsTweety = new ConceptAssertion(new ExistsConcept(new Role("Sitzpartner"), a), tweety);
 
 		ConceptAssertion assertTypNegKrok = new ConceptAssertion(new ALCTTypicalConcept(new Negation(new ALCTAtomicConcept("kroko"))), tweety);
 		
@@ -188,20 +188,27 @@ public class HelloWorld {
 		NodePH1 firstNode = new NodePH1();
 		//firstNode.addToABox(assertA);
 		//firstNode.addToABox(assertForAllTweety);
-		//firstNode.addToABox(assertB);
+		firstNode.addToABox(assertB);
 		//firstNode.addToABox(assertC);
 		//firstNode.addToABox(assertNegA);
+		//firstNode.addToABox(new ConceptAssertion(new Negation(a), polly));
+		//firstNode.addToABox(new ConceptAssertion(g, polly));
+		//firstNode.addToABox(new ConceptAssertion(g, tweety));
 		//firstNode.addToABox(assertNegAB);
 		//firstNode.addToABox(assertNegKrok);
 		//firstNode.addToABox(assertKrok);
 		//firstNode.addToABox(assertTypKrok);
 		//firstNode.addToABox(assertNegTypKrok);
 		//firstNode.addToABox(assertTypNegKrok);
-		firstNode.addToABox(assertHai);
-		firstNode.addToTBox(new Subsumption(a, new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))));
+		//firstNode.addToABox(assertHai);
+		firstNode.addToABox(assertExistsTweety);
+		firstNode.addToABox(new ConceptAssertion(a,polly));
+		//firstNode.addToTBox(new Subsumption(a, new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))));
 		System.out.println(firstNode.getSignature());
-		System.out.println(firstNode.computeTypicalConceptSet());
+		//System.out.println(firstNode.computeTypicalConceptSet());
+		System.out.println("Test");
 		System.out.println(firstNode);
+		System.out.println(firstNode.isWitnessOf(tweety, polly));
 		PhaseOne solver = new PhaseOne();
 		System.out.println("\n\n\n---Initializing calculus---");
 		System.out.println(solver.initialize(firstNode));
