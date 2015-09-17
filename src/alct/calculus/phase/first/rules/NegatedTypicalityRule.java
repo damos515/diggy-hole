@@ -15,6 +15,9 @@ import alct.util.ALCTRule;
 
 public class NegatedTypicalityRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -24,16 +27,17 @@ public class NegatedTypicalityRule extends ALCTRule {
 		if(!neg.getInnerConcept().getOperatorSymbol().equals("T"))
 			return false;
 		ALCTTypicalConcept typicalConcept = (ALCTTypicalConcept)neg.getInnerConcept();
-		for (Assertion comp : node.getAbox()){
-			if(comp.equals(new ConceptAssertion(new Negation(typicalConcept.getInnerConcept()),ass.getConstant())))
-				return false;
-			if(comp.equals(new ConceptAssertion(new Negation(new BoxConcept(typicalConcept.getInnerConcept())),ass.getConstant())))
-				return false;
-		}
+		if(node.aboxContains(new ConceptAssertion(new Negation(typicalConcept.getInnerConcept()),ass.getConstant())))
+			return false;
+		if(node.aboxContains(new ConceptAssertion(new Negation(new BoxConcept(typicalConcept.getInnerConcept())),ass.getConstant())))
+			return false;
 		
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();

@@ -22,6 +22,9 @@ public class NegatedConjunctionRule extends ALCTRule {
 		disjRule = new DisjunctionRule();
 	}
 	
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -35,6 +38,9 @@ public class NegatedConjunctionRule extends ALCTRule {
 		return disjRule.isApplicable(new ConceptAssertion(new Disjunction(new Negation(first), new Negation(second)),ass.getConstant()), node);
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();

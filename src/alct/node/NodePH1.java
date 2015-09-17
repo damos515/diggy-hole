@@ -66,7 +66,9 @@ public class NodePH1 implements BeliefBase {
 		for(Assertion ass : abox){
 			if(!ass.getAssertionType().equals("CONCEPTASSERTION"))
 				continue;
+
 			ConceptAssertion cAss = (ConceptAssertion) ass;
+
 			if(cAss.getConcept().isExtendedConcept()){
 				for(ALCTFormula comp : lt){
 					if(comp.equals(cAss.getConcept().extractFromExtendedConcept()))
@@ -91,7 +93,7 @@ public class NodePH1 implements BeliefBase {
 				}
 		}
 
-		System.out.println(lt);
+		//System.out.println(lt);
 		return lt;
 		
 	}
@@ -211,5 +213,20 @@ public class NodePH1 implements BeliefBase {
 		return new ALCTSignature(concepts, roles, individuals);
 	}
 
+	public boolean tboxContains(Subsumption sub){
+		for(Subsumption comp : tbox){
+			if(comp.equals(sub))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean aboxContains(Assertion ass){
+		for(Assertion comp : abox){
+			if(comp.equals(ass))
+				return true;
+		}
+		return false;
+	}
 
 }

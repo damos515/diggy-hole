@@ -18,14 +18,20 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 public abstract class ALCTRule {
 	
 	/**
-	 * Function, that is used in order to check for applicability of a given Axiom in a KB 
+	 * Function, that is used in order to check for applicability of an given Axiom in a KB 
 	 * @param axiom
 	 * @param kb
 	 * @return true, if premise holds
 	 */
 	public abstract boolean isApplicable(Axiom axiom, NodePH1 node);
 	
-	public abstract Set<NodePH1> apply(Axiom ass, NodePH1 node);
+	/**
+	 * Function that is used in order to generate the given conclusions of an given Rule 
+	 * @param axiom
+	 * @param node
+	 * @return all conclusions that need to be checked
+	 */
+	public abstract Set<NodePH1> apply(Axiom axiom, NodePH1 node);
 
 	public abstract String toString();
 }

@@ -76,10 +76,10 @@ public class Conjunction extends ALCTAssociativeConcept {
 
 	@Override
 	public boolean isExtendedConcept() {
-		while(this.iterator().hasNext()){
-			if(this.iterator().next().isExtendedConcept())
+		if(this.get(0).isExtendedConcept())
 				return true;
-		}
+		if(this.get(1).isExtendedConcept())
+				return true;
 		return false;
 	}
 

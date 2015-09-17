@@ -22,6 +22,9 @@ public class NegatedDisjunctionRule extends ALCTRule {
 		conjRule = new ConjunctionRule();
 	}
 	
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {					
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -36,6 +39,9 @@ public class NegatedDisjunctionRule extends ALCTRule {
 		return conjRule.isApplicable(new ConceptAssertion(new Conjunction(new Negation(first), new Negation(second)),ass.getConstant()), node);
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();
@@ -46,19 +52,11 @@ public class NegatedDisjunctionRule extends ALCTRule {
 		//Check which Assertions need to be inserted
 		ConceptAssertion first = new ConceptAssertion(new Negation(d.get(0)),ass.getConstant());
 		ConceptAssertion second =  new ConceptAssertion(new Negation(d.get(1)),ass.getConstant());
-		boolean firstInAbox = false;
-		boolean secondInAbox = false;		
-		for(Assertion comp : node.getAbox()){
-			if(comp.equals(first))
-				firstInAbox = true;
-			if(comp.equals(second))
-				secondInAbox = true;
-		}
 		
 		//Insert need assertions
-		if(!firstInAbox)
+		if(!node.aboxContains(first))
 			newNode.addToABox(first);
-		if(!secondInAbox)
+		if(!node.aboxContains(second))
 			newNode.addToABox(second);
 		System.out.println("[Log] Node after applying negated Disjunction rule: \n"+newNode);
 		conclusions.add(newNode);

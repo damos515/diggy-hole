@@ -86,6 +86,15 @@ public class Disjunction extends ALCTAssociativeConcept {
 	}
 
 	@Override
+	public boolean isExtendedConcept() {
+		if(this.get(0).isExtendedConcept())
+				return true;
+		if(this.get(1).isExtendedConcept())
+				return true;
+		return false;
+	}
+	
+	@Override
 	public ALCTFormula extractFromExtendedConcept() {
 		return this;
 	}

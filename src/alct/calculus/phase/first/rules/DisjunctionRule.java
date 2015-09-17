@@ -14,6 +14,9 @@ import alct.util.ALCTRule;
 
 public class DisjunctionRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -35,6 +38,9 @@ public class DisjunctionRule extends ALCTRule {
 		return !(firstInAbox || secondInAbox);
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();

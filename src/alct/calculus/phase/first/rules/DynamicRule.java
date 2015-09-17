@@ -31,7 +31,7 @@ public abstract class DynamicRule extends ALCTRule {
 		    {
 		        name[i] = alphabet.charAt(stringMaker.nextInt(alphabet.length()));
 		    }
-		    newIndividual.name = name.toString();
+		    newIndividual.name = String.valueOf(name);
 		    if(!node.getSignature().getIndividuals().contains(newIndividual))
 		    	unique = true;
 		}

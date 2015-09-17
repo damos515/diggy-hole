@@ -16,6 +16,9 @@ import alct.util.ALCTRule;
 
 public class CutRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		boolean applicable = false;
@@ -40,6 +43,9 @@ public class CutRule extends ALCTRule {
 		return applicable;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();

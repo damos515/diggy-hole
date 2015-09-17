@@ -1,5 +1,6 @@
 package alct.calculus.phase.first.rules;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.tweety.logics.commons.LogicalSymbols;
@@ -14,6 +15,9 @@ import alct.util.Role;
 
 public class ExistsRule extends DynamicRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		boolean firstCondition = false;
@@ -32,17 +36,14 @@ public class ExistsRule extends DynamicRule {
 				return false;
 			comp = new ConceptAssertion(existsConcept.getConcept(),i);
 			roleComp = new RoleAssertion(existsConcept.getRole(), ass.getConstant(), i);
-			System.out.println(comp + ", " + roleComp);
 			firstCondition = false;
 			secondCondition = false;
-			System.out.println("[Log] testing individual " + i.name);
 			for(Assertion a : node.getAbox()){
 				if(a.equals(comp))
 					firstCondition = true;
 				if(a.equals(roleComp))
 					secondCondition = true;
 			}
-			System.out.println(firstCondition + ", " + secondCondition);
 			if(firstCondition && secondCondition)
 				return false;
 		}
@@ -51,10 +52,35 @@ public class ExistsRule extends DynamicRule {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
-	public Set<NodePH1> apply(Axiom ass, NodePH1 node) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
+		ConceptAssertion ass = (ConceptAssertion) axiom;
+		ExistsConcept concept = (ExistsConcept) ass.getConcept();
+		Set<NodePH1> conclusions = new HashSet<NodePH1>();
+		NodePH1 newNode;
+		Individual newVariable = generateIndividual(node);
+		//Add leftmost conclusion by adding new variable
+		newNode = node.clone();
+		newNode.addToABox(new RoleAssertion(concept.getRole(), ass.getConstant(), newVariable));
+		newNode.addToABox(new ConceptAssertion(concept.getConcept(), newVariable));
+		conclusions.add(newNode);
+		System.out.println("[Log] Leftmost conclusion after applying Exists Rule: \n" + newNode);
+		//Add all other conclusions
+		for(Individual i : node.getSignature().getIndividuals()){
+			if(i.equals(ass.getConstant()))		// Dont create a conclusion for the same individual
+				continue;
+			newNode = node.clone();
+			if(!newNode.aboxContains(new RoleAssertion(concept.getRole(), ass.getConstant(), i)))
+				newNode.addToABox(new RoleAssertion(concept.getRole(), ass.getConstant(), i));
+			if(!newNode.aboxContains(new ConceptAssertion(concept.getConcept(), i)))
+				newNode.addToABox(new ConceptAssertion(concept.getConcept(), i));
+			conclusions.add(newNode);
+		}
+		
+		return conclusions;
 	}
 
 	@Override

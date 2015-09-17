@@ -20,6 +20,7 @@ import alct.calculus.phase.first.rules.ExistsRule;
 import alct.calculus.phase.first.rules.ForAllRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
+import alct.calculus.phase.first.rules.NegatedExistsRule;
 import alct.calculus.phase.first.rules.NegatedTypicalityRule;
 import alct.calculus.phase.first.rules.SubsumptionRule;
 import alct.calculus.phase.first.rules.TypicalityRule;
@@ -45,6 +46,7 @@ public class PhaseOne {
 		staticRules.add(new TypicalityRule());
 		staticRules.add(new NegatedTypicalityRule());
 		staticRules.add(new ForAllRule());
+		staticRules.add(new NegatedExistsRule());
 		staticRules.add(new SubsumptionRule());
 		
 		//Initialize dynamic rules
@@ -101,7 +103,6 @@ public class PhaseOne {
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				for(ALCTRule actualRule : dynamicRules){
 					if(actualRule.isApplicable(temp, node)){
-						System.out.println("it Works!");
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
 						for(NodePH1 conclusion : conclusions){

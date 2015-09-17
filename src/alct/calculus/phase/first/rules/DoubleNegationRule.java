@@ -13,6 +13,9 @@ import alct.util.ALCTRule;
 
 public class DoubleNegationRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion)axiom;
@@ -29,6 +32,9 @@ public class DoubleNegationRule extends ALCTRule {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion)axiom;

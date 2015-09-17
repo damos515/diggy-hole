@@ -15,6 +15,9 @@ import alct.util.ALCTRule;
 
 public class ForAllRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -23,6 +26,9 @@ public class ForAllRule extends ALCTRule {
 		return getIndividuals(ass,node).size()==0 ? false : true;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;

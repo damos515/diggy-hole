@@ -14,6 +14,9 @@ import alct.util.ALCTRule;
 
 public class SubsumptionRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -25,6 +28,9 @@ public class SubsumptionRule extends ALCTRule {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;

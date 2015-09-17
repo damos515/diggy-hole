@@ -13,29 +13,25 @@ import alct.util.ALCTRule;
 
 public class ConjunctionRule extends ALCTRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		Assertion ass = (Assertion) axiom;
 		if(!(ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CONJUNCTION())))
 			return false;
-		
 
 		//Check which Assertions are already contained
 		ConceptAssertion first = new ConceptAssertion(((Conjunction)ass.getConcept()).get(0),((ConceptAssertion)ass).getConstant());
 		ConceptAssertion second =  new ConceptAssertion(((Conjunction)ass.getConcept()).get(1),((ConceptAssertion)ass).getConstant());
-		boolean firstInAbox = false;
-		boolean secondInAbox = false;		
-		for(Assertion comp : node.getAbox()){
-			if(comp.equals(first))
-				firstInAbox = true;
-			if(comp.equals(second))
-				secondInAbox = true;
-		}
-		
-		System.out.println("Applicable Assertion found! -> " + ass);
-		return !(firstInAbox && secondInAbox);
+
+		return !(node.aboxContains(first) && node.aboxContains(second));
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();
@@ -43,22 +39,11 @@ public class ConjunctionRule extends ALCTRule {
 		NodePH1 newNode = node.clone();
 		Conjunction c = (Conjunction)ass.getConcept();
 		
-		//Check which Assertions need to be inserted
 		ConceptAssertion first = new ConceptAssertion(((Conjunction)ass.getConcept()).get(0),((ConceptAssertion)ass).getConstant());
 		ConceptAssertion second =  new ConceptAssertion(((Conjunction)ass.getConcept()).get(1),((ConceptAssertion)ass).getConstant());
-		boolean firstInAbox = false;
-		boolean secondInAbox = false;		
-		for(Assertion comp : node.getAbox()){
-			if(comp.equals(first))
-				firstInAbox = true;
-			if(comp.equals(second))
-				secondInAbox = true;
-		}
-		
-		//Insert them
-		if(!firstInAbox)
+		if(!node.aboxContains(first))
 			newNode.addToABox(new ConceptAssertion(c.get(0), ((ConceptAssertion)ass).getConstant()));
-		if(!secondInAbox)
+		if(!node.aboxContains(second))
 			newNode.addToABox(new ConceptAssertion(c.get(1), ((ConceptAssertion)ass).getConstant()));
 		System.out.println("[Log] Node after applying Conjunction rule: \n"+newNode);
 		conclusions.add(newNode);
