@@ -69,6 +69,7 @@ public class NegatedBoxRule extends DynamicRule {
 		newNode.addToABox(new ConceptAssertion(innerConcept.getInnerConcept(),newVariable));
 		newNode.addToABox(new ConceptAssertion(innerConcept,newVariable));
 		newNode.addToABox(computeAdditionalAssertions(ass.getConstant(), newVariable, node));
+		newNode.insertIntoOrdering(newVariable);
 		conclusions.add(newNode);
 		for(Individual i : node.getSignature().getIndividuals()){
 			if(i.equals(ass.getConstant()))
