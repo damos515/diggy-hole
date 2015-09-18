@@ -190,13 +190,13 @@ public class HelloWorld {
 		//firstNode.addToABox(assertA);
 		//firstNode.addToABox(assertForAllTweety);
 		//firstNode.addToABox(assertNegExistsTweety);
-		firstNode.addToABox(assertB);
+		//firstNode.addToABox(assertB);
 		//firstNode.addToABox(assertC);
 		//firstNode.addToABox(assertNegA);
 		//firstNode.addToABox(new ConceptAssertion(new Negation(a), polly));
 		//firstNode.addToABox(new ConceptAssertion(g, polly));
 		//firstNode.addToABox(new ConceptAssertion(g, tweety));
-		firstNode.addToABox(assertNegAB);
+		//firstNode.addToABox(assertNegAB);
 		//firstNode.addToABox(assertNegKrok);
 		//firstNode.addToABox(assertKrok);
 		//firstNode.addToABox(assertTypKrok);
@@ -206,8 +206,14 @@ public class HelloWorld {
 		//firstNode.addToABox(assertExistsTweety);
 		//firstNode.addToABox(new ConceptAssertion(a,polly));
 		//firstNode.addToTBox(new Subsumption(a, new ALCTTypicalConcept(new ALCTAtomicConcept("kroko"))));
-		System.out.println(firstNode.getSignature());
+		//System.out.println(firstNode.getSignature());
 		//System.out.println(firstNode.computeTypicalConceptSet());
+		
+		firstNode.addToABox(new ConceptAssertion(new ALCTAtomicConcept("C"), tweety));
+		firstNode.addToABox(new ConceptAssertion(new ALCTAtomicConcept("D"), tweety));
+		firstNode.addToABox(new ConceptAssertion(new Negation(new Negation(new ALCTAtomicConcept("P"))), tweety));
+		firstNode.addToTBox(new Subsumption(new Negation(new ALCTAtomicConcept("P")), new ALCTTypicalConcept(new ALCTAtomicConcept("C"))));
+		
 		System.out.println(firstNode);
 		PhaseOne solver = new PhaseOne();
 		System.out.println("\n\n\n---Initializing calculus---");

@@ -18,6 +18,7 @@ import alct.calculus.phase.first.rules.DisjunctionRule;
 import alct.calculus.phase.first.rules.DoubleNegationRule;
 import alct.calculus.phase.first.rules.ExistsRule;
 import alct.calculus.phase.first.rules.ForAllRule;
+import alct.calculus.phase.first.rules.NegatedBoxRule;
 import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.first.rules.NegatedDisjunctionRule;
 import alct.calculus.phase.first.rules.NegatedExistsRule;
@@ -34,6 +35,8 @@ public class PhaseOne {
 	
 	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
 	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();
+	
+	private List<ALCTRule> staticRules2 = new ArrayList<ALCTRule>();
 	private CutRule cutRule = new CutRule();
 	
 	public PhaseOne(){
@@ -47,10 +50,12 @@ public class PhaseOne {
 		staticRules.add(new NegatedTypicalityRule());
 		staticRules.add(new ForAllRule());
 		staticRules.add(new NegatedExistsRule());
-		staticRules.add(new SubsumptionRule());
+		staticRules2.add(new SubsumptionRule());
+		staticRules2.add(new CutRule());
 		
 		//Initialize dynamic rules
 		dynamicRules.add(new ExistsRule());
+		dynamicRules.add(new NegatedBoxRule());
 	}
 	
 	public boolean initialize(NodePH1 node){
@@ -87,15 +92,23 @@ public class PhaseOne {
 		}
 		//Apply Cut Rule after standard rules for testing purposes
 		for(Assertion temp : node.getAbox()){
+			//System.out.println("[Log] checking assertion " +temp);
+			//Assertion temp = aboxIt.next();
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				if(cutRule.isApplicable(temp, node)){
-					boolean result = true;
-					Set<NodePH1> conclusions = cutRule.apply(temp, node);
-					for(NodePH1 conclusion : conclusions){
-						result = hasNoModel(conclusion) && result;
+				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
+				for(ALCTRule actualRule : staticRules2){
+					//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
+					if(actualRule.isApplicable(temp, node)){
+						boolean result = true;
+						Set<NodePH1> conclusions = actualRule.apply(temp, node);
+						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
+						for(NodePH1 conclusion : conclusions){
+							//System.out.println("[Log] checking conclusion: \n" + conclusion + "\n\n");
+							result = hasNoModel(conclusion) && result;
+						}
+						return result;
 					}
-					return result;
-				}				
+				}
 			}
 		}
 		//Apply dynamic Rules
@@ -115,7 +128,8 @@ public class PhaseOne {
 		}
 		
 		
-		System.out.println("[Warning] Second phase isnt implemented yet, returning false as default");
+		System.out.println("\n\n\n[Warning] Second phase isnt implemented yet, returning false as default");
+		System.out.println(node+"\n\n\n");
 		return false;
 	}
 
@@ -125,8 +139,11 @@ public class PhaseOne {
 				for(Assertion comp : abox){
 					if(comp.getAssertionType()=="CONCEPTASSERTION" 
 							&& comp.getConcept().getOperatorSymbol()==LogicalSymbols.CLASSICAL_NEGATION()
-								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())){
-						System.out.println("Clash found! -> " + a.getConcept() + " && " + comp.getConcept());
+								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
+									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
+						
+						System.out.println("\n\n\nClash found! -> " + a.getConcept() + " && " + comp.getConcept()+ " in Node:");
+						System.out.println(abox);
 						return true;
 					}
 				}

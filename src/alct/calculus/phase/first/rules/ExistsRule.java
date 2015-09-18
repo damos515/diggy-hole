@@ -20,8 +20,6 @@ public class ExistsRule extends DynamicRule {
 	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
-		boolean firstCondition = false;
-		boolean secondCondition = false;
 		RoleAssertion roleComp;
 		ConceptAssertion comp;
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -36,15 +34,7 @@ public class ExistsRule extends DynamicRule {
 				return false;
 			comp = new ConceptAssertion(existsConcept.getConcept(),i);
 			roleComp = new RoleAssertion(existsConcept.getRole(), ass.getConstant(), i);
-			firstCondition = false;
-			secondCondition = false;
-			for(Assertion a : node.getAbox()){
-				if(a.equals(comp))
-					firstCondition = true;
-				if(a.equals(roleComp))
-					secondCondition = true;
-			}
-			if(firstCondition && secondCondition)
+			if(node.aboxContains(comp) && node.aboxContains(roleComp))
 				return false;
 		}
 		
@@ -66,6 +56,7 @@ public class ExistsRule extends DynamicRule {
 		newNode = node.clone();
 		newNode.addToABox(new RoleAssertion(concept.getRole(), ass.getConstant(), newVariable));
 		newNode.addToABox(new ConceptAssertion(concept.getConcept(), newVariable));
+		newNode.insertIntoOrdering(newVariable);
 		conclusions.add(newNode);
 		System.out.println("[Log] Leftmost conclusion after applying Exists Rule: \n" + newNode);
 		//Add all other conclusions

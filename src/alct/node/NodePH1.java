@@ -8,6 +8,7 @@ import alct.axioms.ConceptAssertion;
 import alct.axioms.Subsumption;
 import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
+import alct.concepts.BoxConcept;
 import alct.util.ALCTSignature;
 import alct.util.Role;
 import net.sf.tweety.commons.BeliefBase;
@@ -171,7 +172,7 @@ public class NodePH1 implements BeliefBase {
 		tbox.addAll(sub);
 	}
 	
-	public void addToABox(Set<Assertion> ass){
+	public void addToABox(Set<? extends Assertion> ass){
 		abox.addAll(ass);
 	}
 	
@@ -221,12 +222,43 @@ public class NodePH1 implements BeliefBase {
 		return false;
 	}
 	
+	public boolean tboxContainsAll(Set<Subsumption> set){
+		for(Subsumption sub : set){
+			if(!tboxContains(sub))
+				return false;
+		}
+		return true;
+	}
+	
 	public boolean aboxContains(Assertion ass){
 		for(Assertion comp : abox){
 			if(comp.equals(ass))
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean aboxContainsAll(Set<? extends Assertion> set){
+		for(Assertion ass : set){
+			if(!aboxContains(ass))
+				return false;
+		}
+		return true;
+	}
+	
+	public Set<ALCTFormula> getBoxedConcepts(Individual i){
+		Set<ALCTFormula> boxedConcepts = new HashSet<ALCTFormula>();
+		for(Assertion ass : abox){
+			if(!ass.getAssertionType().equals("CONCEPTASSERTION"))
+				continue;
+			if(!((ConceptAssertion)ass).getConstant().equals(i))
+				continue;
+			if(!ass.getConcept().getOperatorSymbol().equals("BOXNEG"))
+				continue;
+			boxedConcepts.add(((BoxConcept)ass.getConcept()).getInnerConcept());			
+		}
+			
+		return boxedConcepts;
 	}
 
 }
