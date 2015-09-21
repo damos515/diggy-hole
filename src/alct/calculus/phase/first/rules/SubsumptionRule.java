@@ -7,9 +7,9 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.Subsumption;
+import alct.calculus.phase.first.NodePH1;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;
-import alct.node.NodePH1;
 import alct.util.ALCTRule;
 
 public class SubsumptionRule extends ALCTRule {

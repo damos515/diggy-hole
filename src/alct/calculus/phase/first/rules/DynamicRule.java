@@ -5,7 +5,7 @@ import java.util.Set;
 
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
-import alct.node.NodePH1;
+import alct.calculus.phase.first.NodePH1;
 import alct.util.ALCTRule;
 
 public abstract class DynamicRule extends ALCTRule {

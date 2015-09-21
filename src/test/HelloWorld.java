@@ -6,6 +6,7 @@ import java.util.HashSet;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.RoleAssertion;
 import alct.axioms.Subsumption;
+import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.first.PhaseOne;
 import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
@@ -15,7 +16,6 @@ import alct.concepts.Disjunction;
 import alct.concepts.ExistsConcept;
 import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
-import alct.node.NodePH1;
 import alct.util.Role;
 import net.sf.tweety.logics.commons.syntax.Individual;
 
@@ -211,13 +211,13 @@ public class HelloWorld {
 		
 		firstNode.addToABox(new ConceptAssertion(new ALCTAtomicConcept("C"), tweety));
 		firstNode.addToABox(new ConceptAssertion(new ALCTAtomicConcept("D"), tweety));
-		firstNode.addToABox(new ConceptAssertion(new Negation(new Negation(new ALCTAtomicConcept("P"))), tweety));
+		//firstNode.addToABox(new ConceptAssertion(new Negation(new Negation(new ALCTAtomicConcept("P"))), tweety));
 		firstNode.addToTBox(new Subsumption(new Negation(new ALCTAtomicConcept("P")), new ALCTTypicalConcept(new ALCTAtomicConcept("C"))));
 		
 		System.out.println(firstNode);
 		PhaseOne solver = new PhaseOne();
 		System.out.println("\n\n\n---Initializing calculus---");
-		System.out.println(solver.initialize(firstNode));
+		System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new Negation(new ALCTAtomicConcept("P")), tweety)));
 		
 	}
 	

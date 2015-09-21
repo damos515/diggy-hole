@@ -5,10 +5,10 @@ import java.util.Set;
 import net.sf.tweety.logics.commons.LogicalSymbols;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
+import alct.calculus.phase.first.NodePH1;
 import alct.concepts.ExistsConcept;
 import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
-import alct.node.NodePH1;
 import alct.util.ALCTRule;
 
 public class NegatedExistsRule extends ALCTRule {

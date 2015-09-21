@@ -1,4 +1,4 @@
-package alct.node;
+package alct.calculus.phase.first;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +41,10 @@ public class NodePH1 implements BeliefBase {
 		temporalOrdering = new PreferenceOrder<Individual>();
 	}
 	
+	public void setTypicalConcepts(Set<ALCTFormula> typicalConcepts) {
+		this.typicalConcepts = typicalConcepts;
+	}
+
 	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTFormula> typicalConcepts, PreferenceOrder<Individual> temporalOrdering){
 		this.tbox=tbox;
 		this.abox=abox;
@@ -158,6 +162,14 @@ public class NodePH1 implements BeliefBase {
 
 	public Set<Assertion> getAbox() {
 		return abox;
+	}
+	
+	public void setAbox(Set<Assertion> abox){
+		this.abox = abox;
+	}
+	
+	public void setTbox(Set<Subsumption> tbox){
+		this.tbox = tbox;
 	}
 
 	public void addToTBox(Subsumption sub){

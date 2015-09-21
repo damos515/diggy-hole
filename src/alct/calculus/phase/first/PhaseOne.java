@@ -1,15 +1,10 @@
 package alct.calculus.phase.first;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-
 import net.sf.tweety.logics.commons.LogicalSymbols;
-import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.rules.ConjunctionRule;
@@ -25,19 +20,19 @@ import alct.calculus.phase.first.rules.NegatedExistsRule;
 import alct.calculus.phase.first.rules.NegatedTypicalityRule;
 import alct.calculus.phase.first.rules.SubsumptionRule;
 import alct.calculus.phase.first.rules.TypicalityRule;
-import alct.concepts.ALCTFormula;
-import alct.concepts.Conjunction;
+import alct.calculus.phase.second.NodePH2;
+import alct.calculus.phase.second.PhaseTwo;
 import alct.concepts.Negation;
-import alct.node.NodePH1;
 import alct.util.ALCTRule;
 
 public class PhaseOne {
 	
 	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
-	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();
-	
+	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();	
 	private List<ALCTRule> staticRules2 = new ArrayList<ALCTRule>();
-	private CutRule cutRule = new CutRule();
+	
+	private NodePH1 initialKB;
+	private PhaseTwo phaseTwo;
 	
 	public PhaseOne(){
 		// Initialize static Rules
@@ -56,23 +51,24 @@ public class PhaseOne {
 		//Initialize dynamic rules
 		dynamicRules.add(new ExistsRule());
 		dynamicRules.add(new NegatedBoxRule());
+		
+		//Initialize Phase 2
+		phaseTwo = new PhaseTwo();
 	}
 	
-	public boolean initialize(NodePH1 node){
+	public boolean instanceCheck(NodePH1 node, ConceptAssertion query){
+		initialKB = node.clone();
+		node.addToABox(new ConceptAssertion(new Negation(query.getConcept()), query.getConstant()));
 		node.refreshTypicalConceptSet();
 		return hasNoModel(node);
 	}
 	
 	public boolean hasNoModel(NodePH1 node){
-		//Iterator<Assertion> aboxIt = node.getAbox().iterator();
 		if(checkForClashes(node.getAbox())){
-			//System.out.println("Clash found!");
 			return true;
 		}
-		//System.out.println(node.getAbox().size());
 		for(Assertion temp : node.getAbox()){
 			//System.out.println("[Log] checking assertion " +temp);
-			//Assertion temp = aboxIt.next();
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules){
@@ -93,7 +89,6 @@ public class PhaseOne {
 		//Apply Cut Rule after standard rules for testing purposes
 		for(Assertion temp : node.getAbox()){
 			//System.out.println("[Log] checking assertion " +temp);
-			//Assertion temp = aboxIt.next();
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules2){
@@ -130,6 +125,8 @@ public class PhaseOne {
 		
 		System.out.println("\n\n\n[Warning] Second phase isnt implemented yet, returning false as default");
 		System.out.println(node+"\n\n\n");
+		
+		System.out.println(new NodePH2(node,initialKB));
 		return false;
 	}
 
