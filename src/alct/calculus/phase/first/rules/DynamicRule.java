@@ -15,9 +15,6 @@ public abstract class DynamicRule extends ALCTRule {
 
 	@Override
 	public  abstract Set<NodePH1> apply(Axiom ass, NodePH1 node);
-
-	@Override
-	public abstract String toString();
 	
 	public Individual generateIndividual(NodePH1 node){
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";

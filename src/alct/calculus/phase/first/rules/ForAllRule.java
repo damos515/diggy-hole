@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.tweety.logics.commons.LogicalSymbols;
+import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.RoleAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ForallConcept;
 import alct.util.ALCTRule;
 
@@ -38,7 +40,7 @@ public class ForAllRule extends ALCTRule {
 		ForallConcept forAll = (ForallConcept)ass.getConcept();
 		newNode.addToABox(new ConceptAssertion(forAll.getConcept(), individuals.iterator().next()));
 		conclusions.add(newNode);
-		System.out.println("[Log] Node after applying ForAll Rule: \n" + newNode);
+		//System.out.println("[Log] Node after applying ForAll Rule: \n" + newNode);
 		
 		return conclusions;
 	}
@@ -48,7 +50,7 @@ public class ForAllRule extends ALCTRule {
 		return "FORALL";
 	}
 	
-	private Set<Individual> getIndividuals(ConceptAssertion ass, NodePH1 node){
+	public Set<Individual> getIndividuals(ConceptAssertion ass, NodePH1 node){
 		ForallConcept forAll = (ForallConcept)ass.getConcept();		
 		Set<Individual> possibleIndividuals = new HashSet<Individual>();
 		for(Assertion premise : node.getAbox()){
@@ -68,6 +70,13 @@ public class ForAllRule extends ALCTRule {
 
 		
 		return possibleIndividuals;
+	}
+	
+
+	@Override
+	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+			throws LanguageException {
+		throw new UnsupportedOperationException("Rule not supported in Phase Two");
 	}
 
 }

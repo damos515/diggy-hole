@@ -103,6 +103,24 @@ public class NodePH2 extends NodePH1 {
 		return new NodePH2(newABox, newTBox,negBoxConcepts, newKBox, dB, getTypicalConcepts());
 	}
 	
+	public void removeFromAbox(Assertion ass){
+		for(Assertion comp : getAbox()){
+			if(comp.equals(ass)){
+				getAbox().remove(comp);
+				break;
+			}
+		}
+	}
+	
+	public void removeFromKbox(Assertion ass){
+		for(Assertion comp : getKbox()){
+			if(comp.equals(ass)){
+				getAbox().remove(comp);
+				break;
+			}
+		}
+	}
+	
 	public String toString(){
 		String s = "TBox: [";
 		for(Subsumption sub : getTbox()){

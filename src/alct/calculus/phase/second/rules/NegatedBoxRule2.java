@@ -1,4 +1,4 @@
-package alct.calculus.phase.first.rules;
+package alct.calculus.phase.second.rules;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,22 +9,21 @@ import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.PreferenceAssertion;
-import alct.axioms.RoleAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTFormula;
 import alct.concepts.BoxConcept;
-import alct.concepts.ExistsConcept;
 import alct.concepts.Negation;
+import alct.util.ALCTRule;
 
-public class NegatedBoxRule extends DynamicRule {
+public class NegatedBoxRule2 extends ALCTRule {
 
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 node) {
-		PreferenceAssertion prefComp;
+	public boolean isApplicable(Axiom axiom, NodePH1 actual) {
 		ConceptAssertion comp;
 		ConceptAssertion compBox;
 		ConceptAssertion ass = (ConceptAssertion) axiom;
+		NodePH2 node = (NodePH2) actual;
 		//Verifying Negation as outer Concept
 		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
 			return false;
@@ -35,52 +34,42 @@ public class NegatedBoxRule extends DynamicRule {
 			return false;
 		BoxConcept innerConcept = (BoxConcept) outerConcept.getInnerConcept();
 		
-		//Check for sideconditions, namely that there is no witness and
+		//Verifying Assertion is in kbox
+		if(!node.kboxContains(ass))
+			return false;
+		//Check for sideconditions, namely that there are
 		//no concepts that would be inserted in a conclusion
 		for(Individual i : node.getSignature().getIndividuals()){
-			if(node.isWitnessOf(i, ass.getConstant()))
-				return false;
-			prefComp = new PreferenceAssertion(i, ass.getConstant());
 			comp = new ConceptAssertion(innerConcept.getInnerConcept(),i);
 			compBox = new ConceptAssertion(innerConcept,i);
-			if(node.aboxContains(prefComp)
-					&& node.aboxContains(comp)
+			if(node.aboxContains(comp)
 						&& node.aboxContains(compBox)
 							&& node.aboxContainsAll(computeAdditionalAssertions(ass.getConstant(),i,node)))
 				return false;
 			
 		}
-		
-		
 		return true;
 	}
 
 	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
+	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+			throws LanguageException {
 		//Initializing
 		ConceptAssertion ass = (ConceptAssertion) axiom;
 		Negation outerConcept = (Negation) ass.getConcept();
 		BoxConcept innerConcept = (BoxConcept) outerConcept.getInnerConcept();
-		Set<NodePH1> conclusions = new HashSet<NodePH1>();
-		NodePH1 newNode;
-		Individual newVariable = generateIndividual(node);
+		Set<NodePH2> conclusions = new HashSet<NodePH2>();
+		NodePH2 newNode;
 		
-		//Generate leftmost conclusion, i.e. with a new variable
-		newNode = node.clone();
-		newNode.addToABox(new PreferenceAssertion(newVariable, ass.getConstant()));
-		newNode.addToABox(new ConceptAssertion(innerConcept.getInnerConcept(),newVariable));
-		newNode.addToABox(new ConceptAssertion(innerConcept,newVariable));
-		newNode.addToABox(computeAdditionalAssertions(ass.getConstant(), newVariable, node));
-		newNode.insertIntoOrdering(newVariable);
-		conclusions.add(newNode);
+		
 		for(Individual i : node.getSignature().getIndividuals()){
 			if(i.equals(ass.getConstant()))
 				continue;
 			newNode = node.clone();
-			newNode.addToABox(new PreferenceAssertion(i, ass.getConstant()));
 			newNode.addToABox(new ConceptAssertion(innerConcept.getInnerConcept(),i));
 			newNode.addToABox(new ConceptAssertion(innerConcept,i));
 			newNode.addToABox(computeAdditionalAssertions(ass.getConstant(), i, node));
+			newNode.removeFromKbox(ass);
 			conclusions.add(newNode);
 			
 		}
@@ -91,7 +80,7 @@ public class NegatedBoxRule extends DynamicRule {
 		return conclusions;
 	}
 	
-	private Set<ConceptAssertion> computeAdditionalAssertions(Individual premise, Individual conclusion, NodePH1 node){
+	private Set<ConceptAssertion> computeAdditionalAssertions(Individual premise, Individual conclusion, NodePH2 node){
 		Set<ConceptAssertion> assertionsToAdd = new HashSet<ConceptAssertion>();
 		for(ALCTFormula f : node.getBoxedConcepts(premise)){
 			assertionsToAdd.add(new ConceptAssertion(new Negation(f),conclusion));
@@ -101,15 +90,9 @@ public class NegatedBoxRule extends DynamicRule {
 	}
 
 	@Override
-	public String toString() {
-		return "NEGATEDBOX";
-	}
-	
-
-	@Override
-	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
 			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase Two");
+		throw new UnsupportedOperationException("Rule not supported in Phase one");
 	}
 
 }

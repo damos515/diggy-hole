@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.tweety.logics.commons.LogicalSymbols;
+import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Conjunction;
 import alct.util.ALCTRule;
 
@@ -45,13 +47,19 @@ public class ConjunctionRule extends ALCTRule {
 			newNode.addToABox(new ConceptAssertion(c.get(0), ((ConceptAssertion)ass).getConstant()));
 		if(!node.aboxContains(second))
 			newNode.addToABox(new ConceptAssertion(c.get(1), ((ConceptAssertion)ass).getConstant()));
-		System.out.println("[Log] Node after applying Conjunction rule: \n"+newNode);
+		//System.out.println("[Log] Node after applying Conjunction rule: \n"+newNode);
 		conclusions.add(newNode);
 		return conclusions;
 	}
 	
 	public String toString(){
 		return "CONJUNCTION";
+	}
+
+	@Override
+	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+			throws LanguageException {
+		throw new UnsupportedOperationException("Rule not supported in Phase Two");
 	}
 
 }

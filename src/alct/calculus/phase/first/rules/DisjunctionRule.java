@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.tweety.logics.commons.LogicalSymbols;
+import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
 import alct.util.ALCTRule;
@@ -50,7 +52,7 @@ public class DisjunctionRule extends ALCTRule {
 		Disjunction c = (Disjunction)ass.getConcept();
 		newNode1.addToABox(new ConceptAssertion(c.get(0), ass.getConstant()));
 		newNode2.addToABox(new ConceptAssertion(c.get(1), ass.getConstant()));
-		System.out.println("[Log] Nodes after applying Disjunction rule: \n"+newNode1 + "\n" + newNode2);
+		//System.out.println("[Log] Nodes after applying Disjunction rule: \n"+newNode1 + "\n" + newNode2);
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
 		return conclusions;
@@ -58,6 +60,12 @@ public class DisjunctionRule extends ALCTRule {
 	
 	public String toString(){
 		return "DISJUNCTION";
+	}
+
+	@Override
+	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+			throws LanguageException {
+		throw new UnsupportedOperationException("Rule not supported in Phase Two");
 	}
 
 }

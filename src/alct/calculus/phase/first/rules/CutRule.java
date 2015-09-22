@@ -3,11 +3,13 @@ package alct.calculus.phase.first.rules;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTFormula;
 import alct.concepts.BoxConcept;
 import alct.concepts.Disjunction;
@@ -69,19 +71,25 @@ public class CutRule extends ALCTRule {
 			if(!boxedInAbox && !negBoxedInAbox){
 				newNode1.addToABox(new ConceptAssertion(boxedLabel.getConcept(), ass.getConstant()));
 				newNode2.addToABox(new ConceptAssertion(negBoxedLabel.getConcept(), ass.getConstant()));
-				System.out.println("[Log] Nodes after applying Cut rule: \n"+newNode1 + "\n" + newNode2);
+				//System.out.println("[Log] Nodes after applying Cut rule: \n"+newNode1 + "\n" + newNode2);
 				conclusions.add(newNode1);
 				conclusions.add(newNode2);
 				return conclusions;
 			}
 		}
-		System.out.println("[Warning] Failure while applying cutRule!!!");
+		//System.out.println("[Warning] Failure while applying cutRule!!!");
 		return null;
 	}
 
 	@Override
 	public String toString() {
 		return "CUT";
+	}
+	
+	@Override
+	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
+			throws LanguageException {
+		throw new UnsupportedOperationException("Rule not supported in Phase Two");
 	}
 
 }

@@ -68,17 +68,12 @@ public class PhaseOne {
 			return true;
 		}
 		for(Assertion temp : node.getAbox()){
-			//System.out.println("[Log] checking assertion " +temp);
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules){
-					//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
 					if(actualRule.isApplicable(temp, node)){
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
-						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
 						for(NodePH1 conclusion : conclusions){
-							//System.out.println("[Log] checking conclusion: \n" + conclusion + "\n\n");
 							result = hasNoModel(conclusion) && result;
 						}
 						return result;
@@ -88,17 +83,12 @@ public class PhaseOne {
 		}
 		//Apply Cut Rule after standard rules for testing purposes
 		for(Assertion temp : node.getAbox()){
-			//System.out.println("[Log] checking assertion " +temp);
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				//System.out.println("[Log] checking assertion " + (ConceptAssertion)temp);
 				for(ALCTRule actualRule : staticRules2){
-					//System.out.println("[Log] trying to apply " + actualRule + " on assertion " + temp);
 					if(actualRule.isApplicable(temp, node)){
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
-						//System.out.println("[Log] conclusion size = " + conclusions.size() + " after applying " +actualRule);
 						for(NodePH1 conclusion : conclusions){
-							//System.out.println("[Log] checking conclusion: \n" + conclusion + "\n\n");
 							result = hasNoModel(conclusion) && result;
 						}
 						return result;
@@ -123,11 +113,13 @@ public class PhaseOne {
 		}
 		
 		
-		System.out.println("\n\n\n[Warning] Second phase isnt implemented yet, returning false as default");
-		System.out.println(node+"\n\n\n");
-		
-		System.out.println(new NodePH2(node,initialKB));
-		return false;
+		System.out.println("\n\nModel found! Checking the following node for minimality");
+		NodePH2 test= new NodePH2(node,initialKB);
+		System.out.println(node + "\n");
+		System.out.println(test);
+		System.out.println(node.getSignature());
+		//return false;
+		return phaseTwo.isMinimalModel(new NodePH2(node,initialKB));
 	}
 
 	private boolean checkForClashes(Set<Assertion> abox) {
@@ -139,8 +131,8 @@ public class PhaseOne {
 								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
 									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
 						
-						System.out.println("\n\n\nClash found! -> " + a.getConcept() + " && " + comp.getConcept()+ " in Node:");
-						System.out.println(abox);
+						//System.out.println("\n\n\nClash found! -> " + a.getConcept() + " && " + comp.getConcept()+ " in Node:");
+						//System.out.println(abox);
 						return true;
 					}
 				}

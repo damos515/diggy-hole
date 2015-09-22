@@ -1,4 +1,4 @@
-package alct.calculus.phase.first.rules;
+package alct.calculus.phase.second.rules;
 
 import java.util.Set;
 
@@ -11,18 +11,16 @@ import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ExistsConcept;
 import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
+import alct.util.ALCTRule;
 
-public class NegatedForAllRule extends DynamicRule {
-
-	private ExistsRule existsRule;
+public class NegatedForAllRule2 extends ALCTRule {
 	
-	public NegatedForAllRule(){
-		existsRule = new ExistsRule();
+	private ExistsRule2 existsRule2;
+	
+	public NegatedForAllRule2(){
+		existsRule2 = new ExistsRule2();
 	}
-	
-	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.isApplicable()
-	 */
+
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -32,33 +30,26 @@ public class NegatedForAllRule extends DynamicRule {
 		if(!outerConcept.getInnerConcept().getOperatorSymbol().equals(LogicalSymbols.FORALLQUANTIFIER()))
 			return false;
 		ExistsConcept innerConcept = (ExistsConcept) outerConcept.getInnerConcept();
-		return existsRule.isApplicable(new ConceptAssertion(
-				new ExistsConcept(innerConcept.getRole(),
-						new Negation(innerConcept.getConcept())),ass.getConstant()), node);
-	}
-
-	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.apply()
-	 */
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
-		ConceptAssertion ass = (ConceptAssertion) axiom;
-		Negation outerConcept = (Negation)ass.getConcept();
-		ForallConcept innerConcept = (ForallConcept) outerConcept.getInnerConcept();
-		return existsRule.apply(new ConceptAssertion(
+		return existsRule2.isApplicable(new ConceptAssertion(
 				new ExistsConcept(innerConcept.getRole(),
 						new Negation(innerConcept.getConcept())),ass.getConstant()), node);
 	}
 
 	@Override
-	public String toString() {
-		return "NEGATEDFORALL";
+	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
+			throws LanguageException {
+		throw new UnsupportedOperationException("Rule not supported in Phase one");
 	}
 
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
 			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase Two");
+		ConceptAssertion ass = (ConceptAssertion) axiom;
+		Negation outerConcept = (Negation)ass.getConcept();
+		ForallConcept innerConcept = (ForallConcept) outerConcept.getInnerConcept();
+		return existsRule2.apply(new ConceptAssertion(
+				new ExistsConcept(innerConcept.getRole(),
+						new Negation(innerConcept.getConcept())),ass.getConstant()), node);
 	}
 
 }
