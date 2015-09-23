@@ -3,6 +3,7 @@ package alct.calculus.phase.second.rules;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.tweety.logics.commons.LogicalSymbols;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
@@ -14,6 +15,19 @@ import alct.concepts.Negation;
 
 public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 
+	
+	@Override
+	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+		ConceptAssertion ass = (ConceptAssertion) axiom;
+		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
+			return false;
+		Negation neg = (Negation)ass.getConcept();
+		if(!neg.getInnerConcept().getOperatorSymbol().equals("T"))
+			return false;
+		
+		return true;
+	}
+	
 	/* (non-Javadoc)
 	 * @see alct.util.ALCTRule.apply()
 	 */
@@ -33,7 +47,7 @@ public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
 		
-		//System.out.println("[Log] Nodes after applying Negated Typicality rule: \n" + newNode1 + "\n" + newNode2);
+		//System.out.println("[Log] Nodes after applying Negated Typicality rule2: \n" + newNode1 + "\n" + newNode2);
 		
 		return conclusions;
 	}

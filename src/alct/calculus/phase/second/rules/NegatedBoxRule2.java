@@ -70,6 +70,7 @@ public class NegatedBoxRule2 extends ALCTRule {
 			newNode.addToABox(new ConceptAssertion(innerConcept,i));
 			newNode.addToABox(computeAdditionalAssertions(ass.getConstant(), i, node));
 			newNode.removeFromKbox(ass);
+			//System.out.println(newNode.getKbox()+"\n");
 			conclusions.add(newNode);
 			
 		}

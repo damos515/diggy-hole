@@ -32,12 +32,12 @@ public class DisjunctionRule extends ALCTRule {
 		
 		for(Assertion comp : node.getAbox()){
 			if(comp.equals(first))
-				firstInAbox = true;
+				return false;//firstInAbox = true;
 			if(comp.equals(second))
-				secondInAbox = true;
+				return false;//secondInAbox = true;
 		}
 		//System.out.println(first + ": " + firstInAbox + ",  " + second + ": " + secondInAbox);
-		return !(firstInAbox || secondInAbox);
+		return true;
 	}
 
 	/* (non-Javadoc)

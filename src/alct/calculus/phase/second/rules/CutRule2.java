@@ -30,8 +30,10 @@ public class CutRule2 extends ALCTRule {
 			for(ALCTFormula concept : node.getTypicalConcepts()){
 				boxedLabel = new ConceptAssertion(new BoxConcept(concept),i);
 				negBoxedLabel = new ConceptAssertion(new Negation(new BoxConcept(concept)),i);
-				if(!(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel)))
-						return true;
+				if(!(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel))){
+					//System.out.println(node.getAbox() + "\n"+boxedLabel + ", " + negBoxedLabel);
+					return true;
+				}
 			}
 		}
 		
@@ -44,7 +46,6 @@ public class CutRule2 extends ALCTRule {
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node) {
 		Set<NodePH2> conclusions = new HashSet<NodePH2>();
-		ConceptAssertion ass = (ConceptAssertion) axiom;
 		Set<Individual> labels = node.getdB();
 		NodePH2 newNode1 = node.clone();
 		NodePH2 newNode2 = node.clone();

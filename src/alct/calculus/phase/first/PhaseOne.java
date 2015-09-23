@@ -60,6 +60,7 @@ public class PhaseOne {
 		initialKB = node.clone();
 		node.addToABox(new ConceptAssertion(new Negation(query.getConcept()), query.getConstant()));
 		node.refreshTypicalConceptSet();
+		System.out.println(node);
 		return hasNoModel(node);
 	}
 	
@@ -114,12 +115,15 @@ public class PhaseOne {
 		
 		
 		System.out.println("\n\nModel found! Checking the following node for minimality");
-		NodePH2 test= new NodePH2(node,initialKB);
+		//NodePH2 test= new NodePH2(node,initialKB);
 		System.out.println(node + "\n");
-		System.out.println(test);
-		System.out.println(node.getSignature());
+		//System.out.println(test);
+		//System.out.println(node.getSignature());
 		//return false;
-		return phaseTwo.isMinimalModel(new NodePH2(node,initialKB));
+		
+		phaseTwo = new PhaseTwo(node);
+		System.out.println("Is minimal Model: " + phaseTwo.isMinimalModel(new NodePH2(node,initialKB)));
+		return !phaseTwo.isMinimalModel(new NodePH2(node,initialKB));
 	}
 
 	private boolean checkForClashes(Set<Assertion> abox) {

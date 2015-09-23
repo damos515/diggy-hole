@@ -30,6 +30,8 @@ public class PhaseTwo {
 	private List<ALCTRule> staticRules2 = new ArrayList<ALCTRule>();
 	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();
 	
+	private NodePH1 initialNode;
+	
 	public PhaseTwo(){
 		//Initialize Ruleset
 		staticRules.add(new ConjunctionRule2());
@@ -50,9 +52,30 @@ public class PhaseTwo {
 		dynamicRules.add(new NegatedBoxRule2());
 	}
 	
+	public PhaseTwo(NodePH1 node){
+		initialNode= node;
+		
+		staticRules.add(new ConjunctionRule2());
+		staticRules.add(new DisjunctionRule2());
+		staticRules.add(new DoubleNegationRule2());
+		staticRules.add(new NegatedConjunctionRule2());
+		staticRules.add(new NegatedDisjunctionRule2());
+		staticRules.add(new ForAllRule2());
+		staticRules.add(new NegatedExistsRule2());
+		staticRules.add(new TypicalityRule2());
+		staticRules.add(new NegatedTypicalityRule2());
+		
+		staticRules2.add(new SubsumptionRule2());
+		staticRules2.add(new CutRule2());
+		
+		dynamicRules.add(new ExistsRule2());
+		dynamicRules.add(new NegatedForAllRule2());
+		dynamicRules.add(new NegatedBoxRule2());
+	}
+	
 	public boolean isMinimalModel(NodePH2 node){
 		if(containsClash(node))
-			return false;
+			return true;
 		for(Assertion temp : node.getAbox()){
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				for(ALCTRule actualRule : staticRules){
@@ -60,7 +83,7 @@ public class PhaseTwo {
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);
 						for(NodePH2 conclusion : conclusions){
-							result = isMinimalModel(conclusion) || result;
+							result = isMinimalModel(conclusion) && result;
 						}
 						return result;
 					}
@@ -72,10 +95,11 @@ public class PhaseTwo {
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				for(ALCTRule actualRule : staticRules2){
 					if(actualRule.isApplicable(temp, node)){
+						//System.out.println(actualRule);
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);
 						for(NodePH2 conclusion : conclusions){
-							result = isMinimalModel(conclusion) || result;
+							result = isMinimalModel(conclusion) && result;
 						}
 						return result;
 					}
@@ -90,7 +114,7 @@ public class PhaseTwo {
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);
 						for(NodePH2 conclusion : conclusions){
-							result = isMinimalModel(conclusion) || result;
+							result = isMinimalModel(conclusion) && result;
 						}
 						return result;
 					}
@@ -98,8 +122,8 @@ public class PhaseTwo {
 			}
 		}
 		//A model preferred to the initial one was found;
-		System.out.println("A preferred model was found! \n"+node);
-		return true;
+		//System.out.println("A preferred model was found! \n" + node.getAbox() + "\nPreferredTo\n" + initialNode.getAbox());
+		return false;
 	}
 
 	private boolean containsClash(NodePH2 node) {
@@ -117,11 +141,15 @@ public class PhaseTwo {
 				}
 			}
 		}
-		if(node.getKbox().isEmpty())
+		if(node.getKbox().isEmpty()){
+			//System.out.println("\n\n\nClash found!");
 			return true;
+		}
 		for(ConceptAssertion c : node.computeNegatedBoxConcepts(node.getAbox())){
-			if(!node.negBoxConceptsContains(c))
+			if(!node.negBoxConceptsContains(c)){
+				//System.out.println("\n\n\nClash found!");
 				return true;
+			}
 		}
 		return false;
 	}

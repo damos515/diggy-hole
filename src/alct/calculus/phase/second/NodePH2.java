@@ -113,12 +113,14 @@ public class NodePH2 extends NodePH1 {
 	}
 	
 	public void removeFromKbox(Assertion ass){
-		for(Assertion comp : getKbox()){
+		Set<ConceptAssertion> newKbox = new HashSet<ConceptAssertion>();
+		for(ConceptAssertion comp : getKbox()){
 			if(comp.equals(ass)){
-				getAbox().remove(comp);
-				break;
+				continue;
 			}
+			newKbox.add(comp);
 		}
+		kbox = newKbox;
 	}
 	
 	public String toString(){
