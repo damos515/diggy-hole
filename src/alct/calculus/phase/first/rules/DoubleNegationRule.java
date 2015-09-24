@@ -46,15 +46,9 @@ public class DoubleNegationRule extends ALCTRule {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();
 		newNode.addToABox(new ConceptAssertion(innerNeg.getInnerConcept(),ass.getConstant()));
 		conclusions.add(newNode);
-		//System.out.println("[Log] Nodes after applying double Negation rule: \n"+newNode);
 		return conclusions;		
 	}
 	
-	public String toString(){
-		return "DOUBLENEGATION";
-	}
-	
-
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
 			throws LanguageException {

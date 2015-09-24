@@ -30,16 +30,7 @@ public class CutRule extends ALCTRule {
 		for(ALCTFormula concept : node.getTypicalConcepts()){
 			boxedLabel = new ConceptAssertion(new BoxConcept(concept),label);
 			negBoxedLabel = new ConceptAssertion(new Negation(new BoxConcept(concept)),label);
-			boolean boxedInAbox = false;
-			boolean negBoxedInAbox = false;
-			
-			for(Assertion comp : node.getAbox()){
-				if(comp.equals(boxedLabel))
-					boxedInAbox = true;
-				if(comp.equals(negBoxedLabel))
-					negBoxedInAbox = true;
-			}
-			applicable = applicable || ((!boxedInAbox)&&(!negBoxedInAbox));
+			applicable = applicable || (!(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel)));
 		}
 		
 		return applicable;
@@ -59,31 +50,16 @@ public class CutRule extends ALCTRule {
 		for(ALCTFormula concept : node.getTypicalConcepts()){
 			boxedLabel = new ConceptAssertion(new BoxConcept(concept),ass.getConstant());
 			negBoxedLabel = new ConceptAssertion(new Negation(new BoxConcept(concept)),ass.getConstant());
-			boolean boxedInAbox = false;
-			boolean negBoxedInAbox = false;
 			
-			for(Assertion comp : node.getAbox()){
-				if(comp.equals(boxedLabel))
-					boxedInAbox = true;
-				if(comp.equals(negBoxedLabel))
-					negBoxedInAbox = true;
-			}
-			if(!boxedInAbox && !negBoxedInAbox){
+			if(!(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel))){
 				newNode1.addToABox(new ConceptAssertion(boxedLabel.getConcept(), ass.getConstant()));
 				newNode2.addToABox(new ConceptAssertion(negBoxedLabel.getConcept(), ass.getConstant()));
-				//System.out.println("[Log] Nodes after applying Cut rule: \n"+newNode1 + "\n" + newNode2);
 				conclusions.add(newNode1);
 				conclusions.add(newNode2);
 				return conclusions;
 			}
 		}
-		//System.out.println("[Warning] Failure while applying cutRule!!!");
 		return null;
-	}
-
-	@Override
-	public String toString() {
-		return "CUT";
 	}
 	
 	@Override

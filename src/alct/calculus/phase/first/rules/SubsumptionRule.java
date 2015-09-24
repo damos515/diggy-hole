@@ -55,13 +55,7 @@ public class SubsumptionRule extends ALCTRule {
 				
 		}
 		conclusions.add(newNode);
-		//System.out.println("[Log] Node after applying SUBSUMPTION rule: \n" + newNode);
 		return conclusions;
-	}
-
-	@Override
-	public String toString() {
-		return "SUBSUMPTION";
 	}
 
 	@Override

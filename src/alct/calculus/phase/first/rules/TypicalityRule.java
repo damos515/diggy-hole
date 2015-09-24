@@ -26,8 +26,7 @@ public class TypicalityRule extends ALCTRule {
 		ConceptAssertion ass = (ConceptAssertion)axiom;
 		if(!ass.getConcept().getOperatorSymbol().equals("T"))
 			return false;
-		ALCTTypicalConcept typicalConcept = (ALCTTypicalConcept)ass.getConcept();
-		
+		ALCTTypicalConcept typicalConcept = (ALCTTypicalConcept)ass.getConcept();		
 		//Check which Assertions are already contained
 		ConceptAssertion boxedConcept = new ConceptAssertion(typicalConcept.getInnerConcept(),ass.getConstant());
 		ConceptAssertion unboxedConcept =  new ConceptAssertion(new BoxConcept(typicalConcept.getInnerConcept()),ass.getConstant());
@@ -38,8 +37,7 @@ public class TypicalityRule extends ALCTRule {
 				boxedtInAbox = true;
 			if(comp.equals(unboxedConcept))
 				unboxedInAbox = true;
-		}
-		
+		}		
 		return !(boxedtInAbox && unboxedInAbox);
 	}
 
@@ -61,13 +59,7 @@ public class TypicalityRule extends ALCTRule {
 		if(!node.aboxContains(unboxedConcept))
 			newNode.addToABox(unboxedConcept);
 		
-
-		//System.out.println("[Log] Node after applying Typicality rule: \n"+newNode);
 		return conclusions;
-	}
-	
-	public String toString(){
-		return "TYPICALITY";
 	}
 
 	@Override

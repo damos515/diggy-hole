@@ -16,6 +16,13 @@ public abstract class DynamicRule extends ALCTRule {
 	@Override
 	public  abstract Set<NodePH1> apply(Axiom ass, NodePH1 node);
 	
+	
+	/**
+	 * Function in order to obtain a new Label for a given KB, while not
+	 * violating the Unique Name Assumption
+	 * @param node
+	 * @return a random label with 6 characters
+	 */
 	public Individual generateIndividual(NodePH1 node){
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		Random stringMaker = new Random();

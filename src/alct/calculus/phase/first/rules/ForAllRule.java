@@ -44,12 +44,14 @@ public class ForAllRule extends ALCTRule {
 		
 		return conclusions;
 	}
-
-	@Override
-	public String toString() {
-		return "FORALL";
-	}
 	
+	/**
+	 * method needed in order to get all Individuals that are in the
+	 * given Relation to the Individual in the given ConceptAssertion
+	 * @param ass
+	 * @param node
+	 * @return
+	 */
 	public Set<Individual> getIndividuals(ConceptAssertion ass, NodePH1 node){
 		ForallConcept forAll = (ForallConcept)ass.getConcept();		
 		Set<Individual> possibleIndividuals = new HashSet<Individual>();

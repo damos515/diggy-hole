@@ -51,11 +51,6 @@ public class NegatedExistsRule extends ALCTRule {
 				new ForallConcept(innerConcept.getRole(),
 						new Negation(innerConcept.getConcept())),ass.getConstant()), node);
 	}
-
-	@Override
-	public String toString() {
-		return "NEGATEDEXISTS";
-	}
 	
 
 	@Override

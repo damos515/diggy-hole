@@ -51,11 +51,6 @@ public class NegatedForAllRule extends DynamicRule {
 	}
 
 	@Override
-	public String toString() {
-		return "NEGATEDFORALL";
-	}
-
-	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
 			throws LanguageException {
 		throw new UnsupportedOperationException("Rule not supported in Phase Two");

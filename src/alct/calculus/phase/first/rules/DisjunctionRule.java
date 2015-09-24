@@ -27,16 +27,10 @@ public class DisjunctionRule extends ALCTRule {
 		ConceptAssertion first = new ConceptAssertion(((Disjunction)ass.getConcept()).get(0),ass.getConstant());
 		ConceptAssertion second =  new ConceptAssertion(((Disjunction)ass.getConcept()).get(1),ass.getConstant());
 		
-		boolean firstInAbox = false;
-		boolean secondInAbox = false;
-		
-		for(Assertion comp : node.getAbox()){
-			if(comp.equals(first))
-				return false;//firstInAbox = true;
-			if(comp.equals(second))
-				return false;//secondInAbox = true;
-		}
-		//System.out.println(first + ": " + firstInAbox + ",  " + second + ": " + secondInAbox);
+		if(node.aboxContains(first))
+			return false;
+		if(node.aboxContains(second))
+			return false;
 		return true;
 	}
 
@@ -47,19 +41,14 @@ public class DisjunctionRule extends ALCTRule {
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		Set<NodePH1> conclusions = new HashSet<NodePH1>();
 		ConceptAssertion ass = (ConceptAssertion) axiom;
+		Disjunction c = (Disjunction)ass.getConcept();
 		NodePH1 newNode1 = node.clone();
 		NodePH1 newNode2 = node.clone();
-		Disjunction c = (Disjunction)ass.getConcept();
 		newNode1.addToABox(new ConceptAssertion(c.get(0), ass.getConstant()));
 		newNode2.addToABox(new ConceptAssertion(c.get(1), ass.getConstant()));
-		//System.out.println("[Log] Nodes after applying Disjunction rule: \n"+newNode1 + "\n" + newNode2);
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
 		return conclusions;
-	}
-	
-	public String toString(){
-		return "DISJUNCTION";
 	}
 
 	@Override

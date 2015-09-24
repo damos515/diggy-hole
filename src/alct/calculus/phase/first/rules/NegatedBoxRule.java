@@ -19,6 +19,9 @@ import alct.concepts.Negation;
 
 public class NegatedBoxRule extends DynamicRule {
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		PreferenceAssertion prefComp;
@@ -47,14 +50,14 @@ public class NegatedBoxRule extends DynamicRule {
 					&& node.aboxContains(comp)
 						&& node.aboxContains(compBox)
 							&& node.aboxContainsAll(computeAdditionalAssertions(ass.getConstant(),i,node)))
-				return false;
-			
-		}
-		
-		
+				return false;			
+		}		
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.apply()
+	 */
 	@Override
 	public Set<NodePH1> apply(Axiom axiom, NodePH1 node) {
 		//Initializing
@@ -84,13 +87,16 @@ public class NegatedBoxRule extends DynamicRule {
 			conclusions.add(newNode);
 			
 		}
-		//System.out.println("[Log] Nodes after applying NegBox Rule: ");
-		//for(NodePH1 conc : conclusions){
-		//	System.out.println(conc);
-		//}
 		return conclusions;
 	}
 	
+	/**
+	 * Method that returns a Set equivalent to Giordanos S^M-Set
+	 * @param premise
+	 * @param conclusion
+	 * @param node
+	 * @return
+	 */
 	private Set<ConceptAssertion> computeAdditionalAssertions(Individual premise, Individual conclusion, NodePH1 node){
 		Set<ConceptAssertion> assertionsToAdd = new HashSet<ConceptAssertion>();
 		for(ALCTFormula f : node.getBoxedConcepts(premise)){
@@ -98,11 +104,6 @@ public class NegatedBoxRule extends DynamicRule {
 			assertionsToAdd.add(new ConceptAssertion(new BoxConcept(f),conclusion));
 		}
 		return assertionsToAdd;
-	}
-
-	@Override
-	public String toString() {
-		return "NEGATEDBOX";
 	}
 	
 

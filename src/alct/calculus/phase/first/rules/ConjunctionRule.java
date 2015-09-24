@@ -47,13 +47,8 @@ public class ConjunctionRule extends ALCTRule {
 			newNode.addToABox(new ConceptAssertion(c.get(0), ((ConceptAssertion)ass).getConstant()));
 		if(!node.aboxContains(second))
 			newNode.addToABox(new ConceptAssertion(c.get(1), ((ConceptAssertion)ass).getConstant()));
-		//System.out.println("[Log] Node after applying Conjunction rule: \n"+newNode);
 		conclusions.add(newNode);
 		return conclusions;
-	}
-	
-	public String toString(){
-		return "CONJUNCTION";
 	}
 
 	@Override

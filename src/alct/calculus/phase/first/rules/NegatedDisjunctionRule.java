@@ -60,14 +60,8 @@ public class NegatedDisjunctionRule extends ALCTRule {
 			newNode.addToABox(first);
 		if(!node.aboxContains(second))
 			newNode.addToABox(second);
-		//System.out.println("[Log] Node after applying negated Disjunction rule: \n"+newNode);
 		conclusions.add(newNode);
 		return conclusions;
-	}
-
-	@Override
-	public String toString() {
-		return "NEGATEDDISJUNCTION";
 	}
 	
 	@Override

@@ -48,21 +48,11 @@ public class NegatedTypicalityRule extends ALCTRule {
 		NodePH1 newNode2 = node.clone();
 		Negation neg = (Negation)ass.getConcept();
 		ALCTTypicalConcept typicalConcept = (ALCTTypicalConcept)neg.getInnerConcept();
-		
 		newNode1.addToABox(new ConceptAssertion(new Negation(typicalConcept.getInnerConcept()),ass.getConstant()));
 		newNode2.addToABox(new ConceptAssertion(new Negation(new BoxConcept(typicalConcept.getInnerConcept())),ass.getConstant()));
-		
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
-		
-		//System.out.println("[Log] Nodes after applying Negated Typicality rule: \n" + newNode1 + "\n" + newNode2);
-		
 		return conclusions;
-	}
-
-	@Override
-	public String toString() {
-		return "NEGATEDTYPICALITY";
 	}
 
 	@Override
