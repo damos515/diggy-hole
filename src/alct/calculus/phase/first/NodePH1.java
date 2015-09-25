@@ -30,10 +30,8 @@ public class NodePH1 implements BeliefBase {
 	private Set<ALCTFormula> typicalConcepts;
 	private PreferenceOrder<Individual> temporalOrdering;
 
-	public Set<ALCTFormula> getTypicalConcepts() {
-		return typicalConcepts;
-	}
-
+	//Constructors
+	
 	public NodePH1(){
 		tbox = new HashSet<Subsumption>();
 		abox = new HashSet<Assertion>();
@@ -41,10 +39,6 @@ public class NodePH1 implements BeliefBase {
 		temporalOrdering = new PreferenceOrder<Individual>();
 	}
 	
-	public void setTypicalConcepts(Set<ALCTFormula> typicalConcepts) {
-		this.typicalConcepts = typicalConcepts;
-	}
-
 	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTFormula> typicalConcepts, PreferenceOrder<Individual> temporalOrdering){
 		this.tbox=tbox;
 		this.abox=abox;
@@ -52,18 +46,9 @@ public class NodePH1 implements BeliefBase {
 		this.temporalOrdering = temporalOrdering;
 	}
 	
-	public NodePH1 clone(){
-		Set<Subsumption> newTBox = new HashSet<Subsumption>();
-		Set<Assertion> newABox = new HashSet<Assertion>();
-		for(Subsumption s : tbox){
-			newTBox.add(s.clone());
-		}
-		for(Assertion a : abox){
-			newABox.add(a.clone());
-		}
-		return new NodePH1(newTBox, newABox, this.typicalConcepts, this.temporalOrdering);		
-	}
-	
+	/**
+	 * @return all concepts that appear as extended concepts in this node
+	 */
 	public Set<ALCTFormula> computeTypicalConceptSet(){
 		boolean contained = false;
 		Set<ALCTFormula> lt = new HashSet<ALCTFormula>();
@@ -98,11 +83,14 @@ public class NodePH1 implements BeliefBase {
 				}
 		}
 
-		//System.out.println(lt);
 		return lt;
 		
 	}
 	
+	/**
+	 * introduces a new label in the preference ordering
+	 * @param i
+	 */
 	public void insertIntoOrdering(Individual i){
 		if(temporalOrdering.isEmpty())
 			firstInsert(i);
@@ -117,6 +105,12 @@ public class NodePH1 implements BeliefBase {
 		}
 	}
 	
+	/**
+	 * checks if the first individual is a witness of the second individual
+	 * @param witness
+	 * @param actual
+	 * @return
+	 */
 	public boolean isWitnessOf(Individual witness, Individual actual){
 		if(witness.equals(actual))
 			return false;
@@ -127,7 +121,10 @@ public class NodePH1 implements BeliefBase {
 		return true;
 	}
 	
-	public boolean areEquivalent(Individual first, Individual second){
+	/**
+	 * checks if two individuals label the same concepts
+	 */
+	private boolean areEquivalent(Individual first, Individual second){
 		boolean result = true;
 		boolean contains = false;
 		Set<ALCTFormula> firstConcepts = new HashSet<ALCTFormula>();
@@ -172,6 +169,14 @@ public class NodePH1 implements BeliefBase {
 		this.tbox = tbox;
 	}
 
+	public Set<ALCTFormula> getTypicalConcepts() {
+		return typicalConcepts;
+	}
+
+	public void setTypicalConcepts(Set<ALCTFormula> typicalConcepts) {
+		this.typicalConcepts = typicalConcepts;
+	}
+
 	public void addToTBox(Subsumption sub){
 		tbox.add(sub);
 	}
@@ -204,6 +209,23 @@ public class NodePH1 implements BeliefBase {
 		return s + "]";
 	}
 	
+	//Methods
+	
+	/**
+	 * returns a deep copy of this node
+	 */
+	public NodePH1 clone(){
+		Set<Subsumption> newTBox = new HashSet<Subsumption>();
+		Set<Assertion> newABox = new HashSet<Assertion>();
+		for(Subsumption s : tbox){
+			newTBox.add(s.clone());
+		}
+		for(Assertion a : abox){
+			newABox.add(a.clone());
+		}
+		return new NodePH1(newTBox, newABox, this.typicalConcepts, this.temporalOrdering);		
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public ALCTSignature getSignature() {
@@ -258,6 +280,10 @@ public class NodePH1 implements BeliefBase {
 		return true;
 	}
 	
+	/**
+	 * @param i
+	 * @return all concepts that appear in a boxconcept
+	 */
 	public Set<ALCTFormula> getBoxedConcepts(Individual i){
 		Set<ALCTFormula> boxedConcepts = new HashSet<ALCTFormula>();
 		for(Assertion ass : abox){

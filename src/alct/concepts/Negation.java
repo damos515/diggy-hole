@@ -18,6 +18,9 @@ public class Negation extends ALCTFormula {
 		this.alctFormula = formula;
 	}
 	
+	/**
+	 * returns a deep copy of this Negation
+	 */
 	public ALCTFormula clone(){
 		return new Negation((ALCTFormula) alctFormula.clone());
 	}

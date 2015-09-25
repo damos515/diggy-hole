@@ -21,6 +21,8 @@ public class Subsumption extends Axiom {
 	private ALCTFormula subsumed;
 	private Set<Individual> appliedLabels;
 	
+	//Constructors
+	
 	public Subsumption(ALCTFormula subsuming, ALCTFormula subsumed){
 		if(!isValidSubsuming(subsuming))
 			throw new IllegalArgumentException("Syntax Error - Not a valid Subsumption");
@@ -37,10 +39,8 @@ public class Subsumption extends Axiom {
 		this.appliedLabels = appliedLabels;
 	}
 	
-	public Subsumption clone(){
-		return new Subsumption(subsuming.clone(), subsumed.clone(), new HashSet<Individual>(appliedLabels));
-	}
-
+	//Methods
+	
 	private boolean isValidSubsuming(ALCTFormula subsuming) {
 		if(subsuming.getOperatorSymbol() == "T"){
 			return false;
@@ -48,10 +48,6 @@ public class Subsumption extends Axiom {
 		return true;
 	}
 	
-	public String toString(){
-		return subsuming + " subsuming " + subsumed;
-	}
-
 	public Set<Individual> getAppliedLabels(){
 		return appliedLabels;
 	}
@@ -85,6 +81,19 @@ public class Subsumption extends Axiom {
 		Set<ALCTAtomicConcept> subsumingAtoms = (Set<ALCTAtomicConcept>)subsuming.getAtoms();
 		subsumingAtoms.addAll((Set<ALCTAtomicConcept>)subsumed.getAtoms());
 		return subsumingAtoms;
+	}
+
+	//Methods
+	
+	public String toString(){
+		return subsuming + " subsuming " + subsumed;
+	}
+
+	/**
+	 * returns a deep copy of this subsumption
+	 */
+	public Subsumption clone(){
+		return new Subsumption(subsuming.clone(), subsumed.clone(), new HashSet<Individual>(appliedLabels));
 	}
 	
 	

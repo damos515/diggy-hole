@@ -67,7 +67,7 @@ public class RoleAssertion extends Assertion {
 
 	@Override
 	public ALCTFormula getConcept() throws LanguageException {
-		throw new UnsupportedOperationException("Error");
+		throw new UnsupportedOperationException("Error - Operation not supported for Role Assertions");
 	}
 	
 	public Role getRole() {

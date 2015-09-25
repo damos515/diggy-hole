@@ -37,12 +37,12 @@ public class PreferenceAssertion extends Assertion {
 
 	@Override
 	public Role getRole() throws LanguageException {
-		throw new UnsupportedOperationException("Error");
+		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
 	}
 
 	@Override
 	public ALCTFormula getConcept() throws LanguageException {
-		throw new UnsupportedOperationException("Error");
+		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
 	}
 
 	@Override

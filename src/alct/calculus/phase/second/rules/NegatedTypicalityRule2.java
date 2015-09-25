@@ -15,7 +15,9 @@ import alct.concepts.Negation;
 
 public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 
-	
+	/* (non-Javadoc)
+	 * @see alct.util.ALCTRule.isApplicable()
+	 */
 	@Override
 	public boolean isApplicable(Axiom axiom, NodePH1 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
@@ -40,15 +42,10 @@ public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 		newNode2.removeFromAbox(ass);
 		Negation neg = (Negation)ass.getConcept();
 		ALCTTypicalConcept typicalConcept = (ALCTTypicalConcept)neg.getInnerConcept();
-		
 		newNode1.addToABox(new ConceptAssertion(new Negation(typicalConcept.getInnerConcept()),ass.getConstant()));
 		newNode2.addToABox(new ConceptAssertion(new Negation(new BoxConcept(typicalConcept.getInnerConcept())),ass.getConstant()));
-		
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
-		
-		//System.out.println("[Log] Nodes after applying Negated Typicality rule2: \n" + newNode1 + "\n" + newNode2);
-		
 		return conclusions;
 	}
 	

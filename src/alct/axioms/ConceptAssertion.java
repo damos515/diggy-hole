@@ -58,7 +58,7 @@ public class ConceptAssertion extends Assertion {
 
 	@Override
 	public Role getRole() throws LanguageException{
-		throw new UnsupportedOperationException("Error");
+		throw new UnsupportedOperationException("Error - Operation not supported for Concept Assertions");
 	}
 	
 	@Override
