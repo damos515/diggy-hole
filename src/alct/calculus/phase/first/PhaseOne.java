@@ -7,6 +7,7 @@ import java.util.Set;
 import net.sf.tweety.logics.commons.LogicalSymbols;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
+import alct.calculus.phase.first.rules.ALCTRule;
 import alct.calculus.phase.first.rules.ConjunctionRule;
 import alct.calculus.phase.first.rules.CutRule;
 import alct.calculus.phase.first.rules.DisjunctionRule;
@@ -23,7 +24,6 @@ import alct.calculus.phase.first.rules.TypicalityRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.calculus.phase.second.PhaseTwo;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class PhaseOne {
 	

@@ -13,13 +13,13 @@ import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
 
-public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
+public class NegatedTypicalityRule2 extends ALCTRule2 {
 
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.isApplicable()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.isApplicable()
 	 */
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
 		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
 			return false;
@@ -31,7 +31,7 @@ public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 	}
 	
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.apply()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.apply()
 	 */
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node) {
 		Set<NodePH2> conclusions = new HashSet<NodePH2>();
@@ -47,11 +47,6 @@ public class NegatedTypicalityRule2 extends NegatedTypicalityRule {
 		conclusions.add(newNode1);
 		conclusions.add(newNode2);
 		return conclusions;
-	}
-	
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node){
-		throw new UnsupportedOperationException("Rule not supported in Phase One");
 	}
 	
 }

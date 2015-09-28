@@ -13,7 +13,6 @@ import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class NegatedTypicalityRule extends ALCTRule {
 

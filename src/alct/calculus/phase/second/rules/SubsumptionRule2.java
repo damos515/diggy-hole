@@ -15,13 +15,13 @@ import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;
 
-public class SubsumptionRule2 extends SubsumptionRule {
+public class SubsumptionRule2 extends ALCTRule2 {
 	
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.isApplicable()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.isApplicable()
 	 */
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		NodePH2 actual = (NodePH2) node;
 		for(Individual i : actual.getdB()){
 			for(Subsumption sub : node.getTbox()){			
@@ -34,7 +34,7 @@ public class SubsumptionRule2 extends SubsumptionRule {
 	}
 
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.apply()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.apply()
 	 */
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node) {
@@ -57,18 +57,6 @@ public class SubsumptionRule2 extends SubsumptionRule {
 			}
 		}
 		conclusions.add(newNode);
-		//System.out.println("[Log] Node after applying SUBSUMPTION2 rule: \n" + newNode);
 		return conclusions;
-	}
-
-	@Override
-	public String toString() {
-		return "SUBSUMPTION";
-	}
-
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
-			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase Two");
 	}
 }

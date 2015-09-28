@@ -1,4 +1,4 @@
-package alct.util;
+package alct.calculus.phase.first.rules;
 
 import java.util.Collection;
 import java.util.Set;

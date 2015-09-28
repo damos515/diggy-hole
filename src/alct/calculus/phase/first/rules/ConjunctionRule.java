@@ -11,7 +11,6 @@ import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Conjunction;
-import alct.util.ALCTRule;
 
 public class ConjunctionRule extends ALCTRule {
 

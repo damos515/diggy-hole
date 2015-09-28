@@ -8,22 +8,18 @@ import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
-import alct.axioms.PreferenceAssertion;
-import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTFormula;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
-public class NegatedBoxRule2 extends ALCTRule {
+public class NegatedBoxRule2 extends ALCTRule2 {
 
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 actual) {
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		ConceptAssertion comp;
 		ConceptAssertion compBox;
 		ConceptAssertion ass = (ConceptAssertion) axiom;
-		NodePH2 node = (NodePH2) actual;
 		//Verifying Negation as outer Concept
 		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
 			return false;
@@ -70,14 +66,9 @@ public class NegatedBoxRule2 extends ALCTRule {
 			newNode.addToABox(new ConceptAssertion(innerConcept,i));
 			newNode.addToABox(computeAdditionalAssertions(ass.getConstant(), i, node));
 			newNode.removeFromKbox(ass);
-			//System.out.println(newNode.getKbox()+"\n");
 			conclusions.add(newNode);
 			
 		}
-		//System.out.println("[Log] Nodes after applying NegBox Rule: ");
-		//for(NodePH1 conc : conclusions){
-		//	System.out.println(conc);
-		//}
 		return conclusions;
 	}
 	
@@ -88,12 +79,6 @@ public class NegatedBoxRule2 extends ALCTRule {
 			assertionsToAdd.add(new ConceptAssertion(new BoxConcept(f),conclusion));
 		}
 		return assertionsToAdd;
-	}
-
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
-			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase one");
 	}
 
 }

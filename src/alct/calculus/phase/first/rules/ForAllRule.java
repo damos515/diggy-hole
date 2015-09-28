@@ -13,7 +13,6 @@ import alct.axioms.RoleAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ForallConcept;
-import alct.util.ALCTRule;
 
 public class ForAllRule extends ALCTRule {
 

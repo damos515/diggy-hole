@@ -11,7 +11,6 @@ import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ExistsConcept;
 import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class NegatedExistsRule extends ALCTRule {
 	

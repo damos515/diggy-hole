@@ -14,7 +14,6 @@ import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class NegatedConjunctionRule extends ALCTRule {
 

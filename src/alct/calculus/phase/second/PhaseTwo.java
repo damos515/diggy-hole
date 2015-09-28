@@ -8,6 +8,7 @@ import net.sf.tweety.logics.commons.LogicalSymbols;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.second.rules.ALCTRule2;
 import alct.calculus.phase.second.rules.ConjunctionRule2;
 import alct.calculus.phase.second.rules.CutRule2;
 import alct.calculus.phase.second.rules.DisjunctionRule2;
@@ -23,12 +24,11 @@ import alct.calculus.phase.second.rules.NegatedTypicalityRule2;
 import alct.calculus.phase.second.rules.SubsumptionRule2;
 import alct.calculus.phase.second.rules.TypicalityRule2;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class PhaseTwo {
-	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
-	private List<ALCTRule> staticRules2 = new ArrayList<ALCTRule>();
-	private List<ALCTRule> dynamicRules = new ArrayList<ALCTRule>();
+	private List<ALCTRule2> staticRules = new ArrayList<ALCTRule2>();
+	private List<ALCTRule2> staticRules2 = new ArrayList<ALCTRule2>();
+	private List<ALCTRule2> dynamicRules = new ArrayList<ALCTRule2>();
 	
 	private NodePH1 initialNode;
 	
@@ -78,7 +78,7 @@ public class PhaseTwo {
 			return true;
 		for(Assertion temp : node.getAbox()){
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				for(ALCTRule actualRule : staticRules){
+				for(ALCTRule2 actualRule : staticRules){
 					if(actualRule.isApplicable(temp, node)){
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);
@@ -93,7 +93,7 @@ public class PhaseTwo {
 		//Apply Cut Rule after standard rules for testing purposes
 		for(Assertion temp : node.getAbox()){
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				for(ALCTRule actualRule : staticRules2){
+				for(ALCTRule2 actualRule : staticRules2){
 					if(actualRule.isApplicable(temp, node)){
 						//System.out.println(actualRule);
 						boolean result = true;
@@ -109,7 +109,7 @@ public class PhaseTwo {
 		//Apply dynamic Rules
 		for(Assertion temp : node.getAbox()){
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
-				for(ALCTRule actualRule : dynamicRules){
+				for(ALCTRule2 actualRule : dynamicRules){
 					if(actualRule.isApplicable(temp, node)){
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);

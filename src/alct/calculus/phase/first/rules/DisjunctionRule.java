@@ -12,7 +12,6 @@ import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
-import alct.util.ALCTRule;
 
 public class DisjunctionRule extends ALCTRule {
 

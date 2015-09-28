@@ -10,29 +10,26 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.RoleAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.first.rules.ALCTRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ExistsConcept;
-import alct.util.ALCTRule;
 
-public class ExistsRule2 extends ALCTRule {
+public class ExistsRule2 extends ALCTRule2 {
 
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.isApplicable()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.isApplicable()
 	 */
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
 		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.EXISTSQUANTIFIER()))
 			return false;			
 		return true;
 	}
 
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
-			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase One");
-	}
-
+	/* (non-Javadoc)
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.apply()
+	 */
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
 			throws LanguageException {

@@ -14,7 +14,6 @@ import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Conjunction;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class TypicalityRule extends ALCTRule {
 

@@ -7,13 +7,13 @@ import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.first.rules.ALCTRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ExistsConcept;
 import alct.concepts.ForallConcept;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
-public class NegatedForAllRule2 extends ALCTRule {
+public class NegatedForAllRule2 extends ALCTRule2 {
 	
 	private ExistsRule2 existsRule2;
 	
@@ -21,8 +21,11 @@ public class NegatedForAllRule2 extends ALCTRule {
 		existsRule2 = new ExistsRule2();
 	}
 
+	/* (non-Javadoc)
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.isApplicable()
+	 */
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 node) {
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		ConceptAssertion ass = (ConceptAssertion) axiom;
 		if(!ass.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
 			return false;
@@ -34,13 +37,10 @@ public class NegatedForAllRule2 extends ALCTRule {
 				new ExistsConcept(innerConcept.getRole(),
 						new Negation(innerConcept.getConcept())),ass.getConstant()), node);
 	}
-
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
-			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase one");
-	}
-
+	
+	/* (non-Javadoc)
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.apply()
+	 */
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node)
 			throws LanguageException {

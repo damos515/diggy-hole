@@ -12,7 +12,6 @@ import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
 public class SubsumptionRule extends ALCTRule {
 

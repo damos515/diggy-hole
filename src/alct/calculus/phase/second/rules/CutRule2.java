@@ -9,20 +9,19 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
+import alct.calculus.phase.first.rules.ALCTRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTFormula;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
-import alct.util.ALCTRule;
 
-public class CutRule2 extends ALCTRule {
+public class CutRule2 extends ALCTRule2 {
 
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.isApplicable()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.isApplicable()
 	 */
 	@Override
-	public boolean isApplicable(Axiom axiom, NodePH1 actual) {
-		NodePH2 node = (NodePH2) actual;
+	public boolean isApplicable(Axiom axiom, NodePH2 node) {
 		Set<Individual> labels = node.getdB();
 		ConceptAssertion boxedLabel;
 		ConceptAssertion negBoxedLabel;
@@ -41,7 +40,7 @@ public class CutRule2 extends ALCTRule {
 	}
 
 	/* (non-Javadoc)
-	 * @see alct.util.ALCTRule.apply()
+	 * @see alct.calculus.phase.second.rules.ALCTRule2.apply()
 	 */
 	@Override
 	public Set<NodePH2> apply(Axiom axiom, NodePH2 node) {
@@ -67,17 +66,6 @@ public class CutRule2 extends ALCTRule {
 		}
 		//System.out.println("[Warning] Failure while applying cutRule!!!");
 		return null;
-	}
-
-	@Override
-	public String toString() {
-		return "CUT";
-	}
-	
-	@Override
-	public Set<NodePH1> apply(Axiom axiom, NodePH1 node)
-			throws LanguageException {
-		throw new UnsupportedOperationException("Rule not supported in Phase One");
 	}
 	
 }
