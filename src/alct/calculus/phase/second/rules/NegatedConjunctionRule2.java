@@ -6,13 +6,8 @@ import java.util.Set;
 import net.sf.tweety.logics.commons.LogicalSymbols;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
-import alct.calculus.phase.first.NodePH1;
-import alct.calculus.phase.first.rules.DisjunctionRule;
-import alct.calculus.phase.first.rules.NegatedConjunctionRule;
 import alct.calculus.phase.second.NodePH2;
-import alct.concepts.ALCTFormula;
 import alct.concepts.Conjunction;
-import alct.concepts.Disjunction;
 import alct.concepts.Negation;
 
 public class NegatedConjunctionRule2 extends ALCTRule2 {

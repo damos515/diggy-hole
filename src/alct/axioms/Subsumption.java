@@ -6,7 +6,6 @@ import java.util.Set;
 import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 
 /**

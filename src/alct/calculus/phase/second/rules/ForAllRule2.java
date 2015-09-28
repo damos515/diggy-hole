@@ -10,7 +10,6 @@ import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.RoleAssertion;
 import alct.calculus.phase.first.NodePH1;
-import alct.calculus.phase.first.rules.ForAllRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ForallConcept;
 

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import net.sf.tweety.commons.Signature;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
 
 /**

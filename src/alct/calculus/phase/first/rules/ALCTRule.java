@@ -1,13 +1,9 @@
 package alct.calculus.phase.first.rules;
 
-import java.util.Collection;
 import java.util.Set;
 
-import alct.axioms.Assertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
-import net.sf.tweety.commons.Signature;
-import net.sf.tweety.commons.util.rules.Rule;
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 

@@ -3,14 +3,11 @@ package alct.calculus.phase.second.rules;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.Subsumption;
-import alct.calculus.phase.first.NodePH1;
-import alct.calculus.phase.first.rules.SubsumptionRule;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;

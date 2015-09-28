@@ -12,7 +12,6 @@ import alct.concepts.BoxConcept;
 import alct.util.ALCTSignature;
 import alct.util.Role;
 import net.sf.tweety.commons.BeliefBase;
-import net.sf.tweety.commons.Signature;
 import net.sf.tweety.commons.util.Triple;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.preferences.PreferenceOrder;

@@ -6,7 +6,6 @@ import java.util.Set;
 import net.sf.tweety.logics.commons.LogicalSymbols;
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.dl.syntax.Axiom;
-import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;

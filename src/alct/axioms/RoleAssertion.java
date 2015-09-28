@@ -6,8 +6,6 @@ import java.util.Set;
 import net.sf.tweety.commons.util.Pair;
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
-import alct.concepts.ALCTAtomicConcept;
 import alct.concepts.ALCTFormula;
 import alct.util.Role;
 

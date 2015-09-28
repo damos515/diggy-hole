@@ -30,7 +30,7 @@ public class PhaseTwo {
 	private List<ALCTRule2> staticRules2 = new ArrayList<ALCTRule2>();
 	private List<ALCTRule2> dynamicRules = new ArrayList<ALCTRule2>();
 	
-	private NodePH1 initialNode;
+	//private NodePH1 initialNode;
 	
 	public PhaseTwo(){
 		//Initialize Ruleset
@@ -53,7 +53,7 @@ public class PhaseTwo {
 	}
 	
 	public PhaseTwo(NodePH1 node){
-		initialNode= node;
+		//initialNode= node;
 		
 		staticRules.add(new ConjunctionRule2());
 		staticRules.add(new DisjunctionRule2());
