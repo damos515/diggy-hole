@@ -4,21 +4,21 @@ import java.util.Set;
 
 import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
 
-public class BoxConcept extends ALCTFormula {
+public class BoxConcept extends ALCTConcept {
 
-	private ALCTFormula formula;
+	private ALCTConcept formula;
 	
-	public BoxConcept(ALCTFormula formula){
+	public BoxConcept(ALCTConcept formula){
 		this.formula = formula;		
 	}
 	
-	public ALCTFormula getInnerConcept(){
+	public ALCTConcept getInnerConcept(){
 		return this.formula;
 	}
 	
 	@Override
-	public ALCTFormula clone(){
-		return new BoxConcept((ALCTFormula) formula.clone());
+	public ALCTConcept clone(){
+		return new BoxConcept((ALCTConcept) formula.clone());
 	}
 	
 	public String toString(){
@@ -54,7 +54,7 @@ public class BoxConcept extends ALCTFormula {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return formula;
 	}
 

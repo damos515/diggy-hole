@@ -2,7 +2,7 @@ package alct.axioms;
 
 import java.util.Set;
 
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.util.Role;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
@@ -28,7 +28,7 @@ public abstract class Assertion extends Axiom {
 	
 	public abstract Role getRole();
 	
-	public abstract ALCTFormula getConcept();
+	public abstract ALCTConcept getConcept();
 	
 	@Override
 	public abstract Assertion clone();

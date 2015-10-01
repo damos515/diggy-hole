@@ -17,7 +17,7 @@ import net.sf.tweety.logics.commons.syntax.interfaces.Term;
  *
  */
 
-public class ALCTAtomicConcept extends ALCTFormula implements Atom {
+public class ALCTAtomicConcept extends ALCTConcept implements Atom {
 	
 	private Concept concept;
 	
@@ -29,7 +29,7 @@ public class ALCTAtomicConcept extends ALCTFormula implements Atom {
 		this.concept = new Concept(name);
 	}
 	
-	public ALCTFormula clone(){
+	public ALCTConcept clone(){
 		return new ALCTAtomicConcept(concept.getName());
 	}
 
@@ -116,7 +116,7 @@ public class ALCTAtomicConcept extends ALCTFormula implements Atom {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return this;
 	}
 	

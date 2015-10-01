@@ -10,7 +10,7 @@ import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.first.PhaseOne;
 import alct.calculus.phase.second.NodePH2;
 import alct.concepts.ALCTAtomicConcept;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.ALCTTypicalConcept;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
@@ -108,13 +108,13 @@ public class HelloWorld {
 		ALCTAtomicConcept a = new ALCTAtomicConcept("vogel");
 		//System.out.println(a);
 		//-->Negation
-		ALCTFormula f = new alct.concepts.Negation(a);
+		ALCTConcept f = new alct.concepts.Negation(a);
 		//System.out.println(f);
 		//System.out.println(f.getAtoms());
 		//--->Conjunction
-		ALCTFormula g = new alct.concepts.Conjunction(a, f);
+		ALCTConcept g = new alct.concepts.Conjunction(a, f);
 		//System.out.println(g);
-		HashSet<ALCTFormula> test = new HashSet<ALCTFormula>();
+		HashSet<ALCTConcept> test = new HashSet<ALCTConcept>();
 		test.add(a);
 		test.add(new alct.concepts.Negation(new ALCTAtomicConcept("hai")));
 		test.add(new ALCTAtomicConcept("fisch"));
@@ -123,27 +123,27 @@ public class HelloWorld {
 		//System.out.println(g.getAtoms());
 		//System.out.println(((Conjunction)g).get(1).getOperatorSymbol());
 		//-->Disjunction
-		ALCTFormula h = new alct.concepts.Disjunction(g, a);
+		ALCTConcept h = new alct.concepts.Disjunction(g, a);
 		//System.out.println(h);
 		//System.out.println(h.getOperatorSymbol());
 		//System.out.println(((alct.concepts.Disjunction)h).get(0).getOperatorSymbol());
 		//-->TypicalConcept
-		ALCTFormula j = new ALCTTypicalConcept(g);
+		ALCTConcept j = new ALCTTypicalConcept(g);
 		//System.out.println(j);
 		//System.out.println(j.getOperatorSymbol());
 		try{
-			ALCTFormula failure = new Conjunction(j, h);
+			ALCTConcept failure = new Conjunction(j, h);
 			//System.out.println(failure);
 		} catch (IllegalArgumentException e){/*System.err.println(e.getMessage());*/}
 		try{
-			ALCTFormula failure = new ExistsConcept(new Role("Sitzpartner"), j);
+			ALCTConcept failure = new ExistsConcept(new Role("Sitzpartner"), j);
 			//System.out.println(failure);
 		} catch (IllegalArgumentException e2){/*System.err.println(e.getMessage());*/}
-		ALCTFormula k = new alct.concepts.ForallConcept(new Role("test"), a);
+		ALCTConcept k = new alct.concepts.ForallConcept(new Role("test"), a);
 		//System.out.println(k);
 		//System.out.println(k.getOperatorSymbol());
 
-		ALCTFormula c = new alct.concepts.Conjunction(a, f);
+		ALCTConcept c = new alct.concepts.Conjunction(a, f);
 		
 		//---------------------------------//
 		//---AssertionConstruction Tests---//
@@ -226,9 +226,9 @@ public class HelloWorld {
 		
 		//System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new Negation(new ALCTAtomicConcept("P")),tweety)));
 		
-		//System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new Negation(new ALCTAtomicConcept("Confident")), tweety)));
+		System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new Negation(new ALCTAtomicConcept("Confident")), tweety)));
 		
-		System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new ALCTAtomicConcept("Confident"), tweety)));
+		//System.out.println(solver.instanceCheck(firstNode, new ConceptAssertion(new ALCTAtomicConcept("Confident"), tweety)));
 
 		
 	}

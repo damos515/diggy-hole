@@ -11,15 +11,15 @@ import alct.util.Role;
 
 public class ForallConcept extends ALCTQuantifiedFormula {
 	
-	public ForallConcept(Role r, ALCTFormula c){
+	public ForallConcept(Role r, ALCTConcept c){
 		if(c.isExtendedConcept())
 			throw new IllegalArgumentException("Error - Concept must not be extended");
 		this.setRole(r);
 		this.setConcept(c);
 	}
 	
-	public ALCTFormula clone(){
-		return new ForallConcept(this.getRole(),(ALCTFormula) this.getConcept());
+	public ALCTConcept clone(){
+		return new ForallConcept(this.getRole(),(ALCTConcept) this.getConcept());
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class ForallConcept extends ALCTQuantifiedFormula {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return this;
 	}
 

@@ -10,21 +10,21 @@ import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
  * @author Hendrik Miller
  *
  */
-public class ALCTTypicalConcept extends ALCTFormula {
+public class ALCTTypicalConcept extends ALCTConcept {
 	
-	private ALCTFormula formula;
+	private ALCTConcept formula;
 	
-	public ALCTTypicalConcept(ALCTFormula formula){
+	public ALCTTypicalConcept(ALCTConcept formula){
 		this.formula = formula;		
 	}
 	
-	public ALCTFormula getInnerConcept(){
+	public ALCTConcept getInnerConcept(){
 		return this.formula;
 	}
 	
 	@Override
-	public ALCTFormula clone(){
-		return new ALCTTypicalConcept((ALCTFormula) formula.clone());
+	public ALCTConcept clone(){
+		return new ALCTTypicalConcept((ALCTConcept) formula.clone());
 	}
 	
 	public String toString(){
@@ -60,7 +60,7 @@ public class ALCTTypicalConcept extends ALCTFormula {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return formula;
 	}
 

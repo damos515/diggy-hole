@@ -9,7 +9,7 @@ import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.second.NodePH2;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
 
@@ -74,7 +74,7 @@ public class NegatedBoxRule2 extends ALCTRule2 {
 	
 	private Set<ConceptAssertion> computeAdditionalAssertions(Individual premise, Individual conclusion, NodePH2 node){
 		Set<ConceptAssertion> assertionsToAdd = new HashSet<ConceptAssertion>();
-		for(ALCTFormula f : node.getBoxedConcepts(premise)){
+		for(ALCTConcept f : node.getBoxedConcepts(premise)){
 			assertionsToAdd.add(new ConceptAssertion(new Negation(f),conclusion));
 			assertionsToAdd.add(new ConceptAssertion(new BoxConcept(f),conclusion));
 		}

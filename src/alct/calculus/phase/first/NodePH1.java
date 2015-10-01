@@ -7,7 +7,7 @@ import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.Subsumption;
 import alct.concepts.ALCTAtomicConcept;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.BoxConcept;
 import alct.util.ALCTSignature;
 import alct.util.Role;
@@ -26,7 +26,7 @@ public class NodePH1 implements BeliefBase {
 	
 	private Set<Subsumption> tbox;
 	private Set<Assertion> abox;
-	private Set<ALCTFormula> typicalConcepts;
+	private Set<ALCTConcept> typicalConcepts;
 	private PreferenceOrder<Individual> temporalOrdering;
 
 	//Constructors
@@ -38,7 +38,7 @@ public class NodePH1 implements BeliefBase {
 		temporalOrdering = new PreferenceOrder<Individual>();
 	}
 	
-	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTFormula> typicalConcepts, PreferenceOrder<Individual> temporalOrdering){
+	public NodePH1(Set<Subsumption> tbox, Set<Assertion> abox, Set<ALCTConcept> typicalConcepts, PreferenceOrder<Individual> temporalOrdering){
 		this.tbox=tbox;
 		this.abox=abox;
 		this.typicalConcepts = typicalConcepts;
@@ -48,9 +48,9 @@ public class NodePH1 implements BeliefBase {
 	/**
 	 * @return all concepts that appear as extended concepts in this node
 	 */
-	public Set<ALCTFormula> computeTypicalConceptSet(){
+	public Set<ALCTConcept> computeTypicalConceptSet(){
 		boolean contained = false;
-		Set<ALCTFormula> lt = new HashSet<ALCTFormula>();
+		Set<ALCTConcept> lt = new HashSet<ALCTConcept>();
 		//Get all concepts that are typical and appear in the ABox
 		for(Assertion ass : abox){
 			if(!ass.getAssertionType().equals("CONCEPTASSERTION"))
@@ -59,7 +59,7 @@ public class NodePH1 implements BeliefBase {
 			ConceptAssertion cAss = (ConceptAssertion) ass;
 
 			if(cAss.getConcept().isExtendedConcept()){
-				for(ALCTFormula comp : lt){
+				for(ALCTConcept comp : lt){
 					if(comp.equals(cAss.getConcept().extractFromExtendedConcept()))
 						contained = true;	
 				}
@@ -72,7 +72,7 @@ public class NodePH1 implements BeliefBase {
 		//Get all concepts that are typical and appear in the TBox
 		for(Subsumption sub : tbox){
 			if(sub.getSubsumed().isExtendedConcept())
-				for(ALCTFormula comp : lt){
+				for(ALCTConcept comp : lt){
 					if(comp.equals(sub.getSubsumed().extractFromExtendedConcept()))
 						contained = true;
 				}
@@ -126,8 +126,8 @@ public class NodePH1 implements BeliefBase {
 	private boolean areEquivalent(Individual first, Individual second){
 		boolean result = true;
 		boolean contains = false;
-		Set<ALCTFormula> firstConcepts = new HashSet<ALCTFormula>();
-		Set<ALCTFormula> secondConcepts = new HashSet<ALCTFormula>();
+		Set<ALCTConcept> firstConcepts = new HashSet<ALCTConcept>();
+		Set<ALCTConcept> secondConcepts = new HashSet<ALCTConcept>();
 		ConceptAssertion cAss;
 		for(Assertion ass : this.abox){
 			if(!(ass.getAssertionType()=="CONCEPTASSERTION"))
@@ -141,8 +141,8 @@ public class NodePH1 implements BeliefBase {
 		if(firstConcepts.size()!=secondConcepts.size())
 			return false;
 		
-		for(ALCTFormula f : firstConcepts){
-			for(ALCTFormula s : secondConcepts){
+		for(ALCTConcept f : firstConcepts){
+			for(ALCTConcept s : secondConcepts){
 				if(f.equals(s)){
 					contains = true;
 				}
@@ -168,11 +168,11 @@ public class NodePH1 implements BeliefBase {
 		this.tbox = tbox;
 	}
 
-	public Set<ALCTFormula> getTypicalConcepts() {
+	public Set<ALCTConcept> getTypicalConcepts() {
 		return typicalConcepts;
 	}
 
-	public void setTypicalConcepts(Set<ALCTFormula> typicalConcepts) {
+	public void setTypicalConcepts(Set<ALCTConcept> typicalConcepts) {
 		this.typicalConcepts = typicalConcepts;
 	}
 
@@ -229,7 +229,7 @@ public class NodePH1 implements BeliefBase {
 	@Override
 	public ALCTSignature getSignature() {
 		Set<Individual> individuals = new HashSet<Individual>();
-		Set<ALCTFormula> concepts = new HashSet<ALCTFormula>();
+		Set<ALCTConcept> concepts = new HashSet<ALCTConcept>();
 		Set<Role> roles = new HashSet<Role>();
 		for(Assertion ass : abox){
 			if(ass.getAssertionType() == "ROLEASSERTION"){
@@ -283,8 +283,8 @@ public class NodePH1 implements BeliefBase {
 	 * @param i
 	 * @return all concepts that appear in a boxconcept
 	 */
-	public Set<ALCTFormula> getBoxedConcepts(Individual i){
-		Set<ALCTFormula> boxedConcepts = new HashSet<ALCTFormula>();
+	public Set<ALCTConcept> getBoxedConcepts(Individual i){
+		Set<ALCTConcept> boxedConcepts = new HashSet<ALCTConcept>();
 		for(Assertion ass : abox){
 			if(!ass.getAssertionType().equals("CONCEPTASSERTION"))
 				continue;

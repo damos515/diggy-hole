@@ -9,7 +9,7 @@ import alct.axioms.Assertion;
 import alct.axioms.ConceptAssertion;
 import alct.axioms.Subsumption;
 import alct.calculus.phase.first.NodePH1;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.Negation;
 
 public class NodePH2 extends NodePH1 {
@@ -32,7 +32,7 @@ public class NodePH2 extends NodePH1 {
 	public NodePH2(Set<Assertion> abox,
 			Set<Subsumption> tbox,
 				Set<ConceptAssertion> negBoxConcepts,
-					Set<ConceptAssertion> kbox, Set<Individual> dB, Set<ALCTFormula> typicalConcepts){
+					Set<ConceptAssertion> kbox, Set<Individual> dB, Set<ALCTConcept> typicalConcepts){
 		setAbox(abox);
 		setTbox(tbox);
 		this.negBoxConcepts = negBoxConcepts;

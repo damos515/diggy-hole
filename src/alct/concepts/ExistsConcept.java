@@ -11,7 +11,7 @@ import alct.util.Role;
 
 public class ExistsConcept extends ALCTQuantifiedFormula {
 
-	public ExistsConcept(Role r, ALCTFormula c){
+	public ExistsConcept(Role r, ALCTConcept c){
 		if(c.isExtendedConcept())
 			throw new IllegalArgumentException("Error - Concept must not be extended");
 		this.setRole(r);
@@ -19,8 +19,8 @@ public class ExistsConcept extends ALCTQuantifiedFormula {
 	}
 	
 	@Override
-	public ALCTFormula clone(){
-		return new ExistsConcept(this.getRole(), (ALCTFormula) this.getConcept().clone());
+	public ALCTConcept clone(){
+		return new ExistsConcept(this.getRole(), (ALCTConcept) this.getConcept().clone());
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ public class ExistsConcept extends ALCTQuantifiedFormula {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return this;
 	}
 

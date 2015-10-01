@@ -9,7 +9,7 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.Conjunction;
 import alct.concepts.Disjunction;
 import alct.concepts.Negation;
@@ -33,8 +33,8 @@ public class NegatedConjunctionRule extends ALCTRule {
 			return false;
 		Negation concept = (Negation)ass.getConcept();
 		Conjunction conj = (Conjunction)concept.getInnerConcept();
-		ALCTFormula first = conj.get(0);
-		ALCTFormula second = conj.get(1);
+		ALCTConcept first = conj.get(0);
+		ALCTConcept second = conj.get(1);
 		return disjRule.isApplicable(new ConceptAssertion(new Disjunction(new Negation(first), new Negation(second)),ass.getConstant()), node);
 	}
 

@@ -16,10 +16,10 @@ import net.sf.tweety.logics.dl.syntax.DlSignature;
 public class Disjunction extends ALCTAssociativeConcept {
 
 	public Disjunction(){
-		this(new HashSet<ALCTFormula>());
+		this(new HashSet<ALCTConcept>());
 	}
 	
-	public Disjunction(ALCTFormula first, ALCTFormula second){
+	public Disjunction(ALCTConcept first, ALCTConcept second){
 		this();
 		if(first instanceof ALCTTypicalConcept || second instanceof ALCTTypicalConcept)
 				throw new IllegalArgumentException("Syntax Error - Boolean Combinations with T not allowed yet");
@@ -27,18 +27,18 @@ public class Disjunction extends ALCTAssociativeConcept {
 		this.add(second);
 	}
 	
-	public Disjunction(Collection<? extends ALCTFormula> formulas){
-		for(ALCTFormula f : formulas)
+	public Disjunction(Collection<? extends ALCTConcept> formulas){
+		for(ALCTConcept f : formulas)
 			if(f instanceof ALCTTypicalConcept)
 					throw new IllegalArgumentException("Syntax Error - Boolean Combinations with T not allowed yet");
 		this.addAll(formulas);
 	}
 	
 	@Override
-	public ALCTFormula clone(){
-		HashSet<ALCTFormula> temp = new HashSet<ALCTFormula>();
-		for(ALCTFormula f : this.getFormulas()){
-			temp.add((ALCTFormula) f.clone());
+	public ALCTConcept clone(){
+		HashSet<ALCTConcept> temp = new HashSet<ALCTConcept>();
+		for(ALCTConcept f : this.getFormulas()){
+			temp.add((ALCTConcept) f.clone());
 		}
 		return new Disjunction(temp);
 	}
@@ -53,7 +53,7 @@ public class Disjunction extends ALCTAssociativeConcept {
 		boolean temp=true;
 		if(!this.getClass().equals(e.getClass()))
 			return false;
-		for(ALCTFormula f : getFormulas())
+		for(ALCTConcept f : getFormulas())
 			temp = temp && ((Disjunction)e).contains(f);	
 		
 		return temp;
@@ -94,7 +94,7 @@ public class Disjunction extends ALCTAssociativeConcept {
 	}
 	
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return this;
 	}
 	

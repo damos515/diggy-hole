@@ -21,7 +21,7 @@ import net.sf.tweety.math.probability.Probability;
  *
  */
 
-public abstract class ALCTFormula implements ClassicalFormula,
+public abstract class ALCTConcept implements ClassicalFormula,
 		QuantifiedFormula {
 
 	/**
@@ -44,16 +44,16 @@ public abstract class ALCTFormula implements ClassicalFormula,
 
 	@Override
 	public SimpleLogicalFormula combineWithOr(Disjunctable f){
-		return new Disjunction(this, (ALCTFormula) f);
+		return new Disjunction(this, (ALCTConcept) f);
 	}
 
 	@Override
 	public SimpleLogicalFormula combineWithAnd(Conjuctable f){
-		return new Conjunction(this, (ALCTFormula) f);
+		return new Conjunction(this, (ALCTConcept) f);
 	}
 	
 	@Override
-	public ALCTFormula complement(){
+	public ALCTConcept complement(){
 		return new Negation(this);
 	}
 	
@@ -129,7 +129,7 @@ public abstract class ALCTFormula implements ClassicalFormula,
 	}
 
 	@Override
-	public abstract ALCTFormula clone();
+	public abstract ALCTConcept clone();
 
 	@Override
 	public Set<Term<?>> getTerms() {
@@ -189,6 +189,6 @@ public abstract class ALCTFormula implements ClassicalFormula,
 		return false;
 	}
 
-	public abstract ALCTFormula extractFromExtendedConcept();
+	public abstract ALCTConcept extractFromExtendedConcept();
 
 }

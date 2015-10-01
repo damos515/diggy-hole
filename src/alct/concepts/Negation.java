@@ -10,26 +10,26 @@ import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
  * @author Hendrik Miller
  *
  */
-public class Negation extends ALCTFormula {
+public class Negation extends ALCTConcept {
 	
-	private ALCTFormula alctFormula;
+	private ALCTConcept alctFormula;
 	
-	public Negation(ALCTFormula formula){
+	public Negation(ALCTConcept formula){
 		this.alctFormula = formula;
 	}
 	
 	/**
 	 * returns a deep copy of this Negation
 	 */
-	public ALCTFormula clone(){
-		return new Negation((ALCTFormula) alctFormula.clone());
+	public ALCTConcept clone(){
+		return new Negation((ALCTConcept) alctFormula.clone());
 	}
 	
 	public String toString(){
 		return "!(" + alctFormula.toString() + ")";
 	}
 	
-	public ALCTFormula getInnerConcept(){
+	public ALCTConcept getInnerConcept(){
 		return alctFormula;
 	}
 	
@@ -62,7 +62,7 @@ public class Negation extends ALCTFormula {
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		if(this.isExtendedConcept())
 			return alctFormula.extractFromExtendedConcept();
 		return this;

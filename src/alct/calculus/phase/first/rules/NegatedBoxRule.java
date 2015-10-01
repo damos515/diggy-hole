@@ -11,7 +11,7 @@ import alct.axioms.ConceptAssertion;
 import alct.axioms.PreferenceAssertion;
 import alct.calculus.phase.first.NodePH1;
 import alct.calculus.phase.second.NodePH2;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
 
@@ -97,7 +97,7 @@ public class NegatedBoxRule extends DynamicRule {
 	 */
 	private Set<ConceptAssertion> computeAdditionalAssertions(Individual premise, Individual conclusion, NodePH1 node){
 		Set<ConceptAssertion> assertionsToAdd = new HashSet<ConceptAssertion>();
-		for(ALCTFormula f : node.getBoxedConcepts(premise)){
+		for(ALCTConcept f : node.getBoxedConcepts(premise)){
 			assertionsToAdd.add(new ConceptAssertion(new Negation(f),conclusion));
 			assertionsToAdd.add(new ConceptAssertion(new BoxConcept(f),conclusion));
 		}

@@ -20,27 +20,27 @@ import net.sf.tweety.logics.commons.syntax.interfaces.SimpleLogicalFormula;
  *
  */
 
-public abstract class ALCTAssociativeConcept extends ALCTFormula implements
-		AssociativeFormula<ALCTFormula>, AssociativeSupportBridge {
+public abstract class ALCTAssociativeConcept extends ALCTConcept implements
+		AssociativeFormula<ALCTConcept>, AssociativeSupportBridge {
 	
 
-	protected AssociativeFormulaSupport<ALCTFormula> support;
+	protected AssociativeFormulaSupport<ALCTConcept> support;
 
 	/**
 	 * Constructors
 	 */
 	
 	public ALCTAssociativeConcept(){
-		this.support = new AssociativeFormulaSupport<ALCTFormula>(this);
+		this.support = new AssociativeFormulaSupport<ALCTConcept>(this);
 	}
 	
-	public ALCTAssociativeConcept(ALCTFormula first, ALCTFormula second){
+	public ALCTAssociativeConcept(ALCTConcept first, ALCTConcept second){
 		this();
 		support.add(first);
 		support.add(second);
 	}
 	
-	public ALCTAssociativeConcept(Collection<? extends ALCTFormula> formulas){
+	public ALCTAssociativeConcept(Collection<? extends ALCTConcept> formulas){
 		this();
 		support.addAll(formulas);
 	}
@@ -65,7 +65,7 @@ public abstract class ALCTAssociativeConcept extends ALCTFormula implements
 	}
 
 	@Override
-	public Iterator<ALCTFormula> iterator() {
+	public Iterator<ALCTConcept> iterator() {
 		return this.support.iterator();
 	}
 
@@ -82,7 +82,7 @@ public abstract class ALCTAssociativeConcept extends ALCTFormula implements
 	}
 
 	@Override
-	public boolean add(ALCTFormula e) {
+	public boolean add(ALCTConcept e) {
 		return this.support.add(e);
 	}
 
@@ -97,12 +97,12 @@ public abstract class ALCTAssociativeConcept extends ALCTFormula implements
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends ALCTFormula> c) {
+	public boolean addAll(Collection<? extends ALCTConcept> c) {
 		return this.support.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends ALCTFormula> c) {
+	public boolean addAll(int index, Collection<? extends ALCTConcept> c) {
 		return this.support.addAll(index, c);
 	}
 
@@ -123,63 +123,63 @@ public abstract class ALCTAssociativeConcept extends ALCTFormula implements
 	}
 
 	@Override
-	public ALCTFormula get(int index) {
+	public ALCTConcept get(int index) {
 		return this.support.get(index);
 	}
 
 	@Override
-	public ALCTFormula set(int index, ALCTFormula element) {
+	public ALCTConcept set(int index, ALCTConcept element) {
 		return this.support.set(index, element);
 	}
 
 	@Override
-	public void add(int index, ALCTFormula element) {
+	public void add(int index, ALCTConcept element) {
 		this.support.add(index, element);
 	}
 
 	@Override
-	public ALCTFormula remove(int index) {
+	public ALCTConcept remove(int index) {
 		return this.support.remove(index);
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		if (!(o instanceof ALCTFormula))
+		if (!(o instanceof ALCTConcept))
 			throw new IllegalArgumentException();
 		return this.support.indexOf(o);
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		if (!(o instanceof ALCTFormula))
+		if (!(o instanceof ALCTConcept))
 			throw new IllegalArgumentException();
 		return this.support.lastIndexOf(o);
 	}
 
 	@Override
-	public ListIterator<ALCTFormula> listIterator() {
+	public ListIterator<ALCTConcept> listIterator() {
 		return this.support.listIterator();
 	}
 
 	@Override
-	public ListIterator<ALCTFormula> listIterator(int index) {
+	public ListIterator<ALCTConcept> listIterator(int index) {
 		return this.support.listIterator(index);
 	}
 
 	@Override
-	public List<ALCTFormula> subList(int fromIndex, int toIndex) {
+	public List<ALCTConcept> subList(int fromIndex, int toIndex) {
 		return this.support.subList(fromIndex, toIndex);
 	}
 
 	@Override
-	public Set<ALCTFormula> getFormulas() {
+	public Set<ALCTConcept> getFormulas() {
 		return this.support.getFormulas();
 	}
 
 	@Override
 	public <C extends SimpleLogicalFormula> Set<C> getFormulas(Class<C> cls) {
 		Set<C> temp = new HashSet<C>();
-		for(ALCTFormula rf : support) {
+		for(ALCTConcept rf : support) {
 			if(rf.getClass().equals(cls)) {
 				@SuppressWarnings("unchecked")
 				C cast = (C)rf;

@@ -19,10 +19,10 @@ public class Conjunction extends ALCTAssociativeConcept {
 	 */
 	
 	public Conjunction(){
-		this(new HashSet<ALCTFormula>());
+		this(new HashSet<ALCTConcept>());
 	}
 	
-	public Conjunction(ALCTFormula first, ALCTFormula second){
+	public Conjunction(ALCTConcept first, ALCTConcept second){
 		this();
 		if(first instanceof ALCTTypicalConcept || second instanceof ALCTTypicalConcept)
 			throw new IllegalArgumentException("Syntax Error - Boolean Combinations with T not allowed yet");
@@ -30,17 +30,18 @@ public class Conjunction extends ALCTAssociativeConcept {
 		this.add(second);
 	}
 	
-	public Conjunction(Collection<? extends ALCTFormula> formulas){
-		for(ALCTFormula f : formulas)
+	//combine with 2-Concept Conjunctions
+	public Conjunction(Collection<? extends ALCTConcept> formulas){
+		for(ALCTConcept f : formulas)
 			if(f instanceof ALCTTypicalConcept)
 					throw new IllegalArgumentException("Syntax Error - Boolean Combinations with T not allowed yet");
 		this.addAll(formulas);
 	}
 	
-	public ALCTFormula clone(){
-		HashSet<ALCTFormula> temp = new HashSet<ALCTFormula>();
-		for(ALCTFormula f : this.getFormulas()){
-			temp.add((ALCTFormula) f.clone());
+	public ALCTConcept clone(){
+		HashSet<ALCTConcept> temp = new HashSet<ALCTConcept>();
+		for(ALCTConcept f : this.getFormulas()){
+			temp.add((ALCTConcept) f.clone());
 		}
 		return new Conjunction(temp);
 	}
@@ -88,14 +89,14 @@ public class Conjunction extends ALCTAssociativeConcept {
 		boolean temp=true;
 		if(!this.getClass().equals(e.getClass()))
 			return false;
-		for(ALCTFormula f : getFormulas())
+		for(ALCTConcept f : getFormulas())
 			temp = temp && ((Conjunction)e).contains(f);	
 		
 		return temp;
 	}
 
 	@Override
-	public ALCTFormula extractFromExtendedConcept() {
+	public ALCTConcept extractFromExtendedConcept() {
 		return this;
 	}
 	

@@ -10,19 +10,19 @@ import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
  * @author Hendrik Miller
  *
  */
-public abstract class ALCTQuantifiedFormula extends ALCTFormula {
+public abstract class ALCTQuantifiedFormula extends ALCTConcept {
 	
 	private Role role;
-	private ALCTFormula concept;
+	private ALCTConcept concept;
 
 
 	public ALCTQuantifiedFormula(){}	
 	
-	public ALCTFormula getConcept() {
+	public ALCTConcept getConcept() {
 		return concept;
 	}
 
-	public void setConcept(ALCTFormula concept) {
+	public void setConcept(ALCTConcept concept) {
 		this.concept = concept;
 	}
 

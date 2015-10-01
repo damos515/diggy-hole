@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import alct.concepts.ALCTAtomicConcept;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 
@@ -16,13 +16,13 @@ import net.sf.tweety.logics.dl.syntax.Axiom;
  */
 public class Subsumption extends Axiom {
 	
-	private ALCTFormula subsuming;
-	private ALCTFormula subsumed;
+	private ALCTConcept subsuming;
+	private ALCTConcept subsumed;
 	private Set<Individual> appliedLabels;
 	
 	//Constructors
 	
-	public Subsumption(ALCTFormula subsuming, ALCTFormula subsumed){
+	public Subsumption(ALCTConcept subsuming, ALCTConcept subsumed){
 		if(!isValidSubsuming(subsuming))
 			throw new IllegalArgumentException("Syntax Error - Not a valid Subsumption");
 		this.subsuming = subsuming;
@@ -30,7 +30,7 @@ public class Subsumption extends Axiom {
 		this.appliedLabels = new HashSet<Individual>();
 	}
 	
-	public Subsumption(ALCTFormula subsuming, ALCTFormula subsumed, Set<Individual> appliedLabels){
+	public Subsumption(ALCTConcept subsuming, ALCTConcept subsumed, Set<Individual> appliedLabels){
 		if(!isValidSubsuming(subsuming))
 			throw new IllegalArgumentException("Syntax Error - Not a valid Subsumption");
 		this.subsuming = subsuming;
@@ -40,7 +40,7 @@ public class Subsumption extends Axiom {
 	
 	//Methods
 	
-	private boolean isValidSubsuming(ALCTFormula subsuming) {
+	private boolean isValidSubsuming(ALCTConcept subsuming) {
 		if(subsuming.getOperatorSymbol() == "T"){
 			return false;
 		}
@@ -63,11 +63,11 @@ public class Subsumption extends Axiom {
 		return false;
 	}
 	
-	public ALCTFormula getSubsuming() {
+	public ALCTConcept getSubsuming() {
 		return subsuming;
 	}
 
-	public ALCTFormula getSubsumed() {
+	public ALCTConcept getSubsumed() {
 		return subsumed;
 	}
 	

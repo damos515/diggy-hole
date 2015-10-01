@@ -5,7 +5,7 @@ import java.util.Set;
 
 import net.sf.tweety.commons.Signature;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 
 /**
  * This class models a Signature for the logic ALC+T, i.e. it holds a Collection of
@@ -16,11 +16,11 @@ import alct.concepts.ALCTFormula;
 
 public class ALCTSignature extends Signature {
 	
-	private Set<ALCTFormula> concepts;
+	private Set<ALCTConcept> concepts;
 	private Set<Role> roles;
 	private Set<Individual> individuals;
 	
-	public ALCTSignature(Set<ALCTFormula> c, Set<Role> r, Set<Individual> i){
+	public ALCTSignature(Set<ALCTConcept> c, Set<Role> r, Set<Individual> i){
 		this.concepts = c;
 		this.roles = r;
 		this.individuals = i;
@@ -28,7 +28,7 @@ public class ALCTSignature extends Signature {
 	
 	public ALCTSignature(){
 		this.individuals = new HashSet<Individual>();
-		this.concepts = new HashSet<ALCTFormula>();
+		this.concepts = new HashSet<ALCTConcept>();
 		this.roles = new HashSet<Role>();
 	}
 
@@ -36,11 +36,11 @@ public class ALCTSignature extends Signature {
 	 * General Getters and Setters
 	 */
 	
-	public Set<ALCTFormula> getConcepts() {
+	public Set<ALCTConcept> getConcepts() {
 		return concepts;
 	}
 
-	public void setConcepts(Set<ALCTFormula> concepts) {
+	public void setConcepts(Set<ALCTConcept> concepts) {
 		this.concepts = concepts;
 	}
 
@@ -96,7 +96,7 @@ public class ALCTSignature extends Signature {
 
 	public String toString(){
 		String s = "Concepts: ";
-		for(ALCTFormula c : concepts)
+		for(ALCTConcept c : concepts)
 			s += c + ", ";
 		s += "\nRoles: ";
 		for(Role r : roles)

@@ -7,7 +7,7 @@ import net.sf.tweety.logics.commons.syntax.Individual;
 import net.sf.tweety.logics.dl.syntax.Axiom;
 import alct.axioms.ConceptAssertion;
 import alct.calculus.phase.second.NodePH2;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.concepts.BoxConcept;
 import alct.concepts.Negation;
 
@@ -22,7 +22,7 @@ public class CutRule2 extends ALCTRule2 {
 		ConceptAssertion boxedLabel;
 		ConceptAssertion negBoxedLabel;
 		for(Individual i : labels){
-			for(ALCTFormula concept : node.getTypicalConcepts()){
+			for(ALCTConcept concept : node.getTypicalConcepts()){
 				boxedLabel = new ConceptAssertion(new BoxConcept(concept),i);
 				negBoxedLabel = new ConceptAssertion(new Negation(new BoxConcept(concept)),i);
 				if(!(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel))){
@@ -47,7 +47,7 @@ public class CutRule2 extends ALCTRule2 {
 		ConceptAssertion boxedLabel;
 		ConceptAssertion negBoxedLabel;
 		for(Individual i : labels){
-			for(ALCTFormula concept : node.getTypicalConcepts()){
+			for(ALCTConcept concept : node.getTypicalConcepts()){
 				boxedLabel = new ConceptAssertion(new BoxConcept(concept),i);
 				negBoxedLabel = new ConceptAssertion(new Negation(new BoxConcept(concept)),i);
 				if(node.aboxContains(boxedLabel)||node.aboxContains(negBoxedLabel))

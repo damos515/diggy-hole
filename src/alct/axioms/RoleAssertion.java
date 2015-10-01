@@ -6,7 +6,7 @@ import java.util.Set;
 import net.sf.tweety.commons.util.Pair;
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.util.Role;
 
 /**
@@ -64,7 +64,7 @@ public class RoleAssertion extends Assertion {
 	}
 
 	@Override
-	public ALCTFormula getConcept() throws LanguageException {
+	public ALCTConcept getConcept() throws LanguageException {
 		throw new UnsupportedOperationException("Error - Operation not supported for Role Assertions");
 	}
 	

@@ -3,7 +3,7 @@ package alct.axioms;
 import java.util.HashSet;
 import java.util.Set;
 
-import alct.concepts.ALCTFormula;
+import alct.concepts.ALCTConcept;
 import alct.util.Role;
 import net.sf.tweety.logics.commons.error.LanguageException;
 import net.sf.tweety.logics.commons.syntax.Individual;
@@ -15,10 +15,10 @@ import net.sf.tweety.logics.commons.syntax.Individual;
  */
 public class ConceptAssertion extends Assertion {
 	
-	private ALCTFormula concept;
+	private ALCTConcept concept;
 	private Individual constant;
 
-	public ConceptAssertion(ALCTFormula concept, Individual constant){
+	public ConceptAssertion(ALCTConcept concept, Individual constant){
 		this.concept = concept;
 		this.constant = constant;
 	}
@@ -32,7 +32,7 @@ public class ConceptAssertion extends Assertion {
 		return constant.name + ": " + concept;
 	}
 
-	public ALCTFormula getConcept() {
+	public ALCTConcept getConcept() {
 		return concept;
 	}
 
