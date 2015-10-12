@@ -56,15 +56,19 @@ public class PhaseOne {
 		phaseTwo = new PhaseTwo();
 	}
 	
-	public boolean instanceCheck(NodePH1 node, ConceptAssertion query){
+	public boolean instanceCheck(NodePH1 node, ConceptAssertion query, boolean additionalInfo){
 		initialKB = node.clone();
 		node.addToABox(new ConceptAssertion(new Negation(query.getConcept()), query.getConstant()));
 		node.refreshTypicalConceptSet();
-		System.out.println(node);
-		return hasNoModel(node);
+		if(additionalInfo){
+			System.out.println("Rootnode for Phase One:");
+			System.out.println(node);
+			System.out.println("---Initialization complete---");
+		}
+		return hasNoModel(node,additionalInfo);
 	}
 	
-	public boolean hasNoModel(NodePH1 node){
+	public boolean hasNoModel(NodePH1 node,boolean additionalInfo){
 		if(checkForClashes(node.getAbox())){
 			return true;
 		}
@@ -75,7 +79,7 @@ public class PhaseOne {
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
 						for(NodePH1 conclusion : conclusions){
-							result = hasNoModel(conclusion) && result;
+							result = hasNoModel(conclusion, additionalInfo) && result;
 						}
 						return result;
 					}
@@ -90,7 +94,7 @@ public class PhaseOne {
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
 						for(NodePH1 conclusion : conclusions){
-							result = hasNoModel(conclusion) && result;
+							result = hasNoModel(conclusion, additionalInfo) && result;
 						}
 						return result;
 					}
@@ -105,7 +109,7 @@ public class PhaseOne {
 						boolean result = true;
 						Set<NodePH1> conclusions = actualRule.apply(temp, node);
 						for(NodePH1 conclusion : conclusions){
-							result = hasNoModel(conclusion) && result;
+							result = hasNoModel(conclusion, additionalInfo) && result;
 						}
 						return result;
 					}
@@ -113,16 +117,12 @@ public class PhaseOne {
 			}
 		}
 		
-		
-		System.out.println("\n\nModel found! Checking the following node for minimality");
-		//NodePH2 test= new NodePH2(node,initialKB);
-		System.out.println(node + "\n");
-		//System.out.println(test);
-		//System.out.println(node.getSignature());
-		//return false;
-		
 		phaseTwo = new PhaseTwo(node);
-		System.out.println("Is minimal Model: " + phaseTwo.isMinimalModel(new NodePH2(node,initialKB)));
+		if(additionalInfo){
+		System.out.println("\nModel found! Checking the following node for minimality");
+		System.out.println(node);
+		System.out.println("Is minimal Model: " + phaseTwo.isMinimalModel(new NodePH2(node,initialKB)) + "\n");
+		}
 		return !phaseTwo.isMinimalModel(new NodePH2(node,initialKB));
 	}
 
