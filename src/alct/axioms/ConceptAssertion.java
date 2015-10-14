@@ -55,11 +55,6 @@ public class ConceptAssertion extends Assertion {
 		temp.add(constant);
 		return temp;
 	}
-
-	@Override
-	public Role getRole() throws LanguageException{
-		throw new UnsupportedOperationException("Error - Operation not supported for Concept Assertions");
-	}
 	
 	@Override
 	public boolean equals(Object e){
@@ -71,6 +66,16 @@ public class ConceptAssertion extends Assertion {
 			return false;
 		
 		return true;
+	}
+	
+	
+	/**
+	 * Method not supported in this class
+	 */
+	@Deprecated
+	@Override
+	public Role getRole() throws LanguageException{
+		throw new UnsupportedOperationException("Error - Operation not supported for Concept Assertions");
 	}
 
 }

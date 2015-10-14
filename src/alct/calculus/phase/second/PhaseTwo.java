@@ -25,12 +25,16 @@ import alct.calculus.phase.second.rules.SubsumptionRule2;
 import alct.calculus.phase.second.rules.TypicalityRule2;
 import alct.concepts.Negation;
 
+/**
+ * Class representing phase two of the ALC+T calculus
+ * @author Hendrik Miller
+ *
+ */
+
 public class PhaseTwo {
 	private List<ALCTRule2> staticRules = new ArrayList<ALCTRule2>();
 	private List<ALCTRule2> staticRules2 = new ArrayList<ALCTRule2>();
 	private List<ALCTRule2> dynamicRules = new ArrayList<ALCTRule2>();
-	
-	//private NodePH1 initialNode;
 	
 	public PhaseTwo(){
 		//Initialize Ruleset
@@ -52,27 +56,11 @@ public class PhaseTwo {
 		dynamicRules.add(new NegatedBoxRule2());
 	}
 	
-	public PhaseTwo(NodePH1 node){
-		//initialNode= node;
-		
-		staticRules.add(new ConjunctionRule2());
-		staticRules.add(new DisjunctionRule2());
-		staticRules.add(new DoubleNegationRule2());
-		staticRules.add(new NegatedConjunctionRule2());
-		staticRules.add(new NegatedDisjunctionRule2());
-		staticRules.add(new ForAllRule2());
-		staticRules.add(new NegatedExistsRule2());
-		staticRules.add(new TypicalityRule2());
-		staticRules.add(new NegatedTypicalityRule2());
-		
-		staticRules2.add(new SubsumptionRule2());
-		staticRules2.add(new CutRule2());
-		
-		dynamicRules.add(new ExistsRule2());
-		dynamicRules.add(new NegatedForAllRule2());
-		dynamicRules.add(new NegatedBoxRule2());
-	}
-	
+	/**
+	 * Function that verifies the minimality of a given Node
+	 * @param node
+	 * @return true, if it is a minimal model
+	 */
 	public boolean isMinimalModel(NodePH2 node){
 		if(containsClash(node))
 			return true;
@@ -95,7 +83,6 @@ public class PhaseTwo {
 			if(temp.getAssertionType()=="CONCEPTASSERTION"){
 				for(ALCTRule2 actualRule : staticRules2){
 					if(actualRule.isApplicable(temp, node)){
-						//System.out.println(actualRule);
 						boolean result = true;
 						Set<NodePH2> conclusions = actualRule.apply(temp, node);
 						for(NodePH2 conclusion : conclusions){
@@ -121,11 +108,14 @@ public class PhaseTwo {
 				}
 			}
 		}
-		//A model preferred to the initial one was found;
-		//System.out.println("A preferred model was found! \n" + node.getAbox() + "\nPreferredTo\n" + initialNode.getAbox());
 		return false;
 	}
 
+	/**
+	 * Searching the given node for possible inconsistencies
+	 * @param node
+	 * @return true if clash was found
+	 */
 	private boolean containsClash(NodePH2 node) {
 		for(Assertion a : node.getAbox()){
 			if(a.getAssertionType()=="CONCEPTASSERTION"){
@@ -134,20 +124,16 @@ public class PhaseTwo {
 							&& comp.getConcept().getOperatorSymbol()==LogicalSymbols.CLASSICAL_NEGATION()
 								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
 									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
-						
-						//System.out.println("\n\n\nClash found! -> " + a.getConcept() + " && " + comp.getConcept()+ " in Node:");
-						return true;
+					return true;
 					}
 				}
 			}
 		}
 		if(node.getKbox().isEmpty()){
-			//System.out.println("\n\n\nClash found!");
 			return true;
 		}
 		for(ConceptAssertion c : node.computeNegatedBoxConcepts(node.getAbox())){
 			if(!node.negBoxConceptsContains(c)){
-				//System.out.println("\n\n\nClash found!");
 				return true;
 			}
 		}

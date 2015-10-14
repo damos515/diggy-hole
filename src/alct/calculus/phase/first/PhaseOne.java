@@ -25,6 +25,12 @@ import alct.calculus.phase.second.NodePH2;
 import alct.calculus.phase.second.PhaseTwo;
 import alct.concepts.Negation;
 
+/**
+ * Class that represents Phase One of the ALC+T calculus
+ * @author Hendrik
+ *
+ */
+
 public class PhaseOne {
 	
 	private List<ALCTRule> staticRules = new ArrayList<ALCTRule>();
@@ -56,6 +62,13 @@ public class PhaseOne {
 		phaseTwo = new PhaseTwo();
 	}
 	
+	/**
+	 * Preparing a KB and a query for Phase One
+	 * @param node
+	 * @param query
+	 * @param additionalInfo
+	 * @return
+	 */
 	public boolean instanceCheck(NodePH1 node, ConceptAssertion query, boolean additionalInfo){
 		initialKB = node.clone();
 		node.addToABox(new ConceptAssertion(new Negation(query.getConcept()), query.getConstant()));
@@ -68,6 +81,12 @@ public class PhaseOne {
 		return hasNoModel(node,additionalInfo);
 	}
 	
+	/**
+	 * Checks if the given KB has a minimal model or not
+	 * @param node
+	 * @param additionalInfo
+	 * @return true if it has no model
+	 */
 	public boolean hasNoModel(NodePH1 node,boolean additionalInfo){
 		if(checkForClashes(node.getAbox())){
 			return true;
@@ -117,15 +136,20 @@ public class PhaseOne {
 			}
 		}
 		
-		phaseTwo = new PhaseTwo(node);
+		phaseTwo = new PhaseTwo();
 		if(additionalInfo){
-		System.out.println("\nModel found! Checking the following node for minimality");
-		System.out.println(node);
-		System.out.println("Is minimal Model: " + phaseTwo.isMinimalModel(new NodePH2(node,initialKB)) + "\n");
+			System.out.println("\nModel found! Checking the following node for minimality");
+			System.out.println(node);
+			System.out.println("Is minimal Model: " + phaseTwo.isMinimalModel(new NodePH2(node,initialKB)) + "\n");
 		}
 		return !phaseTwo.isMinimalModel(new NodePH2(node,initialKB));
 	}
 
+	/**
+	 * Searching the given node for possible inconsistencies
+	 * @param abox
+	 * @return true if clash was found
+	 */
 	private boolean checkForClashes(Set<Assertion> abox) {
 		for(Assertion a : abox){
 			if(a.getAssertionType()=="CONCEPTASSERTION"){
@@ -134,9 +158,6 @@ public class PhaseOne {
 							&& comp.getConcept().getOperatorSymbol()==LogicalSymbols.CLASSICAL_NEGATION()
 								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
 									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
-						
-						//System.out.println("\n\n\nClash found! -> " + a.getConcept() + " && " + comp.getConcept()+ " in Node:");
-						//System.out.println(abox);
 						return true;
 					}
 				}

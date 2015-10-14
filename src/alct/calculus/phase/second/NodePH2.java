@@ -12,6 +12,12 @@ import alct.calculus.phase.first.NodePH1;
 import alct.concepts.ALCTConcept;
 import alct.concepts.Negation;
 
+/**
+ * This class represents a node in phase two of the ALC+T_min tableaux-calculus
+ * @author Hendrik Miller
+ * 
+ */
+
 public class NodePH2 extends NodePH1 {
 	
 	Set<ConceptAssertion> negBoxConcepts;

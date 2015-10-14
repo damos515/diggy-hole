@@ -8,14 +8,24 @@ import net.sf.tweety.logics.commons.syntax.Individual;
 import alct.concepts.ALCTConcept;
 import alct.util.Role;
 
-public class PreferenceAssertion extends Assertion {
+/**
+ * Class representing a pair (Individual, Individual) of a preference relation
+ * @author Hendrik
+ *
+ */
 
+public class PreferenceAssertion extends Assertion {
+	
 	protected Individual first, second; 
+	
+	//Constructors
 	
 	public PreferenceAssertion(Individual preferred, Individual other){
 		this.first = preferred;
 		this.second = other;
 	}
+	
+	//Methods
 	
 	@Override
 	public String toString() {
@@ -34,17 +44,10 @@ public class PreferenceAssertion extends Assertion {
 		individuals.add(second);
 		return individuals;
 	}
-
-	@Override
-	public Role getRole() throws LanguageException {
-		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
-	}
-
-	@Override
-	public ALCTConcept getConcept() throws LanguageException {
-		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
-	}
-
+	
+	/**
+	 * Returns a deep copy of this Assertion
+	 */
 	@Override
 	public Assertion clone() {
 		return new PreferenceAssertion(first, second);
@@ -59,6 +62,24 @@ public class PreferenceAssertion extends Assertion {
 		if(!this.second.equals(((PreferenceAssertion)e).second))
 			return false;
 		return true;
+	}
+	
+	/**
+	 * Method not supported in this concrete class
+	 */
+	@Deprecated
+	@Override
+	public Role getRole() throws LanguageException {
+		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
+	}
+
+	/**
+	 * Method not supported in this concrete class
+	 */
+	@Deprecated
+	@Override
+	public ALCTConcept getConcept() throws LanguageException {
+		throw new UnsupportedOperationException("Error - Operation not supported for Preference Assertion");
 	}
 
 }

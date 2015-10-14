@@ -45,6 +45,8 @@ public class NodePH1 implements BeliefBase {
 		this.temporalOrdering = temporalOrdering;
 	}
 	
+	//Methods
+	
 	/**
 	 * @return all concepts that appear as extended concepts in this node
 	 */
@@ -192,6 +194,9 @@ public class NodePH1 implements BeliefBase {
 		abox.addAll(ass);
 	}
 	
+	/**
+	 * Function to compute the minimum Set containing all typical concepts
+	 */
 	public void refreshTypicalConceptSet(){
 		typicalConcepts = computeTypicalConceptSet();
 	}
@@ -207,8 +212,6 @@ public class NodePH1 implements BeliefBase {
 		}
 		return s + "]";
 	}
-	
-	//Methods
 	
 	/**
 	 * returns a deep copy of this node

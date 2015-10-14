@@ -19,7 +19,7 @@ public class RoleAssertion extends Assertion {
 	private Role role;
 	private Individual first, second;
 	
-
+	//Constructors
 
 	public RoleAssertion(Role role, Individual first, Individual second){
 		this.role=role;
@@ -36,6 +36,11 @@ public class RoleAssertion extends Assertion {
 		
 	}
 	
+	//Methods
+	
+	/**
+	 * Returns a deep copy of a given instance
+	 */
 	public RoleAssertion clone(){
 		return new RoleAssertion(role, first, second);
 	}
@@ -63,11 +68,6 @@ public class RoleAssertion extends Assertion {
 		return temp;
 	}
 
-	@Override
-	public ALCTConcept getConcept() throws LanguageException {
-		throw new UnsupportedOperationException("Error - Operation not supported for Role Assertions");
-	}
-	
 	public Role getRole() {
 		return role;
 	}
@@ -94,4 +94,14 @@ public class RoleAssertion extends Assertion {
 		return true;
 		
 	}
+	
+	/**
+	 * Method not supported in this concrete Class
+	 */
+	@Deprecated
+	@Override
+	public ALCTConcept getConcept() throws LanguageException {
+		throw new UnsupportedOperationException("Error - Operation not supported for Role Assertions");
+	}
+	
 }

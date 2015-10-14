@@ -40,6 +40,11 @@ public class Subsumption extends Axiom {
 	
 	//Methods
 	
+	/**
+	 * Checks wether the subsuming concept is a extended concept which is incorrect
+	 * @param subsuming
+	 * @return false, if subsuming concept is a extended concept
+	 */
 	private boolean isValidSubsuming(ALCTConcept subsuming) {
 		if(subsuming.getOperatorSymbol() == "T"){
 			return false;
@@ -51,10 +56,19 @@ public class Subsumption extends Axiom {
 		return appliedLabels;
 	}
 	
+	/**
+	 * Adds a label to the Set of already applied Labels
+	 * @param label
+	 */
 	public void addAppliedLabel(Individual label){
 		appliedLabels.add(label);		
 	}
 	
+	/**
+	 * Checks, wether there is a label equal to the parameter label or not
+	 * @param label
+	 * @return
+	 */
 	public boolean containsAppliedLabel(Individual label){
 		for(Individual comp : appliedLabels){
 			if(comp.equals(label))
@@ -81,8 +95,6 @@ public class Subsumption extends Axiom {
 		subsumingAtoms.addAll((Set<ALCTAtomicConcept>)subsumed.getAtoms());
 		return subsumingAtoms;
 	}
-
-	//Methods
 	
 	public String toString(){
 		return subsuming + " subsuming " + subsumed;
