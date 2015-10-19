@@ -117,11 +117,12 @@ public class PhaseTwo {
 	 * @return true if clash was found
 	 */
 	private boolean containsClash(NodePH2 node) {
+		//Checking for C&&!C
 		for(Assertion a : node.getAbox()){
-			if(a.getAssertionType()=="CONCEPTASSERTION"){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
 				for(Assertion comp : node.getAbox()){
-					if(comp.getAssertionType()=="CONCEPTASSERTION" 
-							&& comp.getConcept().getOperatorSymbol()==LogicalSymbols.CLASSICAL_NEGATION()
+					if(comp.getAssertionType().equals("CONCEPTASSERTION") 
+							&& comp.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION())
 								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
 									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
 					return true;
@@ -129,9 +130,27 @@ public class PhaseTwo {
 				}
 			}
 		}
+		//Checking for negated Tautologies
+		for(Assertion a : node.getAbox()){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
+				if(a.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
+					if(((Negation)a.getConcept()).getInnerConcept().getOperatorSymbol().equals(LogicalSymbols.TAUTOLOGY()))
+						return true;
+			}
+		}
+		//Checking for Contradictions
+		for(Assertion a : node.getAbox()){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
+				if(a.getConcept().getOperatorSymbol().equals(LogicalSymbols.CONTRADICTION()))
+					return true;
+			}
+		}	
+		//Checking if all negated Box concepts are used
 		if(node.getKbox().isEmpty()){
 			return true;
 		}
+		
+		//Checking if there are negated Box concepts not contained in the Kbox
 		for(ConceptAssertion c : node.computeNegatedBoxConcepts(node.getAbox())){
 			if(!node.negBoxConceptsContains(c)){
 				return true;

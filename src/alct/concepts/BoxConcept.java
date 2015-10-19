@@ -4,6 +4,11 @@ import java.util.Set;
 
 import net.sf.tweety.logics.commons.syntax.interfaces.Atom;
 
+/**
+ * Class that models a Boxed concept in ALC+T
+ * @author Hendrik Miller
+ *
+ */
 public class BoxConcept extends ALCTConcept {
 
 	private ALCTConcept formula;

@@ -10,7 +10,7 @@ import alct.util.Role;
 
 /**
  * Class representing a pair (Individual, Individual) of a preference relation
- * @author Hendrik
+ * @author Hendrik Miller
  *
  */
 

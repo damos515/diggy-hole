@@ -4,7 +4,7 @@ import alct.axioms.ConceptAssertion;
 
 /**
  * Class that is used for verifying instance checks and initializing the calculus
- * @author Hendrik
+ * @author Hendrik Miller
  *
  */
 

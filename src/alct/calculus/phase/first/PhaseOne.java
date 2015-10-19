@@ -27,7 +27,7 @@ import alct.concepts.Negation;
 
 /**
  * Class that represents Phase One of the ALC+T calculus
- * @author Hendrik
+ * @author Hendrik Miller
  *
  */
 
@@ -151,11 +151,12 @@ public class PhaseOne {
 	 * @return true if clash was found
 	 */
 	private boolean checkForClashes(Set<Assertion> abox) {
+		//Checking for C && !C
 		for(Assertion a : abox){
-			if(a.getAssertionType()=="CONCEPTASSERTION"){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
 				for(Assertion comp : abox){
-					if(comp.getAssertionType()=="CONCEPTASSERTION" 
-							&& comp.getConcept().getOperatorSymbol()==LogicalSymbols.CLASSICAL_NEGATION()
+					if(comp.getAssertionType().equals("CONCEPTASSERTION")
+							&& comp.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION())
 								&& ((Negation)comp.getConcept()).getInnerConcept().equals(a.getConcept())
 									&& ((ConceptAssertion)comp).getConstant().equals(((ConceptAssertion)a).getConstant())){
 						return true;
@@ -163,6 +164,21 @@ public class PhaseOne {
 				}
 			}
 		}
+		//Checking for negated Tautologies
+		for(Assertion a :abox){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
+				if(a.getConcept().getOperatorSymbol().equals(LogicalSymbols.CLASSICAL_NEGATION()))
+					if(((Negation)a.getConcept()).getInnerConcept().getOperatorSymbol().equals(LogicalSymbols.TAUTOLOGY()))
+						return true;
+			}
+		}
+		//Checking for Contradictions
+		for(Assertion a :abox){
+			if(a.getAssertionType().equals("CONCEPTASSERTION")){
+				if(a.getConcept().getOperatorSymbol().equals(LogicalSymbols.CONTRADICTION()))
+					return true;
+			}
+		}		
 		return false;
 	}
 	
